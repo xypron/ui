@@ -85,7 +85,7 @@ public class IconBuffer {
         }
 
         do {
-            iconName = ideText.getText("ModelTreeCellRenderer.Icon." + className);
+            iconName = ideText.getText("Icon." + className);
             try {
                 icon = new ImageIcon(loader.getResource(iconName));
                 break;
