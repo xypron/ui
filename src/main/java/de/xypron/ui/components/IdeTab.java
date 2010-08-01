@@ -84,14 +84,15 @@ public class IdeTab extends JPanel implements ActionListener {
     }
 
     private class CloseButton extends JButton {
+        private static final long serialVersionUID = -2861028434426188858L;
 
         public CloseButton() {
             Icon closeIcon;
             Icon rollOverIcon;
             closeIcon = IconBuffer.getIcon(
-                    "de/xypron/simulation/ui/closeTab.png");
+                    "de/xypron/ui/closeTab.png");
             rollOverIcon = IconBuffer.getIcon(
-                    "de/xypron/simulation/ui/closeTabRollover.png");
+                    "de/xypron/ui/closeTabRollover.png");
             setRolloverIcon(rollOverIcon);
             setIcon(closeIcon);
             if (closeIcon != null) {
