@@ -1,11 +1,9 @@
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.xypron.ui</groupId>
     <artifactId>ui</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     <name>Xypron GUI components </name>
     <description>
         Xypron Phase Diagram is a class library written in Java. It provides
@@ -15,7 +13,7 @@
     <repositories>
     </repositories>
     <scm>
-        <connection>scm:svn:http://www.xypron.de/projects/incubator/ui/</connection>
+        <connection>scm:svn:http://www.xypron.de/projects/incubator/ui/tags/ui-1.0.2</connection>
     </scm>
     <licenses>
         <license>
