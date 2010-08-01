@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.xypron.ui</groupId>
     <artifactId>ui</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>Xypron GUI components </name>
     <description>
         Xypron Phase Diagram is a class library written in Java. It provides

@@ -22,34 +22,43 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
- 
+
 /**
  * Dragable tree
  */
 public class IdeTree extends JTree
         implements DragGestureListener {
-	private static final long serialVersionUID = 8973770068707791644L;
-	DragSource dragSource = DragSource.getDefaultDragSource();
+
+    private static final long serialVersionUID = 8973770068707791644L;
     final static DragSourceListener dragSourceListener = new MyDragSourceListener();
- 
+    private DragSource dragSource;
+
     /**
      * @param model
      */
-    public IdeTree (TreeModel model) {
+    public IdeTree(TreeModel model) {
         super(model);
-        dragSource.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY_OR_MOVE,
-                this);
+        init();
     }
- 
+
+    /**
+     * Initialize IdeTree
+     */
+    private void init() {
+        dragSource = DragSource.getDefaultDragSource();
+        dragSource.createDefaultDragGestureRecognizer(this,
+                DnDConstants.ACTION_COPY_OR_MOVE, this);
+    }
+
     /* (non-Javadoc)
      * @see java.awt.dnd.DragGestureListener#dragGestureRecognized(java.awt.dnd.DragGestureEvent)
      */
     @Override
-    public void dragGestureRecognized (DragGestureEvent dragGestureEvent) {
+    public void dragGestureRecognized(DragGestureEvent dragGestureEvent) {
         TreePath path = getSelectionPath();
         if (path != null) {
-            DefaultMutableTreeNode selection = 
-            	(DefaultMutableTreeNode)path.getLastPathComponent();
+            DefaultMutableTreeNode selection =
+                    (DefaultMutableTreeNode) path.getLastPathComponent();
             ObjectSelection node = new ObjectSelection(selection.getUserObject());
             dragSource.startDrag(dragGestureEvent, DragSource.DefaultCopyDrop,
                     node, dragSourceListener);
@@ -62,20 +71,25 @@ public class IdeTree extends JTree
      */
     static class MyDragSourceListener
             implements DragSourceListener {
- 
+
         @Override
-        public void dragDropEnd (DragSourceDropEvent DragSourceDropEvent) {}
- 
+        public void dragDropEnd(DragSourceDropEvent DragSourceDropEvent) {
+        }
+
         @Override
-        public void dragEnter (DragSourceDragEvent DragSourceDragEvent) {}
- 
+        public void dragEnter(DragSourceDragEvent DragSourceDragEvent) {
+        }
+
         @Override
-        public void dragExit (DragSourceEvent DragSourceEvent) {}
- 
+        public void dragExit(DragSourceEvent DragSourceEvent) {
+        }
+
         @Override
-        public void dragOver (DragSourceDragEvent DragSourceDragEvent) {}
- 
+        public void dragOver(DragSourceDragEvent DragSourceDragEvent) {
+        }
+
         @Override
-        public void dropActionChanged (DragSourceDragEvent DragSourceDragEvent) {}
+        public void dropActionChanged(DragSourceDragEvent DragSourceDragEvent) {
+        }
     }
 }
