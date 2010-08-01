@@ -72,7 +72,6 @@ public class IdeTab extends JPanel implements ActionListener {
             add(buttonClose);
         }
         pane.setTabComponentAt(index, this);
-
     }
 
     @Override

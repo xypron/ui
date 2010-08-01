@@ -17,6 +17,7 @@
 package de.xypron.ui.components;
 
 import java.awt.Component;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 import javax.swing.Icon;
 import javax.swing.JComponent;
@@ -30,13 +31,13 @@ public class IdeTabbedPane extends JTabbedPane
         implements IdeDisposable {
 
     private static final long serialVersionUID = 6534656272673589161L;
-    private TreeMap<String, Integer> elements;
+    private TreeMap<String, Component> elements;
 
     /**
      * Construct a new dispoable tabbed pane
      */
     public IdeTabbedPane() {
-        elements = new TreeMap<String, Integer>();
+        elements = new TreeMap<String, Component>();
     }
 
     /**
@@ -49,23 +50,53 @@ public class IdeTabbedPane extends JTabbedPane
      */
     public void setComponent(String key, JComponent component,
             String title, Icon icon, String tip) {
+        setComponent(key, component, title, icon, tip, false);
+    }
+
+    /**
+     * Add a tab to the tabbed pane
+     * @param key key to identify the tab
+     * @param component component diplayed on the tab pane
+     * @param title title of the tab
+     * @param icon icon of the tab
+     * @param tip tooltip of the tab
+     * @param closeable exhibit close button
+     */
+    public void setComponent(String key, JComponent component,
+            String title, Icon icon, String tip, boolean closeable) {
         int index;
+        Component cmp;
 
         if (elements.containsKey(key)) {
-            index = elements.get(key);
+            cmp = elements.get(key);
             // dispose old element
-            if (component.equals(this.getComponent(index))) {
+            if (component.equals(cmp)) {
                 return;
             }
-            disposeAtIndex(index);
+            index = this.indexOfComponent(cmp);
             remove(index);
         } else {
             index = getTabCount();
-            elements.put(key, index);
         }
+        elements.put(key, component);
         this.insertTab(title, icon, component, tip, index);
 
-        this.setTabComponentAt(index, new IdeTab(this, index));
+        new IdeTab(this, index, closeable);
+    }
+
+    @Override
+    public void remove(int index) {
+        String key = null;
+        Component component = super.getComponentAt(index);
+        for (Entry<String, Component> entry : elements.entrySet()) {
+            if (entry.getValue() == component) {
+                key = entry.getKey();
+                break;
+            }
+        }
+        elements.remove(key);
+        disposeComponent(component);
+        super.remove(index);
     }
 
     private Component newTabComponent(String title, Icon icon, String tip) {
@@ -79,16 +110,14 @@ public class IdeTabbedPane extends JTabbedPane
     public void dispose() throws Throwable {
 
         for (int i = this.getComponentCount() - 1; i >= 0; i--) {
-            disposeAtIndex(i);
+            disposeComponent(this.getComponent(i));
         }
         this.removeAll();
     }
 
-    private void disposeAtIndex(int index) {
-        Component component;
+    private void disposeComponent(Component component) {
         IdeDisposable disposable;
 
-        component = this.getComponent(index);
         if (component instanceof IdeDisposable) {
             disposable = (IdeDisposable) component;
             try {
