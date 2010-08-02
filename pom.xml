@@ -13,7 +13,7 @@
     <repositories>
     </repositories>
     <scm>
-        <connection>scm:svn:https://www.xypron.de/svn/svn/ui/tags/ui-1.0.2</connection>
+        <connection>scm:svn:https://www.heinrich-schuchardt.de/svn/svn/ui/tags/ui-1.0.2</connection>
     </scm>
     <licenses>
         <license>
