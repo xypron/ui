@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.xypron.ui</groupId>
     <artifactId>ui</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     <name>Xypron GUI components </name>
     <description>
         Xypron Phase Diagram is a class library written in Java. It provides
@@ -13,8 +13,8 @@
     <repositories>
     </repositories>
     <scm>
-        <connection>scm:svn:http://www.xypron.de/svn/svn/ui/</connection>
-        <developerConnection>scm:svn:https://svn.heinrich-schuchardt.de/svn/svn/ui</developerConnection>
+        <connection>scm:svn:http://www.xypron.de/svn/svn/ui/tags/ui-1.0.2</connection>
+        <developerConnection>scm:svn:https://svn.heinrich-schuchardt.de/svn/svn/ui/tags/ui-1.0.2</developerConnection>
     </scm>
     <licenses>
         <license>
