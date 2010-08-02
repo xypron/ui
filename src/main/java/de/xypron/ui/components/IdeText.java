@@ -16,6 +16,7 @@
  */
 package de.xypron.ui.components;
 
+import java.util.HashMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
@@ -23,9 +24,10 @@ import javax.swing.JOptionPane;
  * Helper class to retrieve string resources.
  */
 public class IdeText {
+
     private static String propertiesPath = null;
     private static IdeText ideText = null;
-    private java.util.ResourceBundle resource = null;
+    private HashMap<Class, java.util.ResourceBundle> resources = null;
     private JComponent mainComponent = null;
 
     /**
@@ -43,6 +45,7 @@ public class IdeText {
         IdeText.ideText = null;
         return getIdeText();
     }
+
     /**
      * Get the text reader
      * @return instance
@@ -64,6 +67,10 @@ public class IdeText {
     }
 
     private IdeText() {
+        java.util.ResourceBundle resource;
+        if (resources == null) {
+            resources = new HashMap<Class, java.util.ResourceBundle>();
+        }
         if (ideText == null) {
             try {
                 resource = java.util.ResourceBundle.getBundle(
@@ -71,7 +78,9 @@ public class IdeText {
             } catch (Exception e) {
                 resource = null;
             }
+            resources.put(null, resource);
         }
+
     }
 
     /**
@@ -79,7 +88,10 @@ public class IdeText {
      * @param key
      */
     public void errorMessage(String key) {
-        JOptionPane.showMessageDialog(mainComponent, getText(key), getText("IdeComponent.Error"),
+        JOptionPane.showMessageDialog(mainComponent,
+                getText(key),
+                getText(this.getClass(),
+                "IdeComponent.Error"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
@@ -89,8 +101,37 @@ public class IdeText {
      * @param key String used as key in properties file.
      * @return String
      */
-    public String getText(String key) {
+    public String getText(Class cls, String key) {
+        java.util.ResourceBundle resource;
+        if (!resources.containsKey(cls)) {
+            String path = cls.getPackage().getName() + ".strings";
+            try {
+                resource = java.util.ResourceBundle.getBundle(path);
+            } catch (Exception e) {
+                resource = null;
+            }
+            resources.put(cls, resource);
+        }
         try {
+            resource = resources.get(cls);
+            if (resource != null) {
+                return resource.getString(key);
+            }
+        } catch (Exception e) {
+        }
+        return getText(key);
+    }
+
+    /**
+     * This method returns a language dependent string.
+     *
+     * @param key String used as key in properties file.
+     * @return String
+     */
+    public String getText(String key) {
+        java.util.ResourceBundle resource;
+        try {
+            resource = resources.get(null);
             return resource.getString(key);
         } catch (Exception e) {
             return key;

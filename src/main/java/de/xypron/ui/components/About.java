@@ -58,7 +58,7 @@ public class About extends JDialog
         ideText = IdeText.getIdeText();
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setSize(new Dimension(800, 600));
-        this.setTitle(ideText.getText("About.Title"));
+        this.setTitle(ideText.getText(this.getClass(), "About.Title"));
         this.setContentPane(getJScrollPane());
         this.setVisible(true);
     }
@@ -91,7 +91,8 @@ public class About extends JDialog
             jTextPane = new JTextPane();
 
             loader = About.class.getClassLoader();
-            url = loader.getResource(ideText.getText("About.Url"));
+            url = loader.getResource(ideText.getText(this.getClass(),
+                    "About.Url"));
             try {
                 jTextPane.setPage(url);
             } catch (IOException e) {
@@ -118,13 +119,16 @@ public class About extends JDialog
                 desktop.browse(e.getURL().toURI());
             } catch (IOException e1) {
                 JOptionPane.showMessageDialog(this,
-                        ideText.getText("About.UserDefaultBrowserNotFound"),
-                        ideText.getText("About.Error"),
+                        ideText.getText(this.getClass(),
+                        "About.UserDefaultBrowserNotFound"),
+                        ideText.getText(this.getClass(),
+                        "About.Error"),
                         JOptionPane.ERROR_MESSAGE);
             } catch (URISyntaxException e1) {
                 JOptionPane.showMessageDialog(this,
-                        ideText.getText("Invalid URL") + ": " + e.getURL(),
-                        ideText.getText("About.Error"),
+                        ideText.getText(this.getClass(),
+                        "About.InvalidUrl") + ": " + e.getURL(),
+                        ideText.getText(this.getClass(), "About.Error"),
                         JOptionPane.ERROR_MESSAGE);
             }
         }
