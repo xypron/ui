@@ -125,7 +125,7 @@ public class IdePropertiesEditor extends IdePanel {
             editorPanel.add(new JLabel(keyText), constraint);
             constraint.gridx++;
             constraint.anchor = GridBagConstraints.WEST;
-            textField = new JTextField(value.toString(), 40);
+            textField = new JTextField(valText, 40);
             textField.getAccessibleContext().addPropertyChangeListener(
                     new Listener(this, keyText, textField));
             editorPanel.add(textField, constraint);
