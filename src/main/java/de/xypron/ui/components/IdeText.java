@@ -90,7 +90,7 @@ public class IdeText {
     public void errorMessage(String key) {
         JOptionPane.showMessageDialog(mainComponent,
                 getText(key),
-                getText(this.getClass(),
+                getText(IdeText.class,
                 "IdeComponent.Error"),
                 JOptionPane.ERROR_MESSAGE);
     }

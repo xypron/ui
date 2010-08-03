@@ -82,6 +82,7 @@ public class IdeTabbedPane extends JTabbedPane
         this.insertTab(title, icon, component, tip, index);
 
         new IdeTab(this, index, closeable);
+        this.setSelectedIndex(index);
     }
 
     @Override
