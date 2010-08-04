@@ -16,7 +16,6 @@
  */
 package de.xypron.ui.model;
 
-import de.xypron.ui.model.Storable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -39,11 +38,11 @@ public class UserProfile extends Properties
      * @param cls class for which the userprofile shall be loaded
      *
      */
-    public UserProfile(Class cls) {
+    public UserProfile(Class<?> cls) {
         init(cls);
     }
 
-    private void init(Class cls) {
+    private void init(Class<?> cls) {
         String path;
         File file;
         FileInputStream fis;
@@ -88,9 +87,9 @@ public class UserProfile extends Properties
         String ret;
 
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            ret = System.getenv("APPDATA") + fs + "xypron";
+            ret = System.getenv("APPDATA") + fs + "java";
         } else {
-            ret = System.getProperty("user.home") + fs + ".xypron";
+            ret = System.getProperty("user.home") + fs + ".java";
         }
         return ret;
     }

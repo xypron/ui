@@ -55,7 +55,6 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.1</version>
                 <configuration>
-                    <mainClass>de.xypron.phase.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>
