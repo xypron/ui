@@ -119,14 +119,14 @@ public class About extends JDialog
                 desktop.browse(e.getURL().toURI());
             } catch (IOException e1) {
                 JOptionPane.showMessageDialog(this,
-                        ideText.getText(this.getClass(),
+                        ideText.getText(About.class,
                         "About.UserDefaultBrowserNotFound"),
                         ideText.getText(this.getClass(),
                         "About.Error"),
                         JOptionPane.ERROR_MESSAGE);
             } catch (URISyntaxException e1) {
                 JOptionPane.showMessageDialog(this,
-                        ideText.getText(this.getClass(),
+                        ideText.getText(About.class,
                         "About.InvalidUrl") + ": " + e.getURL(),
                         ideText.getText(this.getClass(), "About.Error"),
                         JOptionPane.ERROR_MESSAGE);
