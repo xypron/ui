@@ -14,11 +14,11 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package de.xypron.ui.components;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,8 +29,10 @@ import javax.swing.JPanel;
  * Dispoable JPanel
  */
 public class IdePanel extends JPanel
-    implements IdeDisposable, ActionListener {
+        implements IdeDisposable, ActionListener {
+
     private static final long serialVersionUID = 5115366079508079617L;
+    private Frame parentFrame = null;
     /**
      * Object to read texts from resource
      */
@@ -39,11 +41,28 @@ public class IdePanel extends JPanel
     /**
      * Create a new panel
      */
+    @Deprecated
     public IdePanel() {
+        this((Frame) null);
+    }
+
+    /**
+     * Create a new panel
+     * @param parentFrame parent frame
+     */
+    public IdePanel(Frame parentFrame) {
         super(new BorderLayout());
+        this.parentFrame = parentFrame;
         ideText = IdeText.getIdeText();
     }
 
+    /**
+     * Get parent frame
+     * @return parent frame
+     */
+    public Frame getParentFrame() {
+        return parentFrame;
+    }
 
     @Override
     public void dispose() throws Throwable {
@@ -73,7 +92,7 @@ public class IdePanel extends JPanel
 
         JButton button = new JButton(IconBuffer.getIcon(
                 ideText.getText(imageName)));
-        button.setMargin(new Insets(0,0,0,0));
+        button.setMargin(new Insets(0, 0, 0, 0));
         button.setActionCommand(actionCommand);
         button.setToolTipText(toolTipText);
         button.addActionListener(this);

@@ -52,7 +52,8 @@ public class SystemInfo {
                     + ", " + System.getProperty("os.version")
                     + ", " + System.getProperty("os.arch");
         } catch (SecurityException ex) {
-            ex.printStackTrace();
+            info += "\n";
+            info += ex.getMessage();
         }
         return info;
     }
