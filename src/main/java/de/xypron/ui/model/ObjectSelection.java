@@ -25,12 +25,11 @@ import java.io.IOException;
  * Object selection used for drag and drop
  */
 public class ObjectSelection
-implements Transferable {
-	private Object object;
-    private static final DataFlavor[] flavors = 
-    {  createConstant(Object.class, "Object"),
-    };
-    
+        implements Transferable {
+
+    private Object object;
+    private static final DataFlavor[] flavors = {createConstant(Object.class, "Object"),};
+
     /**
      * Creates transferable capable of transferring the object
      * @param object
@@ -38,48 +37,52 @@ implements Transferable {
     public ObjectSelection(Object object) {
         this.object = object;
     }
-    
-	/* (non-Javadoc)
-	 * @see java.awt.datatransfer.Transferable#getTransferData(java.awt.datatransfer.DataFlavor)
-	 */
-    @Override
-	public Object getTransferData(DataFlavor flavor)
-			throws UnsupportedFlavorException, IOException {
-		int i;
-        for (i = 0; i < flavors.length; i++)
-    	    if (flavor.equals(flavors[i]))
-    	        return object;
-    	throw new UnsupportedFlavorException(flavor);
-	}
 
-	/* (non-Javadoc)
-	 * @see java.awt.datatransfer.Transferable#getTransferDataFlavors()
-	 */
+    /* (non-Javadoc)
+     * @see java.awt.datatransfer.Transferable#getTransferData(java.awt.datatransfer.DataFlavor)
+     */
     @Override
-	public DataFlavor[] getTransferDataFlavors() {
-		return flavors;
-	}
+    public Object getTransferData(DataFlavor flavor)
+            throws UnsupportedFlavorException, IOException {
+        int i;
+        for (i = 0; i < flavors.length; i++) {
+            if (flavor.equals(flavors[i])) {
+                return object;
+            }
+        }
+        throw new UnsupportedFlavorException(flavor);
+    }
 
-	/* (non-Javadoc)
-	 * @see java.awt.datatransfer.Transferable#isDataFlavorSupported(java.awt.datatransfer.DataFlavor)
-	 */
+    /* (non-Javadoc)
+     * @see java.awt.datatransfer.Transferable#getTransferDataFlavors()
+     */
     @Override
-	public boolean isDataFlavorSupported(DataFlavor flavor) {
-		int i;
-        for (i = 0; i < flavors.length; i++)
-    	    if (flavor.equals(flavors[i]))
-    	        return true;
-    	return false;
-	}
+    public DataFlavor[] getTransferDataFlavors() {
+        return flavors;
+    }
 
-	/*
-	 * private initializer
-	 */
-	static private DataFlavor createConstant(Class<?> rc, String prn) {
-		try {
-			return new DataFlavor(rc, prn);
-		} catch (Exception e) {
-			return null;
-		}
-	}	
+    /* (non-Javadoc)
+     * @see java.awt.datatransfer.Transferable#isDataFlavorSupported(java.awt.datatransfer.DataFlavor)
+     */
+    @Override
+    public boolean isDataFlavorSupported(DataFlavor flavor) {
+        int i;
+        for (i = 0; i < flavors.length; i++) {
+            if (flavor.equals(flavors[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+     * private initializer
+     */
+    static private DataFlavor createConstant(Class<?> rc, String prn) {
+        try {
+            return new DataFlavor(rc, prn);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
