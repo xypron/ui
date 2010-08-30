@@ -160,7 +160,6 @@ public class PasswordDialog extends JDialog
      * @return
      */
     public static String askPassword(JFrame owner, String title, String label) {
-        String ret;
         PasswordDialog dialog;
 
         dialog = new PasswordDialog(owner, title, label);

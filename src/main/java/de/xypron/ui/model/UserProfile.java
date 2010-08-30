@@ -74,7 +74,6 @@ public class UserProfile extends Properties
     public void store() {
         File file;
         FileOutputStream fos;
-        Object ret;
         file = new File(filename);
         try {
             fos = new FileOutputStream(file);

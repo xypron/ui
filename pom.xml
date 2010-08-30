@@ -13,7 +13,7 @@
     <repositories>
     </repositories>
     <scm>
-        <connection>scm:svn:http://www.xypron.de/svn/svn/ui/</connection>
+        <connection>scm:svn:http://www.xypron.de/svn/ui/</connection>
     </scm>
     <licenses>
         <license>
