@@ -85,8 +85,12 @@ public class IdeText {
     }
 
     /**
-     * This method returns a language dependent string.
+     * This method returns a language dependent string. The name of the
+     * resource bundle is obtained by appending ".strings" to the path
+     * of the class. If the string is not found for the provided class
+     * its superclasses are searched.
      *
+     * @param cls Class for which the property file is read
      * @param key String used as key in properties file.
      * @return String
      */
