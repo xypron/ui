@@ -18,6 +18,7 @@
 package de.xypron.ui.components;
 
 import de.xypron.ui.model.UserProfile;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
@@ -42,17 +43,17 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Heinrich Schuchardt
  */
 public class IdeApplication implements Runnable {
-    private IdeText ideText;
-    private IdeTabbedPane ideTabbedPane = null;
-    private static JFrame jFrame = null;
-    private JMenuBar jMenuBar = null;
-    private JMenu jMenuFile = null;
-    private JMenu jMenuHelp = null;
-    private JMenuItem jMenuItemExit = null;
-    private JMenuItem jMenuItemInfo = null;
-    private JMenuItem jMenuItemAbout = null;
+    protected IdeText ideText;
+    protected IdeTabbedPane ideTabbedPane = null;
+    protected static JFrame jFrame = null;
+    protected JMenuBar jMenuBar = null;
+    protected JMenu jMenuFile = null;
+    protected JMenu jMenuHelp = null;
+    protected JMenuItem jMenuItemExit = null;
+    protected JMenuItem jMenuItemInfo = null;
+    protected JMenuItem jMenuItemAbout = null;
     private String lookAndFeel = "Nimbus";
-    private UserProfile up;
+    protected UserProfile up;
 
 
     /**
@@ -60,7 +61,7 @@ public class IdeApplication implements Runnable {
      *
      * @param args command line parameters
      */
-    private IdeApplication(String[] args) {
+    public IdeApplication(String[] args) {
         parseCommandLine(args);
     }
 
@@ -84,7 +85,7 @@ public class IdeApplication implements Runnable {
      *
      * @return javax.swing.JFrame
      */
-    private JFrame getJFrame() {
+    protected JFrame getJFrame() {
         ImageIcon image;
         ClassLoader loader;
         if (jFrame == null) {
@@ -122,7 +123,7 @@ public class IdeApplication implements Runnable {
      *
      * @return javax.swing.JMenu
      */
-    private JMenu getJMenuFile() {
+    protected JMenu getJMenuFile() {
         if (jMenuFile == null) {
             jMenuFile = new JMenu(ideText.getText("IdeApplication.MenuFile"));
             jMenuFile.addSeparator();
@@ -136,7 +137,7 @@ public class IdeApplication implements Runnable {
      *
      * @return javax.swing.JMenu
      */
-    private JMenu getJMenuHelp() {
+    protected JMenu getJMenuHelp() {
         if (jMenuHelp == null) {
             jMenuHelp = new JMenu(ideText.getText("IdeApplication.MenuHelp"));
             jMenuHelp.addSeparator();
@@ -151,7 +152,7 @@ public class IdeApplication implements Runnable {
      *
      * @return javax.swing.JMenuItem
      */
-    private JMenuItem getJMenuItemAbout() {
+    protected JMenuItem getJMenuItemAbout() {
         if (jMenuItemAbout == null) {
             jMenuItemAbout = new JMenuItem(ideText.getText("IdeApplication.MenuItemAbout"));
             jMenuItemAbout.addActionListener(new AboutAction());
@@ -164,7 +165,7 @@ public class IdeApplication implements Runnable {
      *
      * @return javax.swing.JMenuItem
      */
-    private JMenuItem getJMenuItemExit() {
+    protected JMenuItem getJMenuItemExit() {
         if (jMenuItemExit == null) {
             jMenuItemExit = new JMenuItem(ideText.getText("IdeApplication.MenuItemExit"));
             jMenuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
@@ -179,12 +180,20 @@ public class IdeApplication implements Runnable {
      *
      * @return javax.swing.JMenuItem
      */
-    private JMenuItem getJMenuItemInfo() {
+    protected JMenuItem getJMenuItemInfo() {
         if (jMenuItemInfo == null) {
             jMenuItemInfo = new JMenuItem(ideText.getText("IdeApplication.MenuItemInfo"));
             jMenuItemInfo.addActionListener(new InfoAction());
         }
         return jMenuItemInfo;
+    }
+
+    /**
+     * Get main component
+     * @return main component
+     */
+    public static Component getMainComponent() {
+        return jFrame;
     }
 
     /**
@@ -239,7 +248,7 @@ public class IdeApplication implements Runnable {
     /**
      * Set look and feel
      */
-    private void setLookAndFeel() {
+    protected void setLookAndFeel() {
         try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if (lookAndFeel.equals(info.getName())) {

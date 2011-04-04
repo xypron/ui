@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class IdeText {
 
-    private static String propertiesPath = null;
+    private static Class ideClass = null;
     private static IdeText ideText = null;
     private HashMap<Class, java.util.ResourceBundle> resources = null;
     private JComponent mainComponent = null;
@@ -40,8 +40,7 @@ public class IdeText {
      * @return instance
      */
     public static IdeText getIdeText(Object obj) {
-        IdeText.propertiesPath = obj.getClass().getPackage().getName()
-                + ".strings";
+        IdeText.ideClass = obj.getClass();
         IdeText.ideText = null;
         return getIdeText();
     }
@@ -71,16 +70,6 @@ public class IdeText {
         if (resources == null) {
             resources = new HashMap<Class, java.util.ResourceBundle>();
         }
-        if (ideText == null) {
-            try {
-                resource = java.util.ResourceBundle.getBundle(
-                        propertiesPath);
-            } catch (Exception e) {
-                resource = null;
-            }
-            resources.put(null, resource);
-        }
-
     }
 
     /**
@@ -103,23 +92,35 @@ public class IdeText {
      */
     public String getText(Class cls, String key) {
         java.util.ResourceBundle resource;
+        Class clas;
+
         if (!resources.containsKey(cls)) {
-            String path = cls.getPackage().getName() + ".strings";
+            clas = cls;
+            while (clas != Object.class) {
+                String path = clas.getPackage().getName() + ".strings";
+                try {
+                    resource = java.util.ResourceBundle.getBundle(path);
+                } catch (Exception e) {
+                    resource = null;
+                }
+                resources.put(clas, resource);
+                clas = clas.getSuperclass();
+            }
+        }
+        clas = cls;
+        while (clas != Object.class) {
             try {
-                resource = java.util.ResourceBundle.getBundle(path);
+                resource = resources.get(clas);
+                if (resource != null) {
+                    return resource.getString(key);
+                } else {
+                    break;
+                }
             } catch (Exception e) {
-                resource = null;
             }
-            resources.put(cls, resource);
+            clas = clas.getSuperclass();
         }
-        try {
-            resource = resources.get(cls);
-            if (resource != null) {
-                return resource.getString(key);
-            }
-        } catch (Exception e) {
-        }
-        return getText(key);
+        return key;
     }
 
     /**
@@ -129,12 +130,6 @@ public class IdeText {
      * @return String
      */
     public String getText(String key) {
-        java.util.ResourceBundle resource;
-        try {
-            resource = resources.get(null);
-            return resource.getString(key);
-        } catch (Exception e) {
-            return key;
-        }
+        return getText(ideClass, key);
     }
 }
