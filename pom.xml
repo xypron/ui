@@ -76,7 +76,7 @@
                         <!--
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.xypron.ui.Main</mainClass>
+                            <mainClass>de.xypron.ui.IdeApplication</mainClass>
                         </manifest>
                         -->
                         <manifestEntries>
