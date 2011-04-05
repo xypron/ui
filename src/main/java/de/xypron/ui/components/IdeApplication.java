@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package de.xypron.ui.components;
 
 import de.xypron.ui.model.UserProfile;
@@ -43,18 +42,23 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Heinrich Schuchardt
  */
 public class IdeApplication implements Runnable {
+
+    /**
+     * key used for settings tab
+     */
+    protected static String TABKEY_SETTINGS = "SETTINGS";
     protected IdeText ideText;
     protected IdeTabbedPane ideTabbedPane = null;
     protected static JFrame jFrame = null;
     protected JMenuBar jMenuBar = null;
     protected JMenu jMenuFile = null;
     protected JMenu jMenuHelp = null;
+    protected JMenuItem jMenuItemAbout = null;
     protected JMenuItem jMenuItemExit = null;
     protected JMenuItem jMenuItemInfo = null;
-    protected JMenuItem jMenuItemAbout = null;
-    private String lookAndFeel = "Nimbus";
+    protected JMenuItem jMenuItemSettings = null;
+    protected String lookAndFeel = "Nimbus";
     protected UserProfile up;
-
 
     /**
      * Constructor
@@ -74,12 +78,17 @@ public class IdeApplication implements Runnable {
         System.exit(0);
     }
 
-    private IdeTabbedPane getIdeTabbedPane() {
+    /**
+     * This method initializes ideTabbedPane
+     * @return tabbed pane
+     */
+    protected IdeTabbedPane getIdeTabbedPane() {
         if (ideTabbedPane == null) {
             ideTabbedPane = new IdeTabbedPane();
         }
         return ideTabbedPane;
     }
+
     /**
      * This method initializes jFrame
      *
@@ -107,6 +116,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * This method initializes jJMenuBar
+     *
      * @return javax.swing.JMenuBar
      */
     private JMenuBar getJMenuBar() {
@@ -126,6 +136,7 @@ public class IdeApplication implements Runnable {
     protected JMenu getJMenuFile() {
         if (jMenuFile == null) {
             jMenuFile = new JMenu(ideText.getText("IdeApplication.MenuFile"));
+            jMenuFile.add(getJMenuItemSettings());
             jMenuFile.addSeparator();
             jMenuFile.add(getJMenuItemExit());
         }
@@ -154,7 +165,8 @@ public class IdeApplication implements Runnable {
      */
     protected JMenuItem getJMenuItemAbout() {
         if (jMenuItemAbout == null) {
-            jMenuItemAbout = new JMenuItem(ideText.getText("IdeApplication.MenuItemAbout"));
+            jMenuItemAbout = new JMenuItem(ideText.getText(
+                    "IdeApplication.MenuItemAbout"));
             jMenuItemAbout.addActionListener(new AboutAction());
         }
         return jMenuItemAbout;
@@ -167,7 +179,8 @@ public class IdeApplication implements Runnable {
      */
     protected JMenuItem getJMenuItemExit() {
         if (jMenuItemExit == null) {
-            jMenuItemExit = new JMenuItem(ideText.getText("IdeApplication.MenuItemExit"));
+            jMenuItemExit = new JMenuItem(ideText.getText(
+                    "IdeApplication.MenuItemExit"));
             jMenuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
                     InputEvent.CTRL_MASK));
             jMenuItemExit.addActionListener(new ExitAction());
@@ -182,10 +195,25 @@ public class IdeApplication implements Runnable {
      */
     protected JMenuItem getJMenuItemInfo() {
         if (jMenuItemInfo == null) {
-            jMenuItemInfo = new JMenuItem(ideText.getText("IdeApplication.MenuItemInfo"));
+            jMenuItemInfo = new JMenuItem(ideText.getText(
+                    "IdeApplication.MenuItemInfo"));
             jMenuItemInfo.addActionListener(new InfoAction());
         }
         return jMenuItemInfo;
+    }
+
+    /**
+     * This method initializes jMenuItemSettings
+     *
+     * @return javax.swing.JMenuItem
+     */
+    protected JMenuItem getJMenuItemSettings() {
+        if (jMenuItemSettings == null) {
+            jMenuItemSettings = new JMenuItem(ideText.getText(
+                    "IdeApplication.MenuItemSettings"));
+            jMenuItemSettings.addActionListener(new SettingsAction());
+        }
+        return jMenuItemSettings;
     }
 
     /**
@@ -200,7 +228,6 @@ public class IdeApplication implements Runnable {
      * Initialize application
      */
     protected void init() {
-
     }
 
     /**
@@ -212,6 +239,10 @@ public class IdeApplication implements Runnable {
         SwingUtilities.invokeLater(new IdeApplication(args));
     }
 
+    /**
+     * Parse command line
+     * @param args arguments passed to constructor
+     */
     protected void parseCommandLine(String[] args) {
         String parameter = "";
         final String commandLineHelp =
@@ -341,6 +372,25 @@ public class IdeApplication implements Runnable {
                     SystemInfo.info(),
                     ideText.getText("IdeApplication.MenuItemInfo"),
                     JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    /**
+     * Listener for menu item "Settings".
+     */
+    private class SettingsAction extends AbstractAction {
+
+        private static final long serialVersionUID = 7326124121439143329L;
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            ideTabbedPane.setComponent(TABKEY_SETTINGS,
+                    new IdePropertiesEditor(up),
+                    ideText.getText("IdeApplication.MenuItemSettings"),
+                    IconBuffer.getIcon(UserProfile.ICONNAME),
+                    ideText.getText("IdeApplication.MenuItemSettings"),
+                    true);
+            ideTabbedPane.validate();
         }
     }
 }
