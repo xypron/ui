@@ -66,7 +66,6 @@ public class IdeText {
     }
 
     private IdeText() {
-        java.util.ResourceBundle resource;
         if (resources == null) {
             resources = new HashMap<Class, java.util.ResourceBundle>();
         }

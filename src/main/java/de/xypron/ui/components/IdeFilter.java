@@ -95,8 +95,6 @@ public class IdeFilter extends JDialog {
 
         model = (AbstractResultTableModel) jTable.getModel();
         for (FilterInfo filterInfo : model.getFilterInfos()) {
-            Class cls = model.getColumnClass(filterInfo.getColumn());
-
             constraint.gridx = 0;
             constraint.anchor = GridBagConstraints.WEST;
             editorPanel.add(
@@ -142,12 +140,10 @@ public class IdeFilter extends JDialog {
                 LinkedList<RowFilter<? super TableModel, ? super Integer>> orFilters;
                 orFilters =
                         new LinkedList<RowFilter<? super TableModel, ? super Integer>>();
-                RowFilter<? super TableModel, ? super Integer> filter = null;
                 int column = filterInfo.getColumn();
 
                 if (filterInfo.isNumeric()) {
                     Number value;
-                    Class cls = model.getColumnClass(filterInfo.getColumn());
                     try {
                         value = new Double(filterInfo.getValue());
                     } catch (NumberFormatException e) {

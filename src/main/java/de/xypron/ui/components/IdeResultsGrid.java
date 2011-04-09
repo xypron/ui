@@ -165,7 +165,6 @@ public class IdeResultsGrid extends IdePanel {
 
             Color background;
             Color foreground;
-            JTable.DropLocation dropLocation = table.getDropLocation();
             if (isSelected) {
                 foreground = jTable.getSelectionForeground();
                 background = jTable.getSelectionBackground();

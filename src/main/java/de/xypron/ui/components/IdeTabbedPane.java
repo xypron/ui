@@ -100,13 +100,6 @@ public class IdeTabbedPane extends JTabbedPane
         super.remove(index);
     }
 
-    private Component newTabComponent(String title, Icon icon, String tip) {
-        JLabel jLabel;
-        jLabel = new JLabel(title, icon, LEFT);
-        jLabel.setToolTipText(tip);
-        return jLabel;
-    }
-
     @Override
     public void dispose() throws Throwable {
 

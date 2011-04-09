@@ -4,10 +4,9 @@
     <groupId>de.xypron.ui</groupId>
     <artifactId>ui</artifactId>
     <version>1.0.4-SNAPSHOT</version>
-    <name>Xypron GUI components </name>
+    <name>Xypron GUI Components </name>
     <description>
-        Xypron Phase Diagram is a class library written in Java. It provides
-        GUI components.
+        Xypron GUI Components is a class library written in Java.
     </description>
     <url>http://www.xypron.de/projects/ui/</url>
     <repositories>
