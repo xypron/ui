@@ -6,13 +6,15 @@
     <version>1.0.4-SNAPSHOT</version>
     <name>Xypron GUI Components </name>
     <description>
-        Xypron GUI Components is a class library written in Java.
+        Xypron GUI Components is a class library written in Java. It
+        facilitates writing Swing applications.
     </description>
     <url>http://www.xypron.de/projects/ui/</url>
     <repositories>
     </repositories>
     <scm>
         <connection>scm:svn:http://www.xypron.de/svn/ui/</connection>
+        <url>http://www.xypron.de/svn/ui/</url>
     </scm>
     <licenses>
         <license>
