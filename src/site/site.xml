@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Maven">
+  <body>
+    <menu ref="parent" inherit="top"/>
+    <menu ref="modules" inherit="top"/>
+    <menu ref="reports" inherit="top"/> 
+    <menu ref="javadoc">
+      <item name="Javadoc" href="apidocs">
+      </item>
+    </menu>
+  </body>
+</project>
