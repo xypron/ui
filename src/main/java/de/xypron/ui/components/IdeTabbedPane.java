@@ -21,7 +21,6 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import javax.swing.Icon;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 
 /**
