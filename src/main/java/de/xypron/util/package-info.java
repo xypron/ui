@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Heinrich Schuchardt.
+ *  Copyright 2011 Heinrich Schuchardt.
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
  */
 
 /**
- * This package contains data models.
+ * This package contains utility classes.
  */
-package de.xypron.ui.model;
-
+package de.xypron.util;
