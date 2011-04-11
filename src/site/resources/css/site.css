@@ -1,0 +1,16 @@
+#banner {
+  background-color: #000;
+  background-image: url(../images/xypron100.png);
+  background-repeat: no-repeat;
+  background-position: left;
+  border-bottom: 1px solid #000;
+  height: 100px;
+}
+#bannerLeft {
+  font-size: 36px;
+  font-weight: bold;
+  padding: 30px 4px 4px 6px;
+  color: #fff;
+  margin-right: 1.5em;
+  margin-left: 197px;
+}
