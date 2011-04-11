@@ -35,4 +35,25 @@ public abstract class AbstractResultTableModel extends AbstractTableModel {
     public TreeSet<FilterInfo> getFilterInfos() {
         return filterInfos;
     }
+
+    /**
+     *  Returns class of objects in column <code>columnIndex</code>.
+     *
+     *  @param columnIndex  the column being queried
+     *  @return the class
+     */
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        Object obj;
+        try{
+        obj = this.getValueAt(0, columnIndex);
+        } catch (Exception ex) {
+            return Object.class;
+        }
+        if (obj != null) {
+            return obj.getClass();
+        } else {
+            return Object.class;
+        }
+    }
 }

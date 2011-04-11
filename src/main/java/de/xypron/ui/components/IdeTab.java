@@ -16,6 +16,7 @@
  */
 package de.xypron.ui.components;
 
+import de.xypron.util.IconBuffer;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;

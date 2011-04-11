@@ -16,6 +16,8 @@
  */
 package de.xypron.ui.components;
 
+import de.xypron.util.IdeText;
+import de.xypron.util.IconBuffer;
 import de.xypron.ui.model.UserProfile;
 import java.awt.Component;
 import java.awt.Dimension;

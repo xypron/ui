@@ -16,6 +16,8 @@
  */
 package de.xypron.ui.components;
 
+import de.xypron.util.IdeText;
+import de.xypron.util.IconBuffer;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Frame;

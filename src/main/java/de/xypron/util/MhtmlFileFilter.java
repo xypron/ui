@@ -17,7 +17,6 @@
 
 package de.xypron.util;
 
-import de.xypron.ui.components.IdeText;
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
 

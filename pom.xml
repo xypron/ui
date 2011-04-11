@@ -74,12 +74,10 @@
                 <version>2.3.1</version>
                 <configuration>
                     <archive>
-                        <!--
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.xypron.ui.IdeApplication</mainClass>
+                            <mainClass>de.xypron.ui.components.IdeApplication</mainClass>
                         </manifest>
-                        -->
                         <manifestEntries>
                             <mode>development</mode>
                             <url>${project.url}</url>
@@ -128,11 +126,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
+                <!-- for Maven 2
+                <version>2.2</version>
+                -->
+                <!-- for Maven 3 -->
                 <version>3.0-beta-3</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
+                <!-- for Maven 3 -->
                 <version>2.3.1</version>
             </plugin>
         </plugins>

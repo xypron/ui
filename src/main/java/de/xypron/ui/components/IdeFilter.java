@@ -16,6 +16,7 @@
  */
 package de.xypron.ui.components;
 
+import de.xypron.util.IdeText;
 import de.xypron.util.Filter;
 import de.xypron.util.FilterInfo;
 import de.xypron.util.AbstractResultTableModel;
