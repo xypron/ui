@@ -28,6 +28,7 @@ import java.util.Properties;
 import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
@@ -39,11 +40,13 @@ public class IdePropertiesEditor extends IdePanel {
 
     private Properties backup;
     private Properties properties;
-    private final String ACTIONUNDO = "UNDO";
+    private final String ACTIONDELETE = "DELETE";
     private final String ACTIONSAVE = "SAVE";
+    private final String ACTIONUNDO = "UNDO";
     private static final long serialVersionUID = -7356954009240207787L;
-    private JButton undoButton = null;
+    private JButton deleteButton = null;
     private JButton saveButton = null;
+    private JButton undoButton = null;
     private JToolBar jToolBar = null;
     private IdeScrollPane scrollPane = null;
     private IdePanel editorPanel;
@@ -153,13 +156,27 @@ public class IdePropertiesEditor extends IdePanel {
         jToolBar.add(getUndoButton());
 
         if (properties instanceof Storable) {
+            Storable obj = (Storable) properties;
             jToolBar.add(getSaveButton());
+            jToolBar.add(getDeleteButton());
+            getDeleteButton().setVisible(obj.exists());
         }
+    }
+
+    private JButton getDeleteButton() {
+        if (deleteButton == null) {
+            deleteButton = makeButton("de/xypron/ui/components/delete.png",
+                    ACTIONDELETE,
+                    ideText.getText(this.getClass(),
+                    "IdePropertiesEditor.ToolTip.Delete"), "Delete");
+        }
+        return deleteButton;
     }
 
     private JButton getUndoButton() {
         if (undoButton == null) {
-            undoButton = makeButton("de/xypron/ui/undo.png", ACTIONUNDO,
+            undoButton = makeButton("de/xypron/ui/components/undo.png",
+                    ACTIONUNDO,
                     ideText.getText(this.getClass(),
                     "IdePropertiesEditor.ToolTip.Undo"), "Undo");
         }
@@ -168,7 +185,8 @@ public class IdePropertiesEditor extends IdePanel {
 
     private JButton getSaveButton() {
         if (saveButton == null) {
-            saveButton = makeButton("de/xypron/ui/save.png", ACTIONSAVE,
+            saveButton = makeButton("de/xypron/ui/components/save.png",
+                    ACTIONSAVE,
                     ideText.getText(this.getClass(),
                     "IdePropertiesEditor.ToolTip.Save"), "Save");
         }
@@ -179,7 +197,9 @@ public class IdePropertiesEditor extends IdePanel {
     public void actionPerformed(ActionEvent e) {
         String actionCommand;
         actionCommand = e.getActionCommand();
-        if (actionCommand.equals(ACTIONSAVE)) {
+        if (actionCommand.equals(ACTIONDELETE)) {
+            delete();
+        } else if (actionCommand.equals(ACTIONSAVE)) {
             save();
         } else if (actionCommand.equals(ACTIONUNDO)) {
             undo();
@@ -189,7 +209,30 @@ public class IdePropertiesEditor extends IdePanel {
     }
 
     /**
-     * un
+     * delete
+     */
+    private void delete() {
+        if (properties instanceof Storable) {
+            Storable obj = (Storable) properties;
+            if (obj.exists()) {
+                if (JOptionPane.showConfirmDialog(
+                        getParent(),
+                        ideText.getText("IdePropertiesEditor.DeleteFromStore"),
+                        ideText.getText("IdePropertiesEditor.Confirmation"),
+                        JOptionPane.OK_CANCEL_OPTION)
+                        != JOptionPane.OK_OPTION) {
+                    // User cancelled
+                    return;
+                }
+            }
+            if (obj.remove()) {
+                getDeleteButton().setVisible(false);
+            }
+        }
+    }
+
+    /**
+     * undo
      */
     private void undo() {
         for (Entry<Object, Object> entry : backup.entrySet()) {
@@ -203,7 +246,20 @@ public class IdePropertiesEditor extends IdePanel {
     private void save() {
         if (properties instanceof Storable) {
             Storable obj = (Storable) properties;
-            obj.store();
+            if (obj.exists()) {
+                if (JOptionPane.showConfirmDialog(
+                        getParent(),
+                        ideText.getText("IdePropertiesEditor.OverwriteInStore"),
+                        ideText.getText("IdePropertiesEditor.Confirmation"),
+                        JOptionPane.OK_CANCEL_OPTION)
+                        != JOptionPane.OK_OPTION) {
+                    // User cancelled
+                    return;
+                }
+            }
+            if (obj.store()) {
+                getDeleteButton().setVisible(true);
+            }
             backup();
         }
     }

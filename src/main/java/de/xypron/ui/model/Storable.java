@@ -16,15 +16,26 @@ package de.xypron.ui.model;
  *  limitations under the License.
  *  under the License.
  */
-
 /**
  * Object that canned be saved
  */
 public interface Storable {
 
     /**
-     * Store
+     * Check existence in store
+     * @return has been stored before
      */
-    public void store();
-    
+    public boolean exists();
+
+    /**
+     * Remove
+     * @return success = true
+     */
+    public boolean remove();
+
+    /**
+     * Store
+     * @return success = true
+     */
+    public boolean store();
 }

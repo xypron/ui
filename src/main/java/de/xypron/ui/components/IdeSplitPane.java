@@ -17,7 +17,6 @@
 package de.xypron.ui.components;
 
 import java.awt.Component;
-
 import javax.swing.JSplitPane;
 
 /**

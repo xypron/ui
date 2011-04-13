@@ -16,11 +16,13 @@
  */
 package de.xypron.ui.model;
 
+import de.xypron.util.IdeText;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +31,7 @@ public class UserProfile extends Properties
         implements Storable {
 
     public static String ICONNAME = "de/xypron/ui/user.png";
+    private IdeText ideText;
     private static String fs = System.getProperty("file.separator");
     private static final long serialVersionUID = -6370061152858252868L;
     private String filename;
@@ -48,9 +51,10 @@ public class UserProfile extends Properties
         FileInputStream fis;
         String pkg;
 
+        ideText = IdeText.getIdeText();
         pkg = cls.getName().replace(".", fs);
 
-        path = getPath()+ fs + pkg;
+        path = getPath() + fs + pkg;
         new File(path).mkdirs();
 
         filename = path + fs + "userprofile.properties";
@@ -58,6 +62,7 @@ public class UserProfile extends Properties
         try {
             fis = new FileInputStream(file);
             super.load(fis);
+            fis.close();
         } catch (IOException ex) {
         }
     }
@@ -71,15 +76,39 @@ public class UserProfile extends Properties
     }
 
     @Override
-    public void store() {
+    public boolean exists() {
+        File file;
+        FileOutputStream fos;
+        file = new File(filename);
+        return file.exists();
+    }
+
+    @Override
+    public boolean remove() {
+        File file;
+        FileOutputStream fos;
+        file = new File(filename);
+        try {
+            file.delete();
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean store() {
         File file;
         FileOutputStream fos;
         file = new File(filename);
         try {
             fos = new FileOutputStream(file);
             super.store(fos, filename);
+            fos.close();
         } catch (IOException ex) {
+            return false;
         }
+        return true;
     }
 
     static String getPath() {

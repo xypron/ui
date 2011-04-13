@@ -90,9 +90,9 @@ public class IdeTab extends JPanel implements ActionListener {
             Icon closeIcon;
             Icon rollOverIcon;
             closeIcon = IconBuffer.getIcon(
-                    "de/xypron/ui/closeTab.png");
+                    "de/xypron/ui/components/closeTab.png");
             rollOverIcon = IconBuffer.getIcon(
-                    "de/xypron/ui/closeTabRollover.png");
+                    "de/xypron/ui/components/closeTabRollover.png");
             setRolloverIcon(rollOverIcon);
             setIcon(closeIcon);
             if (closeIcon != null) {
