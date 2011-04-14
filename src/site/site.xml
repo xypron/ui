@@ -5,7 +5,7 @@
     <menu ref="modules" inherit="top"/>
     <menu ref="reports" inherit="top"/> 
     <menu ref="javadoc">
-      <item name="Javadoc" href="apidocs">
+      <item name="Javadoc" href="apidocs/">
       </item>
     </menu>
   </body>
