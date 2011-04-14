@@ -125,6 +125,11 @@ public class IdeResultsGrid extends IdePanel {
         return scrollPane;
     }
 
+    /**
+     * Get jtable
+     * TODO implement custom column header renderer (multi line, filter icon)
+     * @return jtable
+     */
     private JTable getJTable() {
         MouseListener popupListener = new PopupListener();
         if (jTable == null) {
@@ -135,6 +140,9 @@ public class IdeResultsGrid extends IdePanel {
                     new CustomTableCellRenderer());
             jTable.setRowHeight(Math.max(jTable.getRowHeight(), 50));
             jTable.getTableHeader().addMouseListener(popupListener);
+
+            jTable.getTableHeader();
+
         }
         return jTable;
     }
