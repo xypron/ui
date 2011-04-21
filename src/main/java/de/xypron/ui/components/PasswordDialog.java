@@ -157,7 +157,7 @@ public class PasswordDialog extends JDialog
      * @param owner owner frame
      * @param title title
      * @param label label
-     * @return
+     * @return password
      */
     public static String askPassword(JFrame owner, String title, String label) {
         PasswordDialog dialog;

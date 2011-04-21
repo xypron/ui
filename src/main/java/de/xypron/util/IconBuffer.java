@@ -21,8 +21,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
- * Buffered access to icon resources for elements
- * @see de.xypron.simulation.core.Element
+ * Buffered access to icon resources
  */
 public class IconBuffer {
 

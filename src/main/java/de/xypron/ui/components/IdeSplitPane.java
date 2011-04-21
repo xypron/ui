@@ -47,8 +47,8 @@ public class IdeSplitPane extends JSplitPane
      * @param newOrientation horizontal or vertial
      * @param newContinuousLayout true if components shall be repainted
      * during change of the split position
-     * @see de.xypron.simulation.ui.components.IdeSplitPane#HORIZONTAL_SPLIT
-     * @see de.xypron.simulation.ui.components.IdeSplitPane#VERTICAL_SPLIT
+     * @see javax.swing.JSplitPane#HORIZONTAL_SPLIT
+     * @see javax.swing.JSplitPane#VERTICAL_SPLIT
      */
     public IdeSplitPane(int newOrientation, boolean newContinuousLayout) {
         this(newOrientation, newContinuousLayout, null, null);
@@ -59,8 +59,8 @@ public class IdeSplitPane extends JSplitPane
      * @param newOrientation horizontal or vertical
      * @param newLeftComponent left/upper component
      * @param newRightComponent right/lower component
-     * @see de.xypron.simulation.ui.components.IdeSplitPane#HORIZONTAL_SPLIT
-     * @see de.xypron.simulation.ui.components.IdeSplitPane#VERTICAL_SPLIT
+     * @see javax.swing.JSplitPane#HORIZONTAL_SPLIT
+     * @see javax.swing.JSplitPane#VERTICAL_SPLIT
      */
     public IdeSplitPane(int newOrientation, Component newLeftComponent,
             Component newRightComponent) {
@@ -73,8 +73,8 @@ public class IdeSplitPane extends JSplitPane
      * @param newContinuousLayout true if components shall be repainted
      * @param newLeftComponent left/upper component
      * @param newRightComponent right/lower component
-     * @see de.xypron.simulation.ui.components.IdeSplitPane#HORIZONTAL_SPLIT
-     * @see de.xypron.simulation.ui.components.IdeSplitPane#VERTICAL_SPLIT
+     * @see javax.swing.JSplitPane#HORIZONTAL_SPLIT
+     * @see javax.swing.JSplitPane#VERTICAL_SPLIT
      */
     public IdeSplitPane(int newOrientation, boolean newContinuousLayout,
             Component newLeftComponent, Component newRightComponent) {
