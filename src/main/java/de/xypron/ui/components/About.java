@@ -42,12 +42,18 @@ public class About extends JDialog
     private JScrollPane jScrollPane = null;
     private JTextPane jTextPane = null;
     private IdeText ideText;
+    private String urlString = null;
 
     /**
      * @param owner the <code>Frame</code> from which the dialog is displayed
      */
     public About(Frame owner) {
+        this(owner, null);
+    }
+    
+    public About(Frame owner, String urlString) {
         super(owner, true);
+        this.urlString = urlString;
         initialize();
     }
 
@@ -57,6 +63,9 @@ public class About extends JDialog
      */
     private void initialize() {
         ideText = IdeText.getIdeText();
+        if (urlString == null) {
+            urlString = ideText.getText(this.getClass(),"About.Url");
+        }
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setSize(new Dimension(800, 600));
         this.setTitle(ideText.getText(this.getClass(), "About.Title"));
@@ -92,8 +101,7 @@ public class About extends JDialog
             jTextPane = new JTextPane();
 
             loader = About.class.getClassLoader();
-            url = loader.getResource(ideText.getText(this.getClass(),
-                    "About.Url"));
+            url = loader.getResource(urlString);
             try {
                 jTextPane.setPage(url);
             } catch (IOException e) {
