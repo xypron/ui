@@ -309,7 +309,7 @@ public class IdeApplication implements Runnable {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            new About(jFrame);
+            new About(jFrame, ideText.getText("About.Url"));
         }
     }
 
