@@ -63,14 +63,20 @@ public class IdeApplication implements Runnable {
     protected UserProfile up;
 
     /**
-     * Constructor
-     *
+     * Constructor.
      * @param args command line parameters
      */
     public IdeApplication(String[] args) {
         parseCommandLine(args);
     }
 
+    /**
+     * Constructor.
+     */
+    public IdeApplication() {
+        this(new String[0]);
+    }
+    
     /**
      * Exit IDE
      */

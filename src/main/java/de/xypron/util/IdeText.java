@@ -116,8 +116,6 @@ public class IdeText {
                 resource = resources.get(clas);
                 if (resource != null) {
                     return resource.getString(key);
-                } else {
-                    break;
                 }
             } catch (Exception e) {
             }
