@@ -56,7 +56,7 @@ public class IdeApplication implements Runnable {
     /**
      * Key used for settings tab.
      */
-    public static final String TABKEY_SETTINGS = "SETTINGS";
+    public static final String TABKEY_SETTINGS = "TAB_SETTINGS";
     /**
      * String resource helper.
      */
