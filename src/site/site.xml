@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="Maven">
+  <bannerRight>
+    <name>Get GLPK for Java at SourceForge.net. Fast, secure and Free Open Source software downloads</name>
+    <src>http://sflogo.sourceforge.net/sflogo.php?group_id=264534&amp;amp;type=11</src>
+    <href>http://sourceforge.net/projects/glpk-java</href>
+  </bannerRight>
   <body>
     <breadcrumbs>
-      <item name="Home" href="../../index.html" />
-      <item name="Projects" href="../index.html" />
+      <item name="Xypron" href="http://www.xypron.de/" />
+      <item name="Projects" href="http://www.xypron.de/projects/" />
       <item name="Xypron GUI Components" href="./index.html" />
-    </breadcrumbs>
+    </breadcrumbs>  
+    <menu name="Overview" inherit="top">
+      <item name="About" href="index.html" collapse="true">
+      </item>
+    </menu>
     <menu name="Documentation">
       <item name="Javadoc" href="apidocs/index.html" />
-    </menu>    <menu ref="parent" inherit="top"/>
+    </menu>
+    <menu ref="parent" inherit="top"/>
     <menu ref="modules" inherit="top"/>
     <menu ref="reports" inherit="top"/> 
-  </body>
+    </body>
 </project>

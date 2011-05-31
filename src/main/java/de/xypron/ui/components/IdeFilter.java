@@ -1,12 +1,12 @@
-    /*
+ /*
  *  Copyright 2010 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,22 +44,43 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
- *
+ * Dialog for line filter.
  * @author Heinrich Schuchardt
  */
+@SuppressWarnings("serial")
 public class IdeFilter extends JDialog {
 
-    IdeText ideText;
-    JTable jTable;
+    /**
+     * String resource helper.
+     */
+    private IdeText ideText;
+    /**
+     * Table.
+     */
+    private JTable jTable;
+    /**
+     * Scrool pane.
+     */
     private IdeScrollPane scrollPane = null;
+    /**
+     * Editor panel.
+     */
     private IdePanel editorPanel;
 
-    public IdeFilter(Frame owner, JTable jTable) {
+    /**
+     * Constuctor.
+     * @param owner frame owning the dialog
+     * @param jTable table to filter
+     */
+    public IdeFilter(final Frame owner, final JTable jTable) {
         super(owner, true);
         this.jTable = jTable;
-        this.initialize();
+        initialize();
     }
 
+    /**
+     * Initialize filter.
+     */
     private void initialize() {
         ideText = IdeText.getIdeText();
         this.setTitle(ideText.getText(IdeFilter.class, "IdeFilter.Filter"));
@@ -69,6 +90,10 @@ public class IdeFilter extends JDialog {
         setResizable(false);
     }
 
+    /**
+     * Initialize scroll pane.
+     * @return scroll pane.
+     */
     private IdeScrollPane getJScrollPane() {
         if (scrollPane == null) {
             scrollPane = new IdeScrollPane();
@@ -77,6 +102,10 @@ public class IdeFilter extends JDialog {
         return scrollPane;
     }
 
+    /**
+     * Initialize editor panel.
+     * @return editor panel
+     */
     private IdePanel getEditorPanel() {
         GridBagConstraints constraint;
         JTextField textField;
@@ -114,22 +143,22 @@ public class IdeFilter extends JDialog {
     }
 
     /**
-     * WindowsAdapter to react upon closing of the JFrame
+     * WindowsAdapter to react upon closing of the JFrame.
      */
     private class MyWindowAdapter extends WindowAdapter {
 
         @Override
-        public void windowClosing(WindowEvent e) {
+        public void windowClosing(final WindowEvent e) {
             exit();
         }
     }
 
     /**
-     * Update filter when leaving dialog
+     * Update filter when leaving dialog.
      */
     private void exit() {
-        AbstractResultTableModel model = (AbstractResultTableModel) jTable.
-                getModel();
+        AbstractResultTableModel model =
+                (AbstractResultTableModel) jTable.getModel();
         LinkedList<RowFilter<? super TableModel, ? super Integer>> filters;
         TableRowSorter rowSorter;
 
@@ -158,6 +187,9 @@ public class IdeFilter extends JDialog {
                                     ComparisonType.EQUAL,
                                     value,
                                     column));
+                            break;
+                        default:
+                            break;
                     }
                     switch (filterInfo.getComparisonType()) {
                         case LESS_THAN:
@@ -180,6 +212,8 @@ public class IdeFilter extends JDialog {
                                     value,
                                     filterInfo.getColumn()));
                             break;
+                        default:
+                            break;
                     }
                     if (orFilters.size() > 0) {
                         filters.add(RowFilter.orFilter(orFilters));
@@ -201,40 +235,97 @@ public class IdeFilter extends JDialog {
 
     }
 
+    /**
+     * Input field for filter.
+     */
     private class TextField extends JTextField {
 
-        FilterInfo filterInfo;
+        /**
+         * Serial version unique ID.
+         */
+        private static final long serialVersionUID = 5237275173528788213L;
+        /**
+         * Filter information.
+         */
+        private FilterInfo filterInfo;
 
-        public TextField(String text, int columns, FilterInfo filterInfo) {
+        /**
+         * Constructor.
+         * @param text text to be displayed
+         * @param columns width of text field
+         * @param filterInfo filter information
+         */
+        public TextField(final String text,
+                final int columns, final FilterInfo filterInfo) {
             super(text, columns);
             this.filterInfo = filterInfo;
             initialize();
         }
 
+        /**
+         * Initialize filter.
+         */
         private void initialize() {
             getDocument().addDocumentListener(new DocumentListener() {
 
                 @Override
-                public void insertUpdate(DocumentEvent e) {
+                public void insertUpdate(final DocumentEvent e) {
                     filterInfo.setValue(getText());
                 }
 
                 @Override
-                public void removeUpdate(DocumentEvent e) {
+                public void removeUpdate(final DocumentEvent e) {
                     filterInfo.setValue(getText());
                 }
 
                 @Override
-                public void changedUpdate(DocumentEvent e) {
+                public void changedUpdate(final DocumentEvent e) {
                     filterInfo.setValue(getText());
                 }
             });
         }
     }
 
+    /**
+     * Combo box to choose comparison operator.
+     */
+    @SuppressWarnings("serial")
     private class ComparisonComboBox extends JComboBox {
-
+        /**
+         * No selection, ignore.
+         */
+        private final int SELECTED_NONE = 0;
+        /**
+         * Less than.
+         */
+        private final int SELECTED_LT = 1;
+        /**
+         * Less or equal.
+         */
+        private final int SELECTED_LE = 2;
+        /**
+         * Equal.
+         */
+        private final int SELECTED_EQ = 3;
+        /**
+         * Greater or equal.
+         */
+        private final int SELECTED_GE = 4;
+        /**
+         * Greater then.
+         */
+        private final int SELECTED_GT = 5;
+        /**
+         * Not equal.
+         */
+        private final int SELECTED_NE = 6;
+        /**
+         * Filter information.
+         */
         FilterInfo filterInfo;
+        /**
+         * Available operators.
+         */
         private String[] operators = {
             "",
             "<",
@@ -245,12 +336,19 @@ public class IdeFilter extends JDialog {
             "!="
         };
 
+        /**
+         * Constuctor.
+         * @param filterInfo filter information
+         */
         public ComparisonComboBox(FilterInfo filterInfo) {
             super();
             this.filterInfo = filterInfo;
             initialize();
         }
 
+        /**
+         * Initialize combo box.
+         */
         private void initialize() {
             setModel(new DefaultComboBoxModel(operators));
             this.setSelectedItem(filterInfo.getComparisonType());
@@ -263,45 +361,53 @@ public class IdeFilter extends JDialog {
             });
         }
 
+        /**
+         * Set selected item.
+         * @param type type of comparison operator.
+         */
         private void setSelectedItem(Filter.ComparisonType type) {
             switch (type) {
                 case LESS_THAN:
-                    setSelectedIndex(1);
+                    setSelectedIndex(SELECTED_LT);
                     break;
                 case LESS_OR_EQUAL:
-                    setSelectedIndex(2);
+                    setSelectedIndex(SELECTED_LE);
                     break;
                 case EQUALS:
-                    setSelectedIndex(3);
+                    setSelectedIndex(SELECTED_EQ);
                     break;
                 case GREATER_OR_EQUAL:
-                    setSelectedIndex(4);
+                    setSelectedIndex(SELECTED_GE);
                     break;
                 case GREATER_THAN:
-                    setSelectedIndex(5);
+                    setSelectedIndex(SELECTED_GT);
                     break;
                 case NOT_EQUALS:
-                    setSelectedIndex(6);
+                    setSelectedIndex(SELECTED_NE);
                     break;
                 default:
-                    setSelectedIndex(0);
+                    setSelectedIndex(SELECTED_NONE);
                     break;
             }
         }
 
+        /**
+         * Get type of comparison operator.
+         * @return type of comparison operator
+         */
         public Filter.ComparisonType getComparisonType() {
             switch (getSelectedIndex()) {
-                case 1:
+                case SELECTED_LT:
                     return Filter.ComparisonType.LESS_THAN;
-                case 2:
+                case SELECTED_LE:
                     return Filter.ComparisonType.LESS_OR_EQUAL;
-                case 3:
+                case SELECTED_EQ:
                     return Filter.ComparisonType.EQUALS;
-                case 4:
+                case SELECTED_GE:
                     return Filter.ComparisonType.GREATER_OR_EQUAL;
-                case 5:
+                case SELECTED_GT:
                     return Filter.ComparisonType.GREATER_THAN;
-                case 6:
+                case SELECTED_NE:
                     return Filter.ComparisonType.NOT_EQUALS;
                 default:
                     return Filter.ComparisonType.IGNORE;

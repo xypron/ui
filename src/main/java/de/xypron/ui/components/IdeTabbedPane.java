@@ -24,23 +24,26 @@ import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 
 /**
- * A disposable tabbed pane
+ * A disposable tabbed pane.
  */
+@SuppressWarnings("serial")
 public class IdeTabbedPane extends JTabbedPane
         implements IdeDisposable {
 
-    private static final long serialVersionUID = 6534656272673589161L;
+    /**
+     * Components of the tabbed pane.
+     */
     private TreeMap<String, Component> elements;
 
     /**
-     * Construct a new dispoable tabbed pane
+     * Construct a new dispoable tabbed pane.
      */
     public IdeTabbedPane() {
         elements = new TreeMap<String, Component>();
     }
 
     /**
-     * Add a tab to the tabbed pane
+     * Add a tab to the tabbed pane.
      * @param key key to identify the tab
      * @param component component diplayed on the tab pane
      * @param title title of the tab
@@ -53,7 +56,7 @@ public class IdeTabbedPane extends JTabbedPane
     }
 
     /**
-     * Add a tab to the tabbed pane
+     * Add a tab to the tabbed pane.
      * @param key key to identify the tab
      * @param component component diplayed on the tab pane
      * @param title title of the tab
@@ -108,6 +111,10 @@ public class IdeTabbedPane extends JTabbedPane
         this.removeAll();
     }
 
+    /**
+     * Dispose of component.
+     * @param component component
+     */
     private void disposeComponent(Component component) {
         IdeDisposable disposable;
 

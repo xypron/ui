@@ -45,20 +45,47 @@ import javax.swing.table.TableRowSorter;
  * allows to filter, export, and print it.
  * @author Heinrich Schuchardt
  */
+@SuppressWarnings("serial")
 public class IdeResultsGrid extends IdePanel {
-
-    public static String ICONNAME = "de/xypron/ui/components/result.png";
-    private static String ACTIONPRINT = "PRINT";
-    private static String ACTIONMHTML = "MHTML";
+    /**
+     * Icon name.
+     */
+    private final static String ICONNAME = "de/xypron/ui/components/result.png";
+    /**
+     * Print action.
+     */
+    private final static String ACTIONPRINT = "PRINT";
+    /**
+     * Export to mime html action.
+     */
+    private final static String ACTIONMHTML = "MHTML";
+    /**
+     * Scroll pane.
+     */
     private IdeScrollPane scrollPane = null;
+    /**
+     * Table.
+     */
     private JTable jTable;
+    /**
+     * Tool bar.
+     */
     private JToolBar jToolBar;
+    /**
+     * Print button.
+     */
     private JButton printButton;
+    /**
+     * Export to mime html button.
+     */
     private JButton mhtmlButton;
+    /**
+     * Table model.
+     */
     private AbstractResultTableModel tableModel;
 
     /**
-     * Constructor for result grid
+     * Constructor for result grid.
      * @param frame main frame
      * @param tableModel table model
      */

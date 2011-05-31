@@ -24,16 +24,24 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
- * Dragable tree
+ * Dragable tree.
  */
+@SuppressWarnings("serial")
 public class IdeTree extends JTree
         implements DragGestureListener {
 
-    private static final long serialVersionUID = 8973770068707791644L;
-    final static DragSourceListener dragSourceListener = new MyDragSourceListener();
+    /**
+     * Drag source listener.
+     */
+    final static DragSourceListener dragSourceListener =
+            new PrivateDragSourceListener();
+    /**
+     * Drag source.
+     */
     private DragSource dragSource;
 
     /**
+     * Constructor.
      * @param model
      */
     public IdeTree(TreeModel model) {
@@ -42,7 +50,7 @@ public class IdeTree extends JTree
     }
 
     /**
-     * Initialize IdeTree
+     * Initialize tree.
      */
     private void init() {
         dragSource = DragSource.getDefaultDragSource();
@@ -50,26 +58,25 @@ public class IdeTree extends JTree
                 DnDConstants.ACTION_COPY_OR_MOVE, this);
     }
 
-    /* (non-Javadoc)
-     * @see java.awt.dnd.DragGestureListener#dragGestureRecognized(java.awt.dnd.DragGestureEvent)
-     */
     @Override
     public void dragGestureRecognized(DragGestureEvent dragGestureEvent) {
         TreePath path = getSelectionPath();
         if (path != null) {
             DefaultMutableTreeNode selection =
                     (DefaultMutableTreeNode) path.getLastPathComponent();
-            ObjectSelection node = new ObjectSelection(selection.getUserObject());
+            ObjectSelection node =
+                    new ObjectSelection(selection.getUserObject());
             dragSource.startDrag(dragGestureEvent, DragSource.DefaultCopyDrop,
                     node, dragSourceListener);
         }
     }
 
     /**
+     * Drag source listener.
      * A DragSourceListener is required, but IdeTree does not currently
-     * use this feature so an empty implementation is used.
+     * use this feature. Hence an empty implementation is used.
      */
-    static class MyDragSourceListener
+    private static class PrivateDragSourceListener
             implements DragSourceListener {
 
         @Override

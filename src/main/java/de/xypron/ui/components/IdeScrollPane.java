@@ -21,30 +21,32 @@ import java.awt.Component;
 import javax.swing.JScrollPane;
 
 /**
- * Disposable JScrollPane
+ * Disposable JScrollPane.
  */
+@SuppressWarnings("serial")
 public class IdeScrollPane extends JScrollPane
-implements IdeDisposable{
-	private static final long serialVersionUID = -8505280894659536792L;
+        implements IdeDisposable {
 
     /**
+     * Constructor.
      * @param view component to display in the view port
      * @param vsbPolicy vertical scroll bar policy
      * @param hsbPolicy horizontal scroll bar policy
      */
     public IdeScrollPane(Component view, int vsbPolicy, int hsbPolicy) {
-    	super(view, vsbPolicy, hsbPolicy);
+        super(view, vsbPolicy, hsbPolicy);
     }
 
     /**
+     * Constructor.
      * @param view  view component to display in the viewport
      */
     public IdeScrollPane(Component view) {
-    	super(view);
+        super(view);
     }
 
-
     /**
+     * Constructor.
      * @param vsbPolicy
      * @param hsbPolicy
      */
@@ -53,35 +55,29 @@ implements IdeDisposable{
     }
 
     /**
-     * 
+     * Constructor.
      */
     public IdeScrollPane() {
-    	super();
+        super();
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.JScrollPane#setViewportView(java.awt.Component)
-     */
     @Override
     public void setViewportView(Component view) {
-    	try {
-			dispose();
-		} catch (Throwable e) {
-		}
-    	super.setViewportView(view);
+        try {
+            dispose();
+        } catch (Throwable e) {
+        }
+        super.setViewportView(view);
     }
-	
-	/* (non-Javadoc)
-	 * @see de.xypron.simulation.ui.IdeDisposable#dispose()
-	 */
+
     @Override
-	public void dispose() throws Throwable {
-		Component component;
-		IdeDisposable disposable;
-		component = this.getViewport().getView();
-		if (component instanceof IdeDisposable) {
-			disposable = (IdeDisposable) component;
-			disposable.dispose();
-		}
-	}
+    public void dispose() throws Throwable {
+        Component component;
+        IdeDisposable disposable;
+        component = this.getViewport().getView();
+        if (component instanceof IdeDisposable) {
+            disposable = (IdeDisposable) component;
+            disposable.dispose();
+        }
+    }
 }

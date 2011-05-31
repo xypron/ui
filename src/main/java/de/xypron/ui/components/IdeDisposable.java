@@ -1,8 +1,8 @@
 /**
  * Copyright 2009, Heinrich Schuchardt
- * 
+ *
  * @author Heinrich Schuchardt
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
  * may obtain a copy of the License at
@@ -20,10 +20,11 @@ package de.xypron.ui.components;
  * This interface is used for IDE components that can be disposed of.
  */
 public interface IdeDisposable {
-	/**
-	 * This method removes all references to the element.
-         *
-         * @throws Throwable
-         */
-	public void dispose() throws Throwable;
+
+    /**
+     * This method removes all references to the element.
+     *
+     * @throws Throwable error that occured
+     */
+    void dispose() throws Throwable;
 }

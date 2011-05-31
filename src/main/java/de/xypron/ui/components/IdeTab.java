@@ -28,11 +28,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Tab component with close button
+ * Tab component with close button.
  */
+@SuppressWarnings("serial")
 public class IdeTab extends JPanel implements ActionListener {
 
-    private static final long serialVersionUID = 5283250209632852337L;
+    /**
+     * Tabbed pane this tab belongs to.
+     */
     private IdeTabbedPane pane;
 
     /**
@@ -40,17 +43,18 @@ public class IdeTab extends JPanel implements ActionListener {
      * @param pane
      * @param index
      */
-    public IdeTab(IdeTabbedPane pane, int index) {
+    public IdeTab(final IdeTabbedPane pane, final int index) {
         this(pane, index, false);
     }
 
     /**
-     * Constructor for tab component with close button
+     * Constructor for tab component with close button.
      * @param pane tabbed pane
      * @param index tab index
      * @param closeable exhibit close button
      */
-    public IdeTab(IdeTabbedPane pane, int index, boolean closeable) {
+    public IdeTab(final IdeTabbedPane pane, final int index,
+            final boolean closeable) {
         JButton buttonClose;
         JLabel jLabel;
         JLabel spacer;
@@ -76,15 +80,18 @@ public class IdeTab extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
         int i = pane.indexOfTabComponent(this);
         if (i != -1) {
             pane.remove(i);
         }
     }
 
+    /**
+     * Close button.
+     */
+    @SuppressWarnings("serial")
     private class CloseButton extends JButton {
-        private static final long serialVersionUID = -2861028434426188858L;
 
         public CloseButton() {
             Icon closeIcon;

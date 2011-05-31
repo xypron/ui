@@ -1,12 +1,12 @@
 /*
  *  Copyright 2010 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,23 +36,55 @@ import javax.swing.JToolBar;
  * The properties editor displays a <code>Properties</code> object and
  * allows to edit it.
  */
+@SuppressWarnings("serial")
 public class IdePropertiesEditor extends IdePanel {
-
+    /**
+     * Delete.
+     */
+    private final static String ACTIONDELETE = "DELETE";
+    /**
+     * Save.
+     */
+    private final static String ACTIONSAVE = "SAVE";
+    /**
+     * Undo.
+     */
+    private final static String ACTIONUNDO = "UNDO";
+    /**
+     * Backed up properties.
+     */
     private Properties backup;
+    /**
+     * Properties.
+     */
     private Properties properties;
-    private final String ACTIONDELETE = "DELETE";
-    private final String ACTIONSAVE = "SAVE";
-    private final String ACTIONUNDO = "UNDO";
-    private static final long serialVersionUID = -7356954009240207787L;
+    /**
+     * Delete button.
+     */
     private JButton deleteButton = null;
+    /**
+     * Save button.
+     */
     private JButton saveButton = null;
+    /**
+     * Undo button.
+     */
     private JButton undoButton = null;
+    /**
+     * Tool bar.
+     */
     private JToolBar jToolBar = null;
+    /**
+     * Scroll pane.
+     */
     private IdeScrollPane scrollPane = null;
+    /**
+     * Editor panel.
+     */
     private IdePanel editorPanel;
 
     /**
-     * Constructor
+     * Constructor.
      * @param properties properties
      */
     public IdePropertiesEditor(Properties properties) {
@@ -64,7 +96,7 @@ public class IdePropertiesEditor extends IdePanel {
     }
 
     /**
-     * Backup properties for undo
+     * Backup properties for undo.
      */
     private void backup() {
         this.backup = new Properties();
@@ -74,6 +106,10 @@ public class IdePropertiesEditor extends IdePanel {
         }
     }
 
+    /**
+     * Initialize scroll pane.
+     * @return scroll pane
+     */
     private IdeScrollPane getJScrollPane() {
         if (scrollPane == null) {
             scrollPane = new IdeScrollPane();
@@ -82,6 +118,10 @@ public class IdePropertiesEditor extends IdePanel {
         return scrollPane;
     }
 
+    /**
+     * Initialize editor pane.
+     * @return editor pane
+     */
     private IdePanel getEditorPanel() {
         GridBagConstraints constraint;
         JTextField textField;
@@ -137,6 +177,10 @@ public class IdePropertiesEditor extends IdePanel {
         return editorPanel;
     }
 
+    /**
+     * Initialize toolbar.
+     * @return
+     */
     private JToolBar getJToolBar() {
         if (jToolBar == null) {
             // The name is used as the title of the undocked tool bar.
@@ -150,7 +194,7 @@ public class IdePropertiesEditor extends IdePanel {
     }
 
     /**
-     *  Define buttons for toolbar
+     *  Define buttons for toolbar.
      */
     private void addButtons() {
         jToolBar.add(getUndoButton());
@@ -163,6 +207,10 @@ public class IdePropertiesEditor extends IdePanel {
         }
     }
 
+    /**
+     * Initialize delete button.
+     * @return delete button.
+     */
     private JButton getDeleteButton() {
         if (deleteButton == null) {
             deleteButton = makeButton("de/xypron/ui/components/delete.png",
@@ -173,6 +221,10 @@ public class IdePropertiesEditor extends IdePanel {
         return deleteButton;
     }
 
+    /**
+     * Initialize undo button.
+     * @return
+     */
     private JButton getUndoButton() {
         if (undoButton == null) {
             undoButton = makeButton("de/xypron/ui/components/undo.png",
@@ -183,6 +235,10 @@ public class IdePropertiesEditor extends IdePanel {
         return undoButton;
     }
 
+    /**
+     * Initialize save button.
+     * @return
+     */
     private JButton getSaveButton() {
         if (saveButton == null) {
             saveButton = makeButton("de/xypron/ui/components/save.png",
@@ -209,7 +265,7 @@ public class IdePropertiesEditor extends IdePanel {
     }
 
     /**
-     * delete
+     * Delete properties.
      */
     private void delete() {
         if (properties instanceof Storable) {
@@ -232,7 +288,7 @@ public class IdePropertiesEditor extends IdePanel {
     }
 
     /**
-     * undo
+     * Undo changes.
      */
     private void undo() {
         for (Entry<Object, Object> entry : backup.entrySet()) {
@@ -243,6 +299,9 @@ public class IdePropertiesEditor extends IdePanel {
         editorPanel.validate();
     }
 
+    /**
+     * Save properties.
+     */
     private void save() {
         if (properties instanceof Storable) {
             Storable obj = (Storable) properties;
@@ -264,10 +323,21 @@ public class IdePropertiesEditor extends IdePanel {
         }
     }
 
+    /**
+     * Listener for property changes.
+     */
     private static class Listener implements PropertyChangeListener {
-
+        /**
+         * Properties editor listened to.
+         */
         IdePropertiesEditor editor;
+        /**
+         * Key of the property.
+         */
         String key;
+        /**
+         * Text field with the property value.
+         */
         JTextField textField;
 
         public Listener(IdePropertiesEditor editor,

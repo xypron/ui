@@ -1,12 +1,12 @@
 /*
  *  Copyright 2010 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,18 +30,36 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 
 /**
- * Password dialog
+ * Password dialog.
  * @author Heinrich Schuchardt
  */
+@SuppressWarnings("serial")
 public class PasswordDialog extends JDialog
         implements ActionListener, KeyListener {
 
-    private static final long serialVersionUID = -6270063889257216051L;
-    private static final String OK = "OK";
-    String title;
-    String label;
-    String password = null;
+    /**
+     * OK action.
+     */
+    private static final String ACTION_OK = "OK";
+    /**
+     * Title of dialog.
+     */
+    private String title;
+    /**
+     * Label of dialog.
+     */
+    private String label;
+    /**
+     * Password.
+     */
+    private String password = null;
+    /**
+     * Password field.
+     */
     private JPasswordField jPasswordField = null;
+    /**
+     * OK button.
+     */
     private JButton jButtonOk = null;
 
     private PasswordDialog(JFrame owner, String title, String label) {
@@ -54,6 +72,9 @@ public class PasswordDialog extends JDialog
         init();
     }
 
+    /**
+     * Initialize password dialog.
+     */
     private void init() {
         GridBagConstraints constraint;
         Container contentPane;
@@ -78,35 +99,46 @@ public class PasswordDialog extends JDialog
         this.pack();
     }
 
+    /**
+     * Initialize password field.
+     * @return password field
+     */
     private JPasswordField getJPasswordField() {
         if (jPasswordField == null) {
             jPasswordField = new JPasswordField(40);
-            jPasswordField.setActionCommand(OK);
+            jPasswordField.setActionCommand(ACTION_OK);
             jPasswordField.addKeyListener(this);
         }
         return jPasswordField;
     }
 
     /**
-     * Get the ok button
+     * Get the ok button.
      * @return ok button
      */
     private JButton getOkButton() {
         if (jButtonOk == null) {
             jButtonOk = new JButton("OK");
-            jButtonOk.setActionCommand(OK);
+            jButtonOk.setActionCommand(ACTION_OK);
             jButtonOk.addActionListener(this);
             jButtonOk.setEnabled(true);
         }
         return jButtonOk;
     }
 
+    /**
+     * Retrieve password from password field.
+     */
     private void done() {
         password = new String(jPasswordField.getPassword());
         setVisible(false);
         dispose();
     }
 
+    /**
+     * Get password.
+     * @return password.
+     */
     private String getPassword() {
         return password;
     }
@@ -114,7 +146,7 @@ public class PasswordDialog extends JDialog
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getActionCommand().equals(OK)) {
+        if (e.getActionCommand().equals(ACTION_OK)) {
             done();
         }
     }
@@ -135,7 +167,7 @@ public class PasswordDialog extends JDialog
     }
 
     /**
-     * Show a password dialog
+     * Show a password dialog.
      * @return password
      */
     public static String askPassword() {
@@ -143,7 +175,7 @@ public class PasswordDialog extends JDialog
     }
 
     /**
-     * Show a password dialog
+     * Show a password dialog.
      * @param title title
      * @param label label
      * @return password
@@ -153,7 +185,7 @@ public class PasswordDialog extends JDialog
     }
 
     /**
-     * Show a password dialog
+     * Show a password dialog.
      * @param owner owner frame
      * @param title title
      * @param label label

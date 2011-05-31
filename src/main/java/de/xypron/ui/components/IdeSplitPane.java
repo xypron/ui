@@ -20,55 +20,56 @@ import java.awt.Component;
 import javax.swing.JSplitPane;
 
 /**
- * Disposable JSplitPane
+ * Disposable JSplitPane.
  */
+@SuppressWarnings("serial")
 public class IdeSplitPane extends JSplitPane
         implements IdeDisposable {
 
-    private static final long serialVersionUID = -1807822428760674803L;
-
     /**
-     * Create horizontal split pane
+     * Create horizontal split pane.
      */
     public IdeSplitPane() {
         this(HORIZONTAL_SPLIT, false, null, null);
     }
 
     /**
-     * Create split pane
+     * Create split pane.
      * @param newOrientation
      */
-    public IdeSplitPane(int newOrientation) {
+    public IdeSplitPane(final int newOrientation) {
         this(newOrientation, false, null, null);
     }
 
     /**
-     * Create split pane
+     * Create split pane.
      * @param newOrientation horizontal or vertial
      * @param newContinuousLayout true if components shall be repainted
      * during change of the split position
      * @see javax.swing.JSplitPane#HORIZONTAL_SPLIT
      * @see javax.swing.JSplitPane#VERTICAL_SPLIT
      */
-    public IdeSplitPane(int newOrientation, boolean newContinuousLayout) {
+    public IdeSplitPane(final int newOrientation,
+            final boolean newContinuousLayout) {
         this(newOrientation, newContinuousLayout, null, null);
     }
 
     /**
-     * Create split pane
+     * Create split pane.
      * @param newOrientation horizontal or vertical
      * @param newLeftComponent left/upper component
      * @param newRightComponent right/lower component
      * @see javax.swing.JSplitPane#HORIZONTAL_SPLIT
      * @see javax.swing.JSplitPane#VERTICAL_SPLIT
      */
-    public IdeSplitPane(int newOrientation, Component newLeftComponent,
-            Component newRightComponent) {
+    public IdeSplitPane(final int newOrientation,
+            final Component newLeftComponent,
+            final Component newRightComponent) {
         this(newOrientation, false, newLeftComponent, newRightComponent);
     }
 
     /**
-     * Create split pane
+     * Create split pane.
      * @param newOrientation horizontal or vertical
      * @param newContinuousLayout true if components shall be repainted
      * @param newLeftComponent left/upper component
@@ -82,9 +83,6 @@ public class IdeSplitPane extends JSplitPane
                 newRightComponent);
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.JSplitPane#setLeftComponent(java.awt.Component)
-     */
     @Override
     public void setLeftComponent(Component comp) {
         try {
@@ -94,9 +92,6 @@ public class IdeSplitPane extends JSplitPane
         super.setLeftComponent(comp);
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.JSplitPane#setLeftComponent(java.awt.Component)
-     */
     @Override
     public void setRightComponent(Component comp) {
         try {
@@ -114,17 +109,11 @@ public class IdeSplitPane extends JSplitPane
         setLeftComponent(comp);
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.JSplitPane#setBottomComponent(java.awt.Component)
-     */
     @Override
     public void setBottomComponent(Component comp) {
         setRightComponent(comp);
     }
 
-    /* (non-Javadoc)
-     * @see de.xypron.simulation.ui.IdeDisposable#dispose()
-     */
     @Override
     public void dispose() throws Throwable {
         leftDispose();

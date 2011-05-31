@@ -1,12 +1,12 @@
 /*
  *  Copyright 2010 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,21 +14,23 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package de.xypron.ui.components;
 
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 
 /**
- * A check box with an attached object
+ * A check box with an attached object.
  */
+@SuppressWarnings("serial")
 public class IdeSelectable extends JCheckBox {
-    private static final long serialVersionUID = -3115554836977956128L;
+    /**
+     * Attached object.
+     */
     private Object value;
 
     /**
-     * Construct a check box with an attached object
+     * Construct a check box with an attached object.
      * @param value attached object
      * @param selected selected
      * @param icon default icon
@@ -44,7 +46,7 @@ public class IdeSelectable extends JCheckBox {
      * Get the attached object
      * @return attached object
      */
-    public Object getValue() {
+    public final Object getValue() {
         return value;
     }
 
@@ -52,7 +54,7 @@ public class IdeSelectable extends JCheckBox {
      * Set the attached object
      * @param value
      */
-    public void setValue(Object value) {
+    public final void setValue(Object value) {
         this.value = value;
     }
 }

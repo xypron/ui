@@ -1,12 +1,12 @@
 /*
  *  Copyright 2010 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,20 +28,23 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
- * Dispoable JPanel
+ * Dispoable JPanel.
  */
+@SuppressWarnings("serial")
 public class IdePanel extends JPanel
         implements IdeDisposable, ActionListener {
 
-    private static final long serialVersionUID = 5115366079508079617L;
+    /**
+     * Parent frame.
+     */
     private Frame parentFrame = null;
     /**
-     * Object to read texts from resource
+     * Object to read texts from resource.
      */
     protected IdeText ideText;
 
     /**
-     * Create a new panel
+     * Create a new panel.
      */
     @Deprecated
     public IdePanel() {
@@ -49,7 +52,7 @@ public class IdePanel extends JPanel
     }
 
     /**
-     * Create a new panel
+     * Create a new panel.
      * @param parentFrame parent frame
      */
     public IdePanel(Frame parentFrame) {
@@ -59,7 +62,7 @@ public class IdePanel extends JPanel
     }
 
     /**
-     * Get parent frame
+     * Get parent frame.
      * @return parent frame
      */
     public Frame getParentFrame() {
@@ -81,7 +84,7 @@ public class IdePanel extends JPanel
     }
 
     /**
-     * Create a button
+     * Create a button.
      * @param imageName name of the image
      * @param actionCommand action
      * @param toolTipText tooltip text
@@ -89,8 +92,8 @@ public class IdePanel extends JPanel
      * @return button
      */
     protected JButton makeButton(
-            String imageName, String actionCommand,
-            String toolTipText, String altText) {
+            final String imageName, final String actionCommand,
+            final String toolTipText, final String altText) {
 
         JButton button = new JButton(IconBuffer.getIcon(
                 ideText.getText(imageName)));

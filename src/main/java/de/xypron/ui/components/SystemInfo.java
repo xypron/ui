@@ -17,18 +17,27 @@
 package de.xypron.ui.components;
 
 /**
- * Determine system data
+ * Determine system data.
  */
 public class SystemInfo {
-    private final static long BYTES_PER_MB = 1048576;
+    /**
+     * Bytes per megabyte (1048576).
+     */
+    private final static long BYTES_PER_MB = 0x100000;
 
     /**
-     * Returns a multiline string with information about the Java release
+     * Returns a multiline string with information about the Java release.
      * and the available heap space
      * @return information
      */
     public static String info() {
+        /**
+         * Number of bits.
+         */
         String bits = null;
+        /**
+         * Information string.
+         */
         String info = "";
 
         try {

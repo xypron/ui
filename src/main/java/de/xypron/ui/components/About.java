@@ -1,8 +1,8 @@
 /**
  * Copyright 2009, Heinrich Schuchardt
- * 
+ *
  * @author Heinrich Schuchardt
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
  * may obtain a copy of the License at
@@ -35,46 +35,71 @@ import javax.swing.event.HyperlinkListener;
 /**
  * This class displays the about dialog. The text is read from a file.
  */
+@SuppressWarnings("serial")
 public class About extends JDialog
         implements HyperlinkListener {
 
-    private static final long serialVersionUID = -4045545681349619878L;
+    /**
+     * Height of the dialog box.
+     */
+    private static final int DIALOG_HEIGHT = 600;
+    /**
+     * Width of the dialog box.
+     */
+    private static final int DIALOG_WIDTH = 800;
+    /**
+     * Scroll pane.
+     */
     private JScrollPane jScrollPane = null;
+    /**
+     * Text pane.
+     */
     private JTextPane jTextPane = null;
+    /**
+     * String resource helper.
+     */
     private IdeText ideText;
+    /**
+     * URL.
+     */
     private String urlString = null;
 
     /**
+     * Construcotr.
      * @param owner the <code>Frame</code> from which the dialog is displayed
      */
-    public About(Frame owner) {
+    public About(final Frame owner) {
         this(owner, null);
     }
-    
-    public About(Frame owner, String urlString) {
+
+    /**
+     * Constructor.
+     * @param owner the <code>Frame</code> from which the dialog is displayed
+     * @param urlString URL of the help text
+     */
+    public About(final Frame owner, final String urlString) {
         super(owner, true);
         this.urlString = urlString;
         initialize();
     }
 
     /**
-     * This method initializes this
-     *
+     * This method initializes this.
      */
     private void initialize() {
         ideText = IdeText.getIdeText();
         if (urlString == null) {
-            urlString = ideText.getText(this.getClass(),"About.Url");
+            urlString = ideText.getText(this.getClass(), "About.Url");
         }
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        this.setSize(new Dimension(800, 600));
+        this.setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
         this.setTitle(ideText.getText(this.getClass(), "About.Title"));
         this.setContentPane(getJScrollPane());
         this.setVisible(true);
     }
 
     /**
-     * This method initializes jScrollPane
+     * This method initializes jScrollPane.
      *
      * @return javax.swing.JScrollPane
      */
@@ -88,7 +113,7 @@ public class About extends JDialog
     }
 
     /**
-     * This method initializes jScrollPane
+     * This method initializes jScrollPane.
      *
      * @return javax.swing.JScrollPane
      */
@@ -113,11 +138,8 @@ public class About extends JDialog
         return jTextPane;
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.event.HyperlinkListener#hyperlinkUpdate(javax.swing.event.HyperlinkEvent)
-     */
     @Override
-    public void hyperlinkUpdate(HyperlinkEvent e) {
+    public void hyperlinkUpdate(final HyperlinkEvent e) {
         Desktop desktop;
         if (e.getEventType() != HyperlinkEvent.EventType.ACTIVATED) {
             return;
@@ -142,5 +164,4 @@ public class About extends JDialog
             }
         }
     }
-}  //  @jve:decl-index=0:visual-constraint="10,10"
-
+}

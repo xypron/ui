@@ -1,12 +1,12 @@
 /*
  *  Copyright 2011 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,33 +40,77 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
+ * Swing application.
  * @author Heinrich Schuchardt
  */
 public class IdeApplication implements Runnable {
 
     /**
-     * key used for settings tab
+     * Height of the frame.
      */
-    protected static String TABKEY_SETTINGS = "SETTINGS";
+    private static final int FRAME_HEIGHT = 2048;
+    /**
+     * Width of the frame.
+     */
+    private static final int FRAME_WIDTH = 2560;
+    /**
+     * Key used for settings tab.
+     */
+    public static final String TABKEY_SETTINGS = "SETTINGS";
+    /**
+     * String resource helper.
+     */
     protected IdeText ideText;
+    /**
+     * Tabbed pane.
+     */
     protected IdeTabbedPane ideTabbedPane = null;
+    /**
+     * Frame.
+     */
     protected static JFrame jFrame = null;
+    /**
+     * Menu bar.
+     */
     protected JMenuBar jMenuBar = null;
+    /**
+     * File menu.
+     */
     protected JMenu jMenuFile = null;
+    /**
+     * Help menu.
+     */
     protected JMenu jMenuHelp = null;
+    /**
+     * Menu item About.
+     */
     protected JMenuItem jMenuItemAbout = null;
+    /**
+     * Menu item Exit.
+     */
     protected JMenuItem jMenuItemExit = null;
+    /**
+     * Menu item Info.
+     */
     protected JMenuItem jMenuItemInfo = null;
+    /**
+     * Menu item Settings.
+     */
     protected JMenuItem jMenuItemSettings = null;
+    /**
+     * Look and feel.
+     */
     protected String lookAndFeel = "Nimbus";
+    /**
+     * User profile.
+     */
     protected UserProfile up;
 
     /**
      * Constructor.
      * @param args command line parameters
      */
-    public IdeApplication(String[] args) {
+    public IdeApplication(final String[] args) {
         parseCommandLine(args);
     }
 
@@ -76,9 +120,9 @@ public class IdeApplication implements Runnable {
     public IdeApplication() {
         this(new String[0]);
     }
-    
+
     /**
-     * Exit IDE
+     * Exit application.
      */
     public void exit() {
         jFrame.setVisible(false);
@@ -87,7 +131,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * This method initializes ideTabbedPane
+     * This method initializes tabbed pane.
      * @return tabbed pane
      */
     protected IdeTabbedPane getIdeTabbedPane() {
@@ -98,7 +142,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * This method initializes jFrame
+     * This method initializes frame.
      *
      * @return javax.swing.JFrame
      */
@@ -107,7 +151,7 @@ public class IdeApplication implements Runnable {
         ClassLoader loader;
         if (jFrame == null) {
             jFrame = new JFrame(ideText.getText("IdeApplication.FrameTitle"));
-            jFrame.setSize(new Dimension(2560, 2048));
+            jFrame.setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
             jFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             jFrame.setJMenuBar(getJMenuBar());
             jFrame.setContentPane(getIdeTabbedPane());
@@ -123,7 +167,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * This method initializes jJMenuBar
+     * This method initializes the menu bar.
      *
      * @return javax.swing.JMenuBar
      */
@@ -137,7 +181,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * This method initializes jMenuFile
+     * This method initializes the File menu.
      *
      * @return javax.swing.JMenu
      */
@@ -152,7 +196,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * This method initializes jMenuHelp
+     * This method initializes the Help menu.
      *
      * @return javax.swing.JMenu
      */
@@ -167,7 +211,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * This method initializes jMenuItemAbout
+     * This method initializes menu item About.
      *
      * @return javax.swing.JMenuItem
      */
@@ -181,7 +225,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * This method initializes jMenuItemExit
+     * This method initializes menu item Exit.
      *
      * @return javax.swing.JMenuItem
      */
@@ -197,7 +241,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * This method initializes jMenuItemInfo
+     * This method initializes menu Item Info.
      *
      * @return javax.swing.JMenuItem
      */
@@ -211,7 +255,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * This method initializes jMenuItemSettings
+     * This method initializes menu item Settings.
      *
      * @return javax.swing.JMenuItem
      */
@@ -225,7 +269,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * Get main component
+     * Get main component.
      * @return main component
      */
     public static Component getMainComponent() {
@@ -233,25 +277,25 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * Initialize application
+     * Initialize application.
      */
     protected void init() {
     }
 
     /**
-     * Starts the IDE
+     * Starts the application.
      *
      * @param args command line parameters
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         SwingUtilities.invokeLater(new IdeApplication(args));
     }
 
     /**
-     * Parse command line
+     * Parse command line.
      * @param args arguments passed to constructor
      */
-    protected void parseCommandLine(String[] args) {
+    protected void parseCommandLine(final String[] args) {
         String parameter = "";
         final String commandLineHelp =
                 "The following command line options are available:\n"
@@ -273,7 +317,7 @@ public class IdeApplication implements Runnable {
     }
 
     @Override
-    public void run() {
+    public final void run() {
         ideText = IdeText.getIdeText(this);
         up = new UserProfile(this.getClass());
 
@@ -285,7 +329,7 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * Set look and feel
+     * Set look and feel.
      */
     protected void setLookAndFeel() {
         try {
@@ -309,60 +353,58 @@ public class IdeApplication implements Runnable {
     /**
      * Listener for menu item "About".
      */
+    @SuppressWarnings("serial")
     private class AboutAction extends AbstractAction {
 
-        private static final long serialVersionUID = -4008890923968961894L;
-
         @Override
-        public void actionPerformed(ActionEvent arg0) {
+        public void actionPerformed(final ActionEvent arg0) {
             new About(jFrame, ideText.getText("About.Url"));
         }
     }
 
     /**
-     * WindowListener to react upon closing of the JFrame
+     * WindowListener to react upon closing of the JFrame.
      */
     private class ApplicationWindowListener implements WindowListener {
 
         @Override
-        public void windowActivated(WindowEvent e) {
+        public void windowActivated(final WindowEvent e) {
         }
 
         @Override
-        public void windowClosed(WindowEvent e) {
+        public void windowClosed(final WindowEvent e) {
         }
 
         @Override
-        public void windowClosing(WindowEvent e) {
+        public void windowClosing(final WindowEvent e) {
             exit();
         }
 
         @Override
-        public void windowDeactivated(WindowEvent e) {
+        public void windowDeactivated(final WindowEvent e) {
         }
 
         @Override
-        public void windowDeiconified(WindowEvent e) {
+        public void windowDeiconified(final WindowEvent e) {
         }
 
         @Override
-        public void windowIconified(WindowEvent e) {
+        public void windowIconified(final WindowEvent e) {
         }
 
         @Override
-        public void windowOpened(WindowEvent e) {
+        public void windowOpened(final WindowEvent e) {
         }
     }
 
     /**
      * Listener for menu item "Exit".
      */
+    @SuppressWarnings("serial")
     private class ExitAction extends AbstractAction {
 
-        private static final long serialVersionUID = -3228220219179387819L;
-
         @Override
-        public void actionPerformed(ActionEvent arg0) {
+        public void actionPerformed(final ActionEvent arg0) {
             exit();
         }
     }
@@ -370,12 +412,11 @@ public class IdeApplication implements Runnable {
     /**
      * Listener for menu item "Info".
      */
+    @SuppressWarnings("serial")
     private class InfoAction extends AbstractAction {
 
-        private static final long serialVersionUID = -1485719900328993760L;
-
         @Override
-        public void actionPerformed(ActionEvent arg0) {
+        public void actionPerformed(final ActionEvent arg0) {
             JOptionPane.showMessageDialog(jFrame,
                     SystemInfo.info(),
                     ideText.getText("IdeApplication.MenuItemInfo"),
@@ -386,12 +427,11 @@ public class IdeApplication implements Runnable {
     /**
      * Listener for menu item "Settings".
      */
+    @SuppressWarnings("serial")
     private class SettingsAction extends AbstractAction {
 
-        private static final long serialVersionUID = 7326124121439143329L;
-
         @Override
-        public void actionPerformed(ActionEvent arg0) {
+        public void actionPerformed(final ActionEvent arg0) {
             ideTabbedPane.setComponent(TABKEY_SETTINGS,
                     new IdePropertiesEditor(up),
                     ideText.getText("IdeApplication.MenuItemSettings"),

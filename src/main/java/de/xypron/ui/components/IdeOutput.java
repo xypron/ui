@@ -1,12 +1,12 @@
 /*
  *  Copyright 2010 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,14 +27,28 @@ import javax.swing.SwingUtilities;
 /**
  * The output panel is used to display System.out and System.err.
  */
+@SuppressWarnings("serial")
 public class IdeOutput extends IdePanel {
+    /**
+     * Preferred width of text area.
+     */
+    private final static int TEXTAREA_WIDTH = 40;
+    /**
+     * Preferred height of text area.
+     */
+    private final static int TEXTAREA_HEIGHT = 5;
 
-    private static final long serialVersionUID = -162949268952377757L;
+    /**
+     * Scroll pane.
+     */
     private JScrollPane jScrollPane = null;
+    /**
+     * Text area.
+     */
     private JTextArea jTextArea = null;
 
     /**
-     * Constructor for panel
+     * Constructor for panel.
      */
     public IdeOutput() {
         super();
@@ -42,21 +56,21 @@ public class IdeOutput extends IdePanel {
     }
 
     /**
-     * Get scroll pane
+     * Get scroll pane.
      * @return scroll pane
      */
     private JScrollPane getJScrollPane() {
         if (jScrollPane == null) {
             jScrollPane = new JScrollPane();
-            getJTextArea().setRows(5);
-            getJTextArea().setColumns(40);
+            getJTextArea().setRows(TEXTAREA_HEIGHT);
+            getJTextArea().setColumns(TEXTAREA_WIDTH);
             jScrollPane.setViewportView(getJTextArea());
         }
         return jScrollPane;
     }
 
     /**
-     * Return text area for trace output
+     * Return text area for trace output.
      * @return text area
      */
     private JTextArea getJTextArea() {
@@ -68,12 +82,13 @@ public class IdeOutput extends IdePanel {
     }
 
     /**
-     * Add a string to the text area
+     * Add a string to the text area.
      * @param text string
      */
     private void append(final String text) {
         SwingUtilities.invokeLater(
                 new Runnable() {
+
                     @Override
                     public void run() {
                         jTextArea.append(text);
@@ -82,7 +97,7 @@ public class IdeOutput extends IdePanel {
     }
 
     /**
-     * Redirect the system streams
+     * Redirect the system streams.
      */
     private void redirectSystemStreams() {
         final PrintStream serr = System.err;
@@ -92,17 +107,18 @@ public class IdeOutput extends IdePanel {
         out = new OutputStream() {
 
             @Override
-            public void write(int b) throws IOException {
+            public void write(final int b) throws IOException {
                 append(String.valueOf((char) b));
             }
 
             @Override
-            public void write(byte[] b, int off, int len) throws IOException {
+            public void write(final byte[] b, final int off, final int len)
+                    throws IOException {
                 append(new String(b, off, len));
             }
 
             @Override
-            public void write(byte[] b) throws IOException {
+            public void write(final byte[] b) throws IOException {
                 write(b, 0, b.length);
             }
         };
@@ -110,19 +126,20 @@ public class IdeOutput extends IdePanel {
         err = new OutputStream() {
 
             @Override
-            public void write(int b) throws IOException {
+            public void write(final int b) throws IOException {
                 out.write(b);
                 serr.write(b);
             }
 
             @Override
-            public void write(byte[] b, int off, int len) throws IOException {
+            public void write(final byte[] b, final int off, final int len)
+                    throws IOException {
                 out.write(b, off, len);
                 serr.write(b, off, len);
             }
 
             @Override
-            public void write(byte[] b) throws IOException {
+            public void write(final byte[] b) throws IOException {
                 out.write(b);
                 serr.write(b, 0, b.length);
             }
