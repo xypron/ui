@@ -32,11 +32,11 @@ public class IdeOutput extends IdePanel {
     /**
      * Preferred width of text area.
      */
-    private final static int TEXTAREA_WIDTH = 40;
+    private static final int TEXTAREA_WIDTH = 40;
     /**
      * Preferred height of text area.
      */
-    private final static int TEXTAREA_HEIGHT = 5;
+    private static final int TEXTAREA_HEIGHT = 5;
 
     /**
      * Scroll pane.

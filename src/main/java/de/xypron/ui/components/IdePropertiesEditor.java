@@ -179,7 +179,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Initialize toolbar.
-     * @return
+     * @return toolbar
      */
     private JToolBar getJToolBar() {
         if (jToolBar == null) {
@@ -223,7 +223,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Initialize undo button.
-     * @return
+     * @return undo button
      */
     private JButton getUndoButton() {
         if (undoButton == null) {
@@ -237,7 +237,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Initialize save button.
-     * @return
+     * @return save button
      */
     private JButton getSaveButton() {
         if (saveButton == null) {
@@ -330,16 +330,22 @@ public class IdePropertiesEditor extends IdePanel {
         /**
          * Properties editor listened to.
          */
-        IdePropertiesEditor editor;
+        private IdePropertiesEditor editor;
         /**
          * Key of the property.
          */
-        String key;
+        private String key;
         /**
          * Text field with the property value.
          */
-        JTextField textField;
+        private JTextField textField;
 
+        /**
+         * Constructor.
+         * @param editor properties editor to listen to
+         * @param key key of property
+         * @param textField text field with the property value
+         */
         public Listener(IdePropertiesEditor editor,
                 String key, JTextField textField) {
             this.editor = editor;

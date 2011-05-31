@@ -294,31 +294,31 @@ public class IdeFilter extends JDialog {
         /**
          * No selection, ignore.
          */
-        private final int SELECTED_NONE = 0;
+        private static final int SELECTED_NONE = 0;
         /**
          * Less than.
          */
-        private final int SELECTED_LT = 1;
+        private static final int SELECTED_LT = 1;
         /**
          * Less or equal.
          */
-        private final int SELECTED_LE = 2;
+        private static final int SELECTED_LE = 2;
         /**
          * Equal.
          */
-        private final int SELECTED_EQ = 3;
+        private static final int SELECTED_EQ = 3;
         /**
          * Greater or equal.
          */
-        private final int SELECTED_GE = 4;
+        private static final int SELECTED_GE = 4;
         /**
          * Greater then.
          */
-        private final int SELECTED_GT = 5;
+        private static final int SELECTED_GT = 5;
         /**
          * Not equal.
          */
-        private final int SELECTED_NE = 6;
+        private static final int SELECTED_NE = 6;
         /**
          * Filter information.
          */
