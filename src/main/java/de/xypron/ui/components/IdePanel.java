@@ -55,7 +55,7 @@ public class IdePanel extends JPanel
      * Create a new panel.
      * @param parentFrame parent frame
      */
-    public IdePanel(Frame parentFrame) {
+    public IdePanel(final Frame parentFrame) {
         super(new BorderLayout());
         this.parentFrame = parentFrame;
         ideText = IdeText.getIdeText();
@@ -65,7 +65,7 @@ public class IdePanel extends JPanel
      * Get parent frame.
      * @return parent frame
      */
-    public Frame getParentFrame() {
+    public final Frame getParentFrame() {
         return parentFrame;
     }
 
@@ -91,7 +91,7 @@ public class IdePanel extends JPanel
      * @param altText alternative text
      * @return button
      */
-    protected JButton makeButton(
+    protected final JButton makeButton(
             final String imageName, final String actionCommand,
             final String toolTipText, final String altText) {
 
@@ -106,6 +106,6 @@ public class IdePanel extends JPanel
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
     }
 }

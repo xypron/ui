@@ -21,36 +21,63 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
- * Buffered access to icon resources
+ * Buffered access to icon resources.
  */
 public class IconBuffer {
 
-    private static IdeText ideText = null;
     private static ClassLoader loader;
     private static TreeMap<String, Icon> classMap = null;
     private static TreeMap<String, Icon> iconMap = null;
 
     /*
-     * Initialize the class
+     * Initializes the class.
      */
     private static void init() {
         if (classMap == null) {
             classMap = new TreeMap<String, Icon>();
             iconMap = new TreeMap<String, Icon>();
-            ideText = IdeText.getIdeText();
             loader = IconBuffer.class.getClassLoader();
         }
     }
 
     /**
-     * Get icon by name
-     * @param iconName
+     * Gets icon by class annotation.
+     * @see de.xypron.util.IconName
+     * @param cls annotated class
      * @return icon
      */
-    public static Icon getIcon(String iconName) {
+    public static Icon getIcon(Class cls) {
+        IconName annotation = null;
+        
+        if (cls == null) {
+            return null;
+        }
+
+        while (annotation == null && !cls.equals(Object.class)) {
+            annotation = (IconName) cls.getAnnotation(IconName.class);
+            cls = cls.getSuperclass();
+        }
+        
+        if (annotation == null) {
+            return null;
+        } else {
+            return getIcon(annotation.value());
+        }
+    }
+    
+    /**
+     * Gets icon by name.
+     * @param iconName path to icon
+     * @return icon icon
+     */
+    public static Icon getIcon(final String iconName) {
         Icon icon = null;
 
         init();
+        
+        if (iconName == null) {
+            return null;
+        }
 
         if (iconMap.containsKey(iconName)) {
             return iconMap.get(iconName);
@@ -59,45 +86,9 @@ public class IconBuffer {
         try {
             icon = new ImageIcon(loader.getResource(iconName));
         } catch (Exception e1) {
+            icon = null;
         }
         iconMap.put(iconName, icon);
-        return icon;
-    }
-
-    /**
-     * Get an icon for the class of an element
-     * @param cls class of an element
-     * @return icon
-      * //TODO use annotation for icon file
-     */
-    public static Icon getIcon(Class<?> cls) {
-        Class<?> clas1 = cls;
-        String className;
-        Icon icon = null;
-        String iconName;
-
-        init();
-
-        className = clas1.getName();
-        if (classMap.containsKey(className)) {
-            return classMap.get(className);
-        }
-
-        do {
-            iconName = ideText.getText("Icon." + className);
-            try {
-                icon = new ImageIcon(loader.getResource(iconName));
-                break;
-            } catch (Exception e1) {
-            }
-            clas1 = clas1.getSuperclass();
-            className = clas1.getName();
-            if (classMap.containsKey(className)) {
-                icon = classMap.get(className);
-                break;
-            }
-        } while (clas1 != Object.class);
-        classMap.put(cls.getName(), icon);
         return icon;
     }
 }

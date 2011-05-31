@@ -17,6 +17,7 @@
 package de.xypron.ui.components;
 
 import de.xypron.ui.model.Storable;
+import de.xypron.util.IconName;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,6 +38,7 @@ import javax.swing.JToolBar;
  * allows to edit it.
  */
 @SuppressWarnings("serial")
+@IconName("de/xypron/ui/components/user.png")
 public class IdePropertiesEditor extends IdePanel {
     /**
      * Delete.

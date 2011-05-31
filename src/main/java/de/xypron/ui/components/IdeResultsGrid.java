@@ -16,6 +16,7 @@
  */
 package de.xypron.ui.components;
 
+import de.xypron.util.IconName;
 import de.xypron.util.AbstractResultTableModel;
 import de.xypron.util.Mhtml;
 import de.xypron.util.MhtmlFileFilter;
@@ -46,11 +47,25 @@ import javax.swing.table.TableRowSorter;
  * @author Heinrich Schuchardt
  */
 @SuppressWarnings("serial")
+@IconName("de/xypron/ui/components/result.png")
 public class IdeResultsGrid extends IdePanel {
+
     /**
-     * Icon name.
+     * Foreground color.
      */
-    private final static String ICONNAME = "de/xypron/ui/components/result.png";
+    private static final Color COLOR_FOREGROUND = new Color(0x000000);
+    /**
+     * Background color for even rows.
+     */
+    private static final Color COLOR_BACKGROUND_EVEN = new Color(0xCCCCFF);
+    /**
+     * Background color for odd rows.
+     */
+    private static final Color COLOR_BACKGROUND_ODD = new Color(0xFFFFFF);
+    /**
+     * Border color for cells with focus.
+     */
+    private static final Color COLOR_FOCUS_BORDER = new Color(0xFFFFFF);
     /**
      * Print action.
      */
@@ -204,18 +219,18 @@ public class IdeResultsGrid extends IdePanel {
                 foreground = jTable.getSelectionForeground();
                 background = jTable.getSelectionBackground();
             } else if (row % 2 == 0) {
-                foreground = new Color(0x00, 0x00, 0x00);
-                background = new Color(0xcc, 0xcc, 0xff);
+                foreground = COLOR_FOREGROUND;
+                background = COLOR_BACKGROUND_EVEN;
             } else {
-                foreground = new Color(0x00, 0x00, 0x00);
-                background = new Color(0xff, 0xff, 0xff);
+                foreground = COLOR_FOREGROUND;
+                background = COLOR_BACKGROUND_ODD;
             }
             if (value instanceof JComponent) {
                 JComponent component = (JComponent) value;
                 component.setForeground(foreground);
                 component.setBackground(background);
                 if (hasFocus) {
-                    component.setBorder(new LineBorder(Color.WHITE, 1));
+                    component.setBorder(new LineBorder(COLOR_FOCUS_BORDER, 1));
                 } else {
                     component.setBorder(noFocusBorder);
                 }

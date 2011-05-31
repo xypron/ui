@@ -435,7 +435,7 @@ public class IdeApplication implements Runnable {
             ideTabbedPane.setComponent(TABKEY_SETTINGS,
                     new IdePropertiesEditor(up),
                     ideText.getText("IdeApplication.MenuItemSettings"),
-                    IconBuffer.getIcon(UserProfile.ICONNAME),
+                    IconBuffer.getIcon(IdePropertiesEditor.class),
                     ideText.getText("IdeApplication.MenuItemSettings"),
                     true);
             ideTabbedPane.validate();

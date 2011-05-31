@@ -22,7 +22,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,7 +30,6 @@ public class UserProfile extends Properties
         implements Storable {
 
     public static String ICONNAME = "de/xypron/ui/user.png";
-    private IdeText ideText;
     private static String fs = System.getProperty("file.separator");
     private static final long serialVersionUID = -6370061152858252868L;
     private String filename;
@@ -51,7 +49,6 @@ public class UserProfile extends Properties
         FileInputStream fis;
         String pkg;
 
-        ideText = IdeText.getIdeText();
         pkg = cls.getName().replace(".", fs);
 
         path = getPath() + fs + pkg;
@@ -78,7 +75,6 @@ public class UserProfile extends Properties
     @Override
     public boolean exists() {
         File file;
-        FileOutputStream fos;
         file = new File(filename);
         return file.exists();
     }
@@ -86,7 +82,6 @@ public class UserProfile extends Properties
     @Override
     public boolean remove() {
         File file;
-        FileOutputStream fos;
         file = new File(filename);
         try {
             file.delete();
