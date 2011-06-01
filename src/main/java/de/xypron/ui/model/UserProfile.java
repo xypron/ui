@@ -16,7 +16,6 @@
  */
 package de.xypron.ui.model;
 
-import de.xypron.util.IdeText;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,13 +28,17 @@ import java.util.Properties;
 public class UserProfile extends Properties
         implements Storable {
 
-    public static String ICONNAME = "de/xypron/ui/user.png";
+    /**
+     * File separator (slash or backslash).
+     */
     private static String fs = System.getProperty("file.separator");
-    private static final long serialVersionUID = -6370061152858252868L;
+    /**
+     * File name.
+     */
     private String filename;
 
     /**
-     * Constructor
+     * Constructor.
      * @param cls class for which the userprofile shall be loaded
      *
      */
@@ -43,6 +46,10 @@ public class UserProfile extends Properties
         init(cls);
     }
 
+    /**
+     * Load user profile from file.
+     * @param cls 
+     */
     private void init(Class<?> cls) {
         String path;
         File file;
@@ -106,6 +113,10 @@ public class UserProfile extends Properties
         return true;
     }
 
+    /**
+     * Gets path to user settings file.
+     * @return path to user settings file.
+     */
     static String getPath() {
         String ret;
 

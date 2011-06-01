@@ -45,14 +45,17 @@ import javax.xml.stream.XMLStreamWriter;
  */
 public class Mhtml {
 
-    int image = 0;
     /**
-     * the worksheets
+     * Counter for images.
+     */
+    private int image = 0;
+    /**
+     * The worksheets.
      */
     private TreeMap<String, Iterable<?>> sheets;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public Mhtml() {
         sheets = new TreeMap<String, Iterable<?>>();
@@ -79,7 +82,7 @@ public class Mhtml {
     }
 
     /**
-     * Get cells of a worksheet
+     * Gets cells of a worksheet.
      * @param title title of the worksheet
      * @return cells of the worksheet
      */
@@ -88,7 +91,7 @@ public class Mhtml {
     }
 
     /**
-     * Write a mhtml file
+     * Writes a mhtml file.
      * @param filename file name
      * @throws IOException
      * @throws MessagingException
@@ -108,7 +111,7 @@ public class Mhtml {
     }
 
     /**
-     * Write a mhtml file
+     * Writes a mhtml file.
      * @param out
      * @throws IOException
      * @throws MessagingException
@@ -144,7 +147,7 @@ public class Mhtml {
     }
 
     /**
-     * Create workbook
+     * Creates workbook.
      * @return workbook in xml format
      * @throws XMLStreamException
      */
@@ -209,7 +212,8 @@ public class Mhtml {
     }
 
     /**
-     * Write worksheet
+     * Writes worksheet.
+     * @param m multi parted message
      * @param values cells of the worksheet
      * @return worksheet as xml
      * @throws XMLStreamException
@@ -273,6 +277,13 @@ public class Mhtml {
         return ret;
     }
 
+    /**
+     * Writes element
+     * @param m multipart message
+     * @param w stream writer
+     * @param obj object
+     * @throws XMLStreamException 
+     */
     private void writeElement(MimeMultipart m, XMLStreamWriter w, Object obj)
             throws XMLStreamException {
 
@@ -304,6 +315,14 @@ public class Mhtml {
         w.writeEndElement(); //td
     }
 
+    /**
+     * Writes image.
+     * @param component component
+     * @param filename file name
+     * @return mime body part
+     * @throws MessagingException error in messaging class
+     * @throws IOException IO error
+     */
     private MimeBodyPart image(JComponent component, String filename)
             throws MessagingException, IOException {
         MimeBodyPart p;
@@ -320,7 +339,7 @@ public class Mhtml {
         if (height == 0) {
             height = 32;
         }
-        component.setSize(new Dimension(width,height));
+        component.setSize(new Dimension(width, height));
         bufferedImage = new BufferedImage(
                 width,
                 height,
@@ -330,7 +349,7 @@ public class Mhtml {
         ImageIO.write(bufferedImage, "png", byteStream);
         byteStream.flush();
         byteBuffer = byteStream.toByteArray();
-        p=new MimeBodyPart(new InternetHeaders(), byteBuffer);
+        p = new MimeBodyPart(new InternetHeaders(), byteBuffer);
         p.addHeader("Content-Location", "file:///Z:/" + filename);
         p.setContent(byteBuffer, "image/jpeg");
         p.addHeader("Content-Type", "image/png");

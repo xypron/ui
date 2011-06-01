@@ -40,5 +40,5 @@ public @interface IconName {
      * Path to icon.
      * @return path to icon
      */
-    public String value();
+    String value();
 }

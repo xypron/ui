@@ -26,13 +26,17 @@ import javax.swing.table.AbstractTableModel;
  * @author Heinrich Schuchardt
  */
 public abstract class AbstractResultTableModel extends AbstractTableModel {
-    protected TreeSet<FilterInfo> filterInfos = new TreeSet<FilterInfo>();
+    
+    /**
+     * Row filters.
+     */
+    private TreeSet<FilterInfo> filterInfos = new TreeSet<FilterInfo>();
 
     /**
      * Get information on column filters
      * @return filter information
      */
-    public TreeSet<FilterInfo> getFilterInfos() {
+    public final TreeSet<FilterInfo> getFilterInfos() {
         return filterInfos;
     }
 
@@ -43,7 +47,7 @@ public abstract class AbstractResultTableModel extends AbstractTableModel {
      *  @return the class
      */
     @Override
-    public Class<?> getColumnClass(int columnIndex) {
+    public final Class<?> getColumnClass(int columnIndex) {
         Object obj;
         try{
         obj = this.getValueAt(0, columnIndex);

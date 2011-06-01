@@ -24,17 +24,27 @@ import javax.swing.ImageIcon;
  * Buffered access to icon resources.
  */
 public class IconBuffer {
-
+    /**
+     * Class loader for class <code>IconBuffer</code>.
+     */
     private static ClassLoader loader;
-    private static TreeMap<String, Icon> classMap = null;
+    /**
+     * Map from icon name to icon.
+     */
     private static TreeMap<String, Icon> iconMap = null;
 
+    /**
+     * Do not use constructor for utility classes.
+     */
+    private IconBuffer() {
+        throw new UnsupportedOperationException();
+    }
+    
     /*
      * Initializes the class.
      */
     private static void init() {
-        if (classMap == null) {
-            classMap = new TreeMap<String, Icon>();
+        if (iconMap == null) {
             iconMap = new TreeMap<String, Icon>();
             loader = IconBuffer.class.getClassLoader();
         }
@@ -46,18 +56,19 @@ public class IconBuffer {
      * @param cls annotated class
      * @return icon
      */
-    public static Icon getIcon(Class cls) {
+    public static Icon getIcon(final Class cls) {
         IconName annotation = null;
-        
-        if (cls == null) {
+        Class clas = cls;
+       
+        if (clas == null) {
             return null;
         }
 
-        while (annotation == null && !cls.equals(Object.class)) {
-            annotation = (IconName) cls.getAnnotation(IconName.class);
-            cls = cls.getSuperclass();
+        while (annotation == null && !clas.equals(Object.class)) {
+            annotation = (IconName) clas.getAnnotation(IconName.class);
+            clas = clas.getSuperclass();
         }
-        
+
         if (annotation == null) {
             return null;
         } else {

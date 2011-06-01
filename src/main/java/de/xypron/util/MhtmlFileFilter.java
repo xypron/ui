@@ -1,12 +1,12 @@
 /*
  *  Copyright 2010 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,21 +21,30 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * File filter for MIME HTML files
+ * File filter for MIME HTML files.
  * @author Heinrich Schuchardt
  */
-public class MhtmlFileFilter
+public final class MhtmlFileFilter
         extends FileFilter {
 
+    /**
+     * String resource helper.
+     */
     private IdeText ic;
+    /**
+     * File filter
+     */
     private static FileFilter fileFilter;
 
+    /**
+     * Constructor for singleton.
+     */
     private MhtmlFileFilter() {
         ic = IdeText.getIdeText();
     }
 
     /**
-     * Get file filter
+     * Gets file filter.
      * @return file filter
      */
     public static FileFilter getFileFilter() {
@@ -46,7 +55,7 @@ public class MhtmlFileFilter
     }
 
     @Override
-    public boolean accept(File f) {
+    public boolean accept(final File f) {
         return f.getName().toLowerCase().endsWith(".mhtml")
                 || f.isDirectory();
     }

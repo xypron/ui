@@ -1,12 +1,12 @@
 /*
  *  Copyright 2010 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
 
 /**
- * Row filter for string values
+ * Row filter for string values.
  * @author Heinrich Schuchardt
  * @param <Model> the type of the model; for example <code>PersonModel</code>
  * @param <Identifier> the type of the identifier; when using
@@ -48,8 +48,8 @@ public class StringFilter<Model, Identifier>
      * @param value value to compare against
      * @param columns indices of the columns to cmpare against
      */
-    public StringFilter(Filter.ComparisonType type,
-            String value, int... columns) {
+    public StringFilter(final Filter.ComparisonType type,
+            final String value, final int... columns) {
         this.type = type;
         this.value = value;
         this.columns = columns;

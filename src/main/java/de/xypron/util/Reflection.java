@@ -19,21 +19,27 @@ package de.xypron.util;
 /**
  * Enhanced reflectivty.
  */
-public class Reflection {
-    
+public final class Reflection {
+
     /**
      * Do not use constructor for utility classes.
      */
     private Reflection() {
         throw new UnsupportedOperationException();
     }
+
     /**
-     * Determine if a class is a subclass of another class
-     * @param cls
-     * @param superClass
+     * Determine if a class is a subclass of another class.
+     * @param cls class
+     * @param superClass super class
      * @return true if cls is a subclass of superClass
      */
-    public static boolean isSubclassOf(Class<?> cls, Class<?> superClass) {
+    public static boolean isSubclassOf(final Class<?> cls,
+            final Class<?> superClass) {
+
+        /**
+         * class under review
+         */
         Class<?> thisClass;
 
         thisClass = cls;
@@ -47,12 +53,13 @@ public class Reflection {
     }
 
     /**
-     * Create number from string
+     * Create number from string.
      * @param cls class of object to create
      * @param value value
      * @return number
      */
-    public static Number fromString(Class<?> cls, String value) {
+    public static Number fromString(final Class<?> cls, 
+            final String value) {
         if (cls == Long.class) {
             return new Long(value);
         } else if (cls == long.class) {

@@ -22,7 +22,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
 /**
- * Object selection used for drag and drop
+ * Object selection used for drag and drop.
  */
 public class ObjectSelection
         implements Transferable {
