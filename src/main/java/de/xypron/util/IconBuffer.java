@@ -40,7 +40,7 @@ public class IconBuffer {
         throw new UnsupportedOperationException();
     }
     
-    /*
+    /**
      * Initializes the class.
      */
     private static void init() {
