@@ -30,15 +30,15 @@ public class StringFilter<Model, Identifier>
         extends RowFilter<Model, Identifier> {
 
     /**
-     * indeces of columns for which the filter condition is checked
+     * Indices of columns for which the filter condition is checked.
      */
     private int[] columns;
     /**
-     * comparison operator
+     * Comparison operator.
      */
     private Filter.ComparisonType type;
     /**
-     * value to compare against
+     * Value to compare against.
      */
     private String value;
 
