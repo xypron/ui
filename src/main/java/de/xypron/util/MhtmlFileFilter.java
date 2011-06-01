@@ -32,7 +32,7 @@ public final class MhtmlFileFilter
      */
     private IdeText ic;
     /**
-     * File filter
+     * File filter.
      */
     private static FileFilter fileFilter;
 
