@@ -70,7 +70,7 @@ public class IdeApplication implements Runnable {
     /**
      * Frame.
      */
-    private static JFrame jFrame = null;
+    protected static JFrame jFrame = null;
     /**
      * Menu bar.
      */

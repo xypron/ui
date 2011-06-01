@@ -1,0 +1,30 @@
+ -----
+ About
+ -----
+ Heinrich Schuchardt
+ <xypron.glpk@gmx.de>
+ -----
+ June 2011
+ -----
+
+About
+
+ Xypron GUI Components is a class library written in Java. It
+ facilitates writing Swing applications.
+
+ 
+* Maven
+
+ For using this library in your Maven project enter the following dependency in
+ your pom.xml:
+
+---
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.artifactId}</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+---
+
