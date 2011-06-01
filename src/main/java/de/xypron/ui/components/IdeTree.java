@@ -66,7 +66,7 @@ public class IdeTree extends JTree
     }
 
     @Override
-    public void dragGestureRecognized(DragGestureEvent dragGestureEvent) {
+    public void dragGestureRecognized(final DragGestureEvent dragGestureEvent) {
         TreePath path = getSelectionPath();
         if (path != null) {
             DefaultMutableTreeNode selection =
