@@ -58,7 +58,7 @@ public final class Reflection {
      * @param value value
      * @return number
      */
-    public static Number fromString(final Class<?> cls, 
+    public static Number fromString(final Class<?> cls,
             final String value) {
         if (cls == Long.class) {
             return new Long(value);
