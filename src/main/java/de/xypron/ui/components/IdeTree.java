@@ -17,7 +17,14 @@
 package de.xypron.ui.components;
 
 import de.xypron.ui.model.ObjectSelection;
-import java.awt.dnd.*;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
@@ -33,7 +40,7 @@ public class IdeTree extends JTree
     /**
      * Drag source listener.
      */
-    final static DragSourceListener dragSourceListener =
+    static final DragSourceListener DRAG_SOURCE_LISTENER =
             new PrivateDragSourceListener();
     /**
      * Drag source.
@@ -42,9 +49,9 @@ public class IdeTree extends JTree
 
     /**
      * Constructor.
-     * @param model
+     * @param model tree model
      */
-    public IdeTree(TreeModel model) {
+    public IdeTree(final TreeModel model) {
         super(model);
         init();
     }
@@ -67,7 +74,7 @@ public class IdeTree extends JTree
             ObjectSelection node =
                     new ObjectSelection(selection.getUserObject());
             dragSource.startDrag(dragGestureEvent, DragSource.DefaultCopyDrop,
-                    node, dragSourceListener);
+                    node, DRAG_SOURCE_LISTENER);
         }
     }
 
@@ -80,23 +87,28 @@ public class IdeTree extends JTree
             implements DragSourceListener {
 
         @Override
-        public void dragDropEnd(DragSourceDropEvent DragSourceDropEvent) {
+        public void dragDropEnd(
+                final DragSourceDropEvent dragSourceDropEvent) {
         }
 
         @Override
-        public void dragEnter(DragSourceDragEvent DragSourceDragEvent) {
+        public void dragEnter(
+                final DragSourceDragEvent dragSourceDragEvent) {
         }
 
         @Override
-        public void dragExit(DragSourceEvent DragSourceEvent) {
+        public void dragExit(
+                final DragSourceEvent dragSourceEvent) {
         }
 
         @Override
-        public void dragOver(DragSourceDragEvent DragSourceDragEvent) {
+        public void dragOver(
+                final DragSourceDragEvent dragSourceDragEvent) {
         }
 
         @Override
-        public void dropActionChanged(DragSourceDragEvent DragSourceDragEvent) {
+        public void dropActionChanged(
+                final DragSourceDragEvent dragSourceDragEvent) {
         }
     }
 }

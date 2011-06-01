@@ -1,12 +1,12 @@
 /*
  *  Copyright 2010 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,8 +50,8 @@ public class IdeTabbedPane extends JTabbedPane
      * @param icon icon of the tab
      * @param tip tooltip of the tab
      */
-    public void setComponent(String key, JComponent component,
-            String title, Icon icon, String tip) {
+    public final void setComponent(final String key, final JComponent component,
+            final String title, final Icon icon, final String tip) {
         setComponent(key, component, title, icon, tip, false);
     }
 
@@ -64,8 +64,9 @@ public class IdeTabbedPane extends JTabbedPane
      * @param tip tooltip of the tab
      * @param closeable exhibit close button
      */
-    public void setComponent(String key, JComponent component,
-            String title, Icon icon, String tip, boolean closeable) {
+    public final void setComponent(final String key, final JComponent component,
+            final String title, final Icon icon, final String tip,
+            final boolean closeable) {
         int index;
         Component cmp;
 
@@ -88,7 +89,7 @@ public class IdeTabbedPane extends JTabbedPane
     }
 
     @Override
-    public void remove(int index) {
+    public final void remove(final int index) {
         String key = null;
         Component component = super.getComponentAt(index);
         for (Entry<String, Component> entry : elements.entrySet()) {

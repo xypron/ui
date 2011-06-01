@@ -34,7 +34,7 @@ import javax.swing.JPasswordField;
  * @author Heinrich Schuchardt
  */
 @SuppressWarnings("serial")
-public class PasswordDialog extends JDialog
+public final class PasswordDialog extends JDialog
         implements ActionListener, KeyListener {
 
     /**
@@ -62,7 +62,14 @@ public class PasswordDialog extends JDialog
      */
     private JButton jButtonOk = null;
 
-    private PasswordDialog(JFrame owner, String title, String label) {
+    /**
+     * Constuctor.
+     * @param owner frame owning the dialog
+     * @param title title of the dialog
+     * @param label label explaining the password domain
+     */
+    private PasswordDialog(final JFrame owner, final String title, 
+            final String label) {
         super(owner, true);
         this.title = title;
         this.label = label;
@@ -144,7 +151,7 @@ public class PasswordDialog extends JDialog
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
 
         if (e.getActionCommand().equals(ACTION_OK)) {
             done();
@@ -152,18 +159,18 @@ public class PasswordDialog extends JDialog
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(final KeyEvent e) {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(final KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             done();
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(final KeyEvent e) {
     }
 
     /**
@@ -180,7 +187,7 @@ public class PasswordDialog extends JDialog
      * @param label label
      * @return password
      */
-    public static String askPassword(String title, String label) {
+    public static String askPassword(final String title, final String label) {
         return askPassword(null, title, label);
     }
 
@@ -191,7 +198,8 @@ public class PasswordDialog extends JDialog
      * @param label label
      * @return password
      */
-    public static String askPassword(JFrame owner, String title, String label) {
+    public static String askPassword(final JFrame owner, final String title, 
+            final String label) {
         PasswordDialog dialog;
 
         dialog = new PasswordDialog(owner, title, label);
