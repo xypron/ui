@@ -20,23 +20,44 @@ import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
 
 /**
- *
+ * Row filter for string values
  * @author Heinrich Schuchardt
+ * @param <Model> the type of the model; for example <code>PersonModel</code>
+ * @param <Identifier> the type of the identifier; when using
+ *            <code>TableRowSorter</code> this will be <code>Integer</code>
  */
-public class StringFilter<M, I> extends RowFilter<M, I> {
+public class StringFilter<Model, Identifier>
+        extends RowFilter<Model, Identifier> {
 
+    /**
+     * indeces of columns for which the filter condition is checked
+     */
     private int[] columns;
-    Filter.ComparisonType type;
-    String value;
+    /**
+     * comparison operator
+     */
+    private Filter.ComparisonType type;
+    /**
+     * value to compare against
+     */
+    private String value;
 
-    public StringFilter(Filter.ComparisonType type, String value, int... columns) {
+    /**
+     * Constructor.
+     * @param type comparison operator
+     * @param value value to compare against
+     * @param columns indices of the columns to cmpare against
+     */
+    public StringFilter(Filter.ComparisonType type,
+            String value, int... columns) {
         this.type = type;
         this.value = value;
         this.columns = columns;
     }
 
     @Override
-    public boolean include(Entry<? extends M, ? extends I> entry) {
+    public boolean include(
+            final Entry<? extends Model, ? extends Identifier> entry) {
 
         for (int i : columns) {
             String o = entry.getStringValue(i);
@@ -72,6 +93,8 @@ public class StringFilter<M, I> extends RowFilter<M, I> {
                         return false;
                     }
                     break;
+                default:
+                    return true;
             }
         }
         return true;
