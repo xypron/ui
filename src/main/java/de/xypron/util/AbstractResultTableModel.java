@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package de.xypron.util;
 
 import java.util.TreeSet;
@@ -26,7 +25,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Heinrich Schuchardt
  */
 public abstract class AbstractResultTableModel extends AbstractTableModel {
-    
+
     /**
      * Row filters.
      */
@@ -49,8 +48,8 @@ public abstract class AbstractResultTableModel extends AbstractTableModel {
     @Override
     public final Class<?> getColumnClass(int columnIndex) {
         Object obj;
-        try{
-        obj = this.getValueAt(0, columnIndex);
+        try {
+            obj = this.getValueAt(0, columnIndex);
         } catch (Exception ex) {
             return Object.class;
         }
