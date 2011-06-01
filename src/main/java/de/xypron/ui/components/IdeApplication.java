@@ -272,15 +272,14 @@ public class IdeApplication implements Runnable {
     }
 
     /**
-     * Gets value from resource bundle.
-     * @param cls class specifying the package
-     * @param str property name in the resoruce bundle
+     * Gets string from resource bundle.
+     * @param str property name in the resource bundle
      * @return string
      */
-    protected final String getText(String str) {
+    protected final String getText(final String str) {
         return IdeText.getText(this.getClass(), str);
     }
-    
+
     /**
      * Initialize application.
      */

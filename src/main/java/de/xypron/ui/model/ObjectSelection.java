@@ -34,21 +34,19 @@ public class ObjectSelection
     /**
      * Meta information about dragable objects.
      */
-    private static final DataFlavor[] FLAVORS = {createConstant(Object.class, "Object"),};
+    private static final DataFlavor[] FLAVORS = {createConstant(Object.class,
+        "Object"),};
 
     /**
-     * Creates transferable capable of transferring the object
-     * @param object
+     * Creates transferable capable of transferring the object.
+     * @param object object
      */
     public ObjectSelection(Object object) {
         this.object = object;
     }
 
-    /* (non-Javadoc)
-     * @see java.awt.datatransfer.Transferable#getTransferData(java.awt.datatransfer.DataFlavor)
-     */
     @Override
-    public Object getTransferData(DataFlavor flavor)
+    public Object getTransferData(final DataFlavor flavor)
             throws UnsupportedFlavorException, IOException {
         int i;
         for (i = 0; i < FLAVORS.length; i++) {
@@ -59,19 +57,13 @@ public class ObjectSelection
         throw new UnsupportedFlavorException(flavor);
     }
 
-    /* (non-Javadoc)
-     * @see java.awt.datatransfer.Transferable#getTransferDataFlavors()
-     */
     @Override
     public DataFlavor[] getTransferDataFlavors() {
         return FLAVORS;
     }
 
-    /* (non-Javadoc)
-     * @see java.awt.datatransfer.Transferable#isDataFlavorSupported(java.awt.datatransfer.DataFlavor)
-     */
     @Override
-    public boolean isDataFlavorSupported(DataFlavor flavor) {
+    public boolean isDataFlavorSupported(final DataFlavor flavor) {
         int i;
         for (i = 0; i < FLAVORS.length; i++) {
             if (flavor.equals(FLAVORS[i])) {
@@ -81,10 +73,14 @@ public class ObjectSelection
         return false;
     }
 
-    /*
-     * private initializer
+     /**
+     * Private initializer for flavor.
+     * @param rc representationclass
+     * @param prn human-readable string
+     * @return 
      */
-    static private DataFlavor createConstant(Class<?> rc, String prn) {
+    static private DataFlavor createConstant(final Class<?> rc,
+            final String prn) {
         try {
             return new DataFlavor(rc, prn);
         } catch (Exception e) {

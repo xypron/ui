@@ -116,7 +116,7 @@ public class IdeTabbedPane extends JTabbedPane
      * Dispose of component.
      * @param component component
      */
-    private void disposeComponent(Component component) {
+    private void disposeComponent(final Component component) {
         IdeDisposable disposable;
 
         if (component instanceof IdeDisposable) {

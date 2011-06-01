@@ -1,12 +1,12 @@
 /*
  *  Copyright 2011 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ import javax.swing.table.AbstractTableModel;
     private TreeSet<FilterInfo> filterInfos = new TreeSet<FilterInfo>();
 
     /**
-     * Get information on column filters
+     * Get information on column filters.
      * @return filter information
      */
     public final TreeSet<FilterInfo> getFilterInfos() {
@@ -46,7 +46,7 @@ import javax.swing.table.AbstractTableModel;
      *  @return the class
      */
     @Override
-    public final Class<?> getColumnClass(int columnIndex) {
+    public final Class<?> getColumnClass(final int columnIndex) {
         Object obj;
         try {
             obj = this.getValueAt(0, columnIndex);

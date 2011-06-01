@@ -24,7 +24,7 @@ package de.xypron.util;
 public interface Filter {
     public enum ComparisonType {
         /**
-         * Filter is not active
+         * Filter is not active.
          */
         IGNORE,
         /**
