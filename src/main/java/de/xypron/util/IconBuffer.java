@@ -17,7 +17,6 @@
 package de.xypron.util;
 
 import java.util.TreeMap;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,7 +30,7 @@ public class IconBuffer {
     /**
      * Map from icon name to icon.
      */
-    private static TreeMap<String, Icon> iconMap = null;
+    private static TreeMap<String, ImageIcon> iconMap = null;
 
     /**
      * Do not use constructor for utility classes.
@@ -45,7 +44,7 @@ public class IconBuffer {
      */
     private static void init() {
         if (iconMap == null) {
-            iconMap = new TreeMap<String, Icon>();
+            iconMap = new TreeMap<String, ImageIcon>();
             loader = IconBuffer.class.getClassLoader();
         }
     }
@@ -56,7 +55,7 @@ public class IconBuffer {
      * @param cls annotated class
      * @return icon
      */
-    public static Icon getIcon(final Class cls) {
+    public static ImageIcon getIcon(final Class cls) {
         IconName annotation = null;
         Class clas = cls;
        
@@ -81,8 +80,8 @@ public class IconBuffer {
      * @param iconName path to icon
      * @return icon icon
      */
-    public static Icon getIcon(final String iconName) {
-        Icon icon = null;
+    public static ImageIcon getIcon(final String iconName) {
+        ImageIcon icon = null;
 
         init();
         

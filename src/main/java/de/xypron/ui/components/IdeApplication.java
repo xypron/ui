@@ -19,6 +19,7 @@ package de.xypron.ui.components;
 import de.xypron.util.IdeText;
 import de.xypron.util.IconBuffer;
 import de.xypron.ui.model.UserProfile;
+import de.xypron.util.IconName;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -43,6 +44,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * Swing application.
  * @author Heinrich Schuchardt
  */
+@IconName("de/xypron/ui/components/icon.png")
 public class IdeApplication implements Runnable {
 
     /**
@@ -60,15 +62,15 @@ public class IdeApplication implements Runnable {
     /**
      * String resource helper.
      */
-    protected IdeText ideText;
+    private IdeText ideText;
     /**
      * Tabbed pane.
      */
-    protected IdeTabbedPane ideTabbedPane = null;
+    private IdeTabbedPane ideTabbedPane = null;
     /**
      * Frame.
      */
-    protected static JFrame jFrame = null;
+    private static JFrame jFrame = null;
     /**
      * Menu bar.
      */
@@ -76,7 +78,7 @@ public class IdeApplication implements Runnable {
     /**
      * File menu.
      */
-    protected JMenu jMenuFile = null;
+    private JMenu jMenuFile = null;
     /**
      * Help menu.
      */
@@ -84,11 +86,11 @@ public class IdeApplication implements Runnable {
     /**
      * Menu item About.
      */
-    protected JMenuItem jMenuItemAbout = null;
+    private JMenuItem jMenuItemAbout = null;
     /**
      * Menu item Exit.
      */
-    protected JMenuItem jMenuItemExit = null;
+    private JMenuItem jMenuItemExit = null;
     /**
      * Menu item Info.
      */
@@ -134,7 +136,7 @@ public class IdeApplication implements Runnable {
      * This method initializes tabbed pane.
      * @return tabbed pane
      */
-    protected IdeTabbedPane getIdeTabbedPane() {
+    protected final IdeTabbedPane getIdeTabbedPane() {
         if (ideTabbedPane == null) {
             ideTabbedPane = new IdeTabbedPane();
         }
@@ -148,7 +150,6 @@ public class IdeApplication implements Runnable {
      */
     protected JFrame getJFrame() {
         ImageIcon image;
-        ClassLoader loader;
         if (jFrame == null) {
             jFrame = new JFrame(ideText.getText("IdeApplication.FrameTitle"));
             jFrame.setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
@@ -156,9 +157,7 @@ public class IdeApplication implements Runnable {
             jFrame.setJMenuBar(getJMenuBar());
             jFrame.setContentPane(getIdeTabbedPane());
             try {
-                loader = this.getClass().getClassLoader();
-                image = new ImageIcon(loader.getResource(
-                        ideText.getText("IdeApplication.FrameIcon")));
+                image = IconBuffer.getIcon(this.getClass());
                 jFrame.setIconImage(image.getImage());
             } catch (Exception e) {
             }
@@ -171,7 +170,7 @@ public class IdeApplication implements Runnable {
      *
      * @return javax.swing.JMenuBar
      */
-    private JMenuBar getJMenuBar() {
+    protected JMenuBar getJMenuBar() {
         if (jMenuBar == null) {
             jMenuBar = new JMenuBar();
             jMenuBar.add(getJMenuFile());
@@ -276,6 +275,16 @@ public class IdeApplication implements Runnable {
         return jFrame;
     }
 
+    /**
+     * Gets value from resource bundle.
+     * @param cls class specifying the package
+     * @param str property name in the resoruce bundle
+     * @return string
+     */
+    protected final String getText(String str) {
+        return ideText.getText(this.getClass(), str);
+    }
+    
     /**
      * Initialize application.
      */
