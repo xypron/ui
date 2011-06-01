@@ -26,6 +26,12 @@ public class SystemInfo {
     private final static long BYTES_PER_MB = 0x100000;
 
     /**
+     * Do not use constructor for utility classes.
+     */
+    private SystemInfo() {
+        throw new UnsupportedOperationException();
+    }    
+    /**
      * Returns a multiline string with information about the Java release.
      * and the available heap space
      * @return information
