@@ -189,8 +189,7 @@ public class IdePropertiesEditor extends IdePanel {
         if (jToolBar == null) {
             // The name is used as the title of the undocked tool bar.
             jToolBar = new JToolBar(
-                    IdeText.getText(this.getClass(),
-                    "IdePropertiesEditor.ToolbarTitle"),
+                    getText("IdePropertiesEditor.ToolbarTitle"),
                     JToolBar.HORIZONTAL);
             addButtons();
         }
@@ -219,8 +218,8 @@ public class IdePropertiesEditor extends IdePanel {
         if (deleteButton == null) {
             deleteButton = makeButton("de/xypron/ui/components/delete.png",
                     ACTIONDELETE,
-                    IdeText.getText(this.getClass(),
-                    "IdePropertiesEditor.ToolTip.Delete"), "Delete");
+                    getText("IdePropertiesEditor.ToolTip.Delete"),
+                    "Delete");
         }
         return deleteButton;
     }
@@ -233,8 +232,7 @@ public class IdePropertiesEditor extends IdePanel {
         if (undoButton == null) {
             undoButton = makeButton("de/xypron/ui/components/undo.png",
                     ACTIONUNDO,
-                    IdeText.getText(this.getClass(),
-                    "IdePropertiesEditor.ToolTip.Undo"), "Undo");
+                    getText("IdePropertiesEditor.ToolTip.Undo"), "Undo");
         }
         return undoButton;
     }
@@ -247,8 +245,7 @@ public class IdePropertiesEditor extends IdePanel {
         if (saveButton == null) {
             saveButton = makeButton("de/xypron/ui/components/save.png",
                     ACTIONSAVE,
-                    IdeText.getText(this.getClass(),
-                    "IdePropertiesEditor.ToolTip.Save"), "Save");
+                    getText("IdePropertiesEditor.ToolTip.Save"), "Save");
         }
         return saveButton;
     }
@@ -277,10 +274,8 @@ public class IdePropertiesEditor extends IdePanel {
             if (obj.exists()) {
                 if (JOptionPane.showConfirmDialog(
                         getParent(),
-                        IdeText.getText(this.getClass(),
-                        "IdePropertiesEditor.DeleteFromStore"),
-                        IdeText.getText(this.getClass(),
-                        "IdePropertiesEditor.Confirmation"),
+                        getText("IdePropertiesEditor.DeleteFromStore"),
+                        getText("IdePropertiesEditor.Confirmation"),
                         JOptionPane.OK_CANCEL_OPTION)
                         != JOptionPane.OK_OPTION) {
                     // User cancelled
@@ -314,10 +309,8 @@ public class IdePropertiesEditor extends IdePanel {
             if (obj.exists()) {
                 if (JOptionPane.showConfirmDialog(
                         getParent(),
-                        IdeText.getText(this.getClass(),
-                        "IdePropertiesEditor.OverwriteInStore"),
-                        IdeText.getText(this.getClass(),
-                        "IdePropertiesEditor.Confirmation"),
+                        getText("IdePropertiesEditor.OverwriteInStore"),
+                        getText("IdePropertiesEditor.Confirmation"),
                         JOptionPane.OK_CANCEL_OPTION)
                         != JOptionPane.OK_OPTION) {
                     // User cancelled

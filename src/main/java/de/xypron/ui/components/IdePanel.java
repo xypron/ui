@@ -63,6 +63,15 @@ public class IdePanel extends JPanel
     public final Frame getParentFrame() {
         return parentFrame;
     }
+    
+    /**
+     * Get string from resource bundle.
+     * @param key property name pointing to string
+     * @return string
+     */
+    protected final String getText(final String key) {
+        return IdeText.getText(this.getClass(), key);
+    }
 
     @Override
     public void dispose() throws Throwable {

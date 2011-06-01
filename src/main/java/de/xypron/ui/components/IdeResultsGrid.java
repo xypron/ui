@@ -116,8 +116,7 @@ public class IdeResultsGrid extends IdePanel {
         if (jToolBar == null) {
             // The name is used as the title of the undocked tool bar.
             jToolBar = new JToolBar(
-                    IdeText.getText(this.getClass(),
-                    "IdeResultsGrid.ToolbarTitle"),
+                    getText("IdeResultsGrid.ToolbarTitle"),
                     JToolBar.HORIZONTAL);
             addButtons();
         }
@@ -140,8 +139,8 @@ public class IdeResultsGrid extends IdePanel {
         if (printButton == null) {
             printButton = makeButton("de/xypron/ui/components/print.png",
                     ACTIONPRINT,
-                    IdeText.getText(this.getClass(), "IdeResultsGrid.Print"),
-                    IdeText.getText(this.getClass(), "IdeResultsGrid.Print"));
+                    getText("IdeResultsGrid.Print"),
+                    getText("IdeResultsGrid.Print"));
         }
         return printButton;
     }
@@ -154,8 +153,8 @@ public class IdeResultsGrid extends IdePanel {
         if (mhtmlButton == null) {
             mhtmlButton = makeButton("de/xypron/ui/components/export.png",
                     ACTIONMHTML,
-                    IdeText.getText(this.getClass(), "IdeResultsGrid.Mhtml"),
-                    IdeText.getText(this.getClass(), "IdeResultsGrid.Mhtml"));
+                    getText("IdeResultsGrid.Mhtml"),
+                    getText("IdeResultsGrid.Mhtml"));
         }
         return mhtmlButton;
     }

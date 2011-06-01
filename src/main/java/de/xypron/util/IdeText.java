@@ -28,7 +28,8 @@ public final class IdeText {
 
     /**
      * Show an error message
-     * @param key
+     * @param cls Class for which the property file is read
+     * @param key String used as key in properties file.
      */
     public static void errorMessage(Class cls, String key) {
         JOptionPane.showMessageDialog(null,
