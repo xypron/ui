@@ -25,17 +25,17 @@ public interface Storable {
      * Check existence in store.
      * @return has been stored before
      */
-    public boolean exists();
+    boolean exists();
 
     /**
      * Remove from store.
      * @return success = true
      */
-    public boolean remove();
+    boolean remove();
 
     /**
      * Move to store.
      * @return success = true
      */
-    public boolean store();
+    boolean store();
 }
