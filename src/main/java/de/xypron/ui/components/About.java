@@ -33,7 +33,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 /**
- * This class displays the about dialog. The text is read from a file.
+ * Displays an about dialog. The text is read from a file.
  */
 @SuppressWarnings("serial")
 public class About extends JDialog
@@ -61,7 +61,7 @@ public class About extends JDialog
     private String urlString = null;
 
     /**
-     * Construcotr.
+     * Constructor.
      * @param owner the <code>Frame</code> from which the dialog is displayed
      */
     public About(final Frame owner) {
