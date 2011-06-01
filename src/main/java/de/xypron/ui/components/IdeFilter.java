@@ -230,7 +230,6 @@ public class IdeFilter extends JDialog {
 
             rowSorter = (TableRowSorter) jTable.getRowSorter();
             rowSorter.setRowFilter(RowFilter.andFilter(filters));
-            System.out.println(jTable.getRowSorter().getClass().getName());
         }
 
     }

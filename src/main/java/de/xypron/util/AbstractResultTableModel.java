@@ -24,7 +24,7 @@ import javax.swing.table.AbstractTableModel;
  * <code>IdeResultGrid</code>.
  * @author Heinrich Schuchardt
  */
-public abstract class AbstractResultTableModel extends AbstractTableModel {
+    public abstract class AbstractResultTableModel extends AbstractTableModel {
 
     /**
      * Row filters.
