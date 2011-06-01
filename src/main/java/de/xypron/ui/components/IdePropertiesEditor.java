@@ -41,6 +41,7 @@ import javax.swing.JToolBar;
 @SuppressWarnings("serial")
 @IconName("de/xypron/ui/components/user.png")
 public class IdePropertiesEditor extends IdePanel {
+
     /**
      * Delete.
      */
@@ -276,8 +277,10 @@ public class IdePropertiesEditor extends IdePanel {
             if (obj.exists()) {
                 if (JOptionPane.showConfirmDialog(
                         getParent(),
-                        IdeText.getText("IdePropertiesEditor.DeleteFromStore"),
-                        IdeText.getText("IdePropertiesEditor.Confirmation"),
+                        IdeText.getText(this.getClass(),
+                        "IdePropertiesEditor.DeleteFromStore"),
+                        IdeText.getText(this.getClass(),
+                        "IdePropertiesEditor.Confirmation"),
                         JOptionPane.OK_CANCEL_OPTION)
                         != JOptionPane.OK_OPTION) {
                     // User cancelled
@@ -311,8 +314,10 @@ public class IdePropertiesEditor extends IdePanel {
             if (obj.exists()) {
                 if (JOptionPane.showConfirmDialog(
                         getParent(),
-                        IdeText.getText("IdePropertiesEditor.OverwriteInStore"),
-                        IdeText.getText("IdePropertiesEditor.Confirmation"),
+                        IdeText.getText(this.getClass(),
+                        "IdePropertiesEditor.OverwriteInStore"),
+                        IdeText.getText(this.getClass(),
+                        "IdePropertiesEditor.Confirmation"),
                         JOptionPane.OK_CANCEL_OPTION)
                         != JOptionPane.OK_OPTION) {
                     // User cancelled
@@ -330,6 +335,7 @@ public class IdePropertiesEditor extends IdePanel {
      * Listener for property changes.
      */
     private static class Listener implements PropertyChangeListener {
+
         /**
          * Properties editor listened to.
          */

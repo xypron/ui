@@ -303,7 +303,7 @@ public class IdeResultsGrid extends IdePanel {
                 if (file.exists()) {
                     // File exists already
                     switch (JOptionPane.showConfirmDialog(
-                            this, IdeText.getText(
+                            this, IdeText.getText(this.getClass(),
                             "IdeResultsGrid.ReplaceExistingFile"))) {
                         case JOptionPane.NO_OPTION:
                             // User does not want to overwrite
@@ -353,7 +353,7 @@ public class IdeResultsGrid extends IdePanel {
         try {
             mhtml.write(file.getCanonicalPath());
         } catch (Throwable ex) {
-            IdeText.errorMessage(ex.getMessage());
+            IdeText.errorMessage(this.getClass(), ex.getMessage());
         }
         IdeApplication.getMainComponent().setCursor(
                 Cursor.getPredefinedCursor(

@@ -23,38 +23,16 @@ import javax.swing.JOptionPane;
  * Helper class to retrieve string resources.
  */
 public final class IdeText {
-
-    private static Class ideClass = null;
     private static HashMap<Class, java.util.ResourceBundle> resources 
             = new HashMap<Class, java.util.ResourceBundle>();
 
     /**
-     * This method intializes the class IdeText. The properties file
-     * location is set to "stings.properties" in the same package
-     * where the passed object <code>obj</code> is located.
-     * The singleton is created.
-     * @param obj Object defining the package where the properties file
-     * "strings.properties" is located
-     * @return instance
-     */
-    public static void setMainClass(Object obj) {
-        IdeText.ideClass = obj.getClass();
-        resources = new HashMap<Class, java.util.ResourceBundle>();
-    }
-
-    private IdeText() {
-        if (resources == null) {
-            resources = new HashMap<Class, java.util.ResourceBundle>();
-        }
-    }
-
-    /**
-     *
+     * Show an error message
      * @param key
      */
-    public static void errorMessage(String key) {
+    public static void errorMessage(Class cls, String key) {
         JOptionPane.showMessageDialog(null,
-                getText(key),
+                getText(cls, key),
                 getText(IdeText.class,
                 "IdeComponent.Error"),
                 JOptionPane.ERROR_MESSAGE);
@@ -73,6 +51,10 @@ public final class IdeText {
     public static String getText(Class cls, String key) {
         java.util.ResourceBundle resource;
         Class clas;
+        
+        if (cls == null) {
+            return key;
+        }
 
         if (!resources.containsKey(cls)) {
             clas = cls;
@@ -99,15 +81,5 @@ public final class IdeText {
             clas = clas.getSuperclass();
         }
         return key;
-    }
-
-    /**
-     * This method returns a language dependent string.
-     *
-     * @param key String used as key in properties file.
-     * @return String
-     */
-    public static String getText(String key) {
-        return getText(ideClass, key);
     }
 }

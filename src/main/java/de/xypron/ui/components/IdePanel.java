@@ -91,7 +91,7 @@ public class IdePanel extends JPanel
             final String toolTipText, final String altText) {
 
         JButton button = new JButton(IconBuffer.getIcon(
-                IdeText.getText(imageName)));
+                IdeText.getText(this.getClass(), imageName)));
         button.setMargin(new Insets(0, 0, 0, 0));
         button.setActionCommand(actionCommand);
         button.setToolTipText(toolTipText);

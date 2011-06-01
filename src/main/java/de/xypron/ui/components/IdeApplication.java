@@ -60,10 +60,6 @@ public class IdeApplication implements Runnable {
      */
     public static final String TABKEY_SETTINGS = "TAB_SETTINGS";
     /**
-     * String resource helper.
-     */
-    private IdeText ideText;
-    /**
      * Tabbed pane.
      */
     private IdeTabbedPane ideTabbedPane = null;
@@ -282,7 +278,7 @@ public class IdeApplication implements Runnable {
      * @return string
      */
     protected final String getText(String str) {
-        return ideText.getText(this.getClass(), str);
+        return IdeText.getText(this.getClass(), str);
     }
     
     /**
@@ -327,7 +323,6 @@ public class IdeApplication implements Runnable {
 
     @Override
     public final void run() {
-        IdeText.setMainClass(this);
         up = new UserProfile(this.getClass());
 
         init();
