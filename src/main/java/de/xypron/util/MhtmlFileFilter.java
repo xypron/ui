@@ -28,10 +28,6 @@ public final class MhtmlFileFilter
         extends FileFilter {
 
     /**
-     * String resource helper.
-     */
-    private IdeText ic;
-    /**
      * File filter.
      */
     private static FileFilter fileFilter;
@@ -40,7 +36,6 @@ public final class MhtmlFileFilter
      * Constructor for singleton.
      */
     private MhtmlFileFilter() {
-        ic = IdeText.getIdeText();
     }
 
     /**
@@ -62,7 +57,7 @@ public final class MhtmlFileFilter
 
     @Override
     public String getDescription() {
-        return ic.getText(MhtmlFileFilter.class,
+        return IdeText.getText(MhtmlFileFilter.class,
                 "MhtmlFileFilter.Mhtml");
     }
 }

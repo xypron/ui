@@ -56,10 +56,6 @@ public class About extends JDialog
      */
     private JTextPane jTextPane = null;
     /**
-     * String resource helper.
-     */
-    private IdeText ideText;
-    /**
      * URL.
      */
     private String urlString = null;
@@ -87,13 +83,12 @@ public class About extends JDialog
      * This method initializes this.
      */
     private void initialize() {
-        ideText = IdeText.getIdeText();
         if (urlString == null) {
-            urlString = ideText.getText(this.getClass(), "About.Url");
+            urlString = IdeText.getText(this.getClass(), "About.Url");
         }
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
-        this.setTitle(ideText.getText(this.getClass(), "About.Title"));
+        this.setTitle(IdeText.getText(this.getClass(), "About.Title"));
         this.setContentPane(getJScrollPane());
         this.setVisible(true);
     }
@@ -150,16 +145,16 @@ public class About extends JDialog
                 desktop.browse(e.getURL().toURI());
             } catch (IOException e1) {
                 JOptionPane.showMessageDialog(this,
-                        ideText.getText(About.class,
+                        IdeText.getText(About.class,
                         "About.UserDefaultBrowserNotFound"),
-                        ideText.getText(this.getClass(),
+                        IdeText.getText(this.getClass(),
                         "About.Error"),
                         JOptionPane.ERROR_MESSAGE);
             } catch (URISyntaxException e1) {
                 JOptionPane.showMessageDialog(this,
-                        ideText.getText(About.class,
+                        IdeText.getText(About.class,
                         "About.InvalidUrl") + ": " + e.getURL(),
-                        ideText.getText(this.getClass(), "About.Error"),
+                        IdeText.getText(this.getClass(), "About.Error"),
                         JOptionPane.ERROR_MESSAGE);
             }
         }

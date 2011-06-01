@@ -38,10 +38,6 @@ public class IdePanel extends JPanel
      * Parent frame.
      */
     private Frame parentFrame = null;
-    /**
-     * Object to read texts from resource.
-     */
-    protected IdeText ideText;
 
     /**
      * Create a new panel.
@@ -58,7 +54,6 @@ public class IdePanel extends JPanel
     public IdePanel(final Frame parentFrame) {
         super(new BorderLayout());
         this.parentFrame = parentFrame;
-        ideText = IdeText.getIdeText();
     }
 
     /**
@@ -96,7 +91,7 @@ public class IdePanel extends JPanel
             final String toolTipText, final String altText) {
 
         JButton button = new JButton(IconBuffer.getIcon(
-                ideText.getText(imageName)));
+                IdeText.getText(imageName)));
         button.setMargin(new Insets(0, 0, 0, 0));
         button.setActionCommand(actionCommand);
         button.setToolTipText(toolTipText);

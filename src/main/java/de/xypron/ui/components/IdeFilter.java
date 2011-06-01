@@ -51,10 +51,6 @@ import javax.swing.table.TableRowSorter;
 public class IdeFilter extends JDialog {
 
     /**
-     * String resource helper.
-     */
-    private IdeText ideText;
-    /**
      * Table.
      */
     private JTable jTable;
@@ -82,8 +78,7 @@ public class IdeFilter extends JDialog {
      * Initialize filter.
      */
     private void initialize() {
-        ideText = IdeText.getIdeText();
-        this.setTitle(ideText.getText(IdeFilter.class, "IdeFilter.Filter"));
+        this.setTitle(IdeText.getText(IdeFilter.class, "IdeFilter.Filter"));
         this.add(getJScrollPane(), BorderLayout.CENTER);
         this.addWindowListener(new MyWindowAdapter());
         pack();

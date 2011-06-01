@@ -18,6 +18,7 @@ package de.xypron.ui.components;
 
 import de.xypron.util.IconName;
 import de.xypron.util.AbstractResultTableModel;
+import de.xypron.util.IdeText;
 import de.xypron.util.Mhtml;
 import de.xypron.util.MhtmlFileFilter;
 import java.awt.BorderLayout;
@@ -115,7 +116,7 @@ public class IdeResultsGrid extends IdePanel {
         if (jToolBar == null) {
             // The name is used as the title of the undocked tool bar.
             jToolBar = new JToolBar(
-                    ideText.getText(this.getClass(),
+                    IdeText.getText(this.getClass(),
                     "IdeResultsGrid.ToolbarTitle"),
                     JToolBar.HORIZONTAL);
             addButtons();
@@ -139,8 +140,8 @@ public class IdeResultsGrid extends IdePanel {
         if (printButton == null) {
             printButton = makeButton("de/xypron/ui/components/print.png",
                     ACTIONPRINT,
-                    ideText.getText(this.getClass(), "IdeResultsGrid.Print"),
-                    ideText.getText(this.getClass(), "IdeResultsGrid.Print"));
+                    IdeText.getText(this.getClass(), "IdeResultsGrid.Print"),
+                    IdeText.getText(this.getClass(), "IdeResultsGrid.Print"));
         }
         return printButton;
     }
@@ -153,8 +154,8 @@ public class IdeResultsGrid extends IdePanel {
         if (mhtmlButton == null) {
             mhtmlButton = makeButton("de/xypron/ui/components/export.png",
                     ACTIONMHTML,
-                    ideText.getText(this.getClass(), "IdeResultsGrid.Mhtml"),
-                    ideText.getText(this.getClass(), "IdeResultsGrid.Mhtml"));
+                    IdeText.getText(this.getClass(), "IdeResultsGrid.Mhtml"),
+                    IdeText.getText(this.getClass(), "IdeResultsGrid.Mhtml"));
         }
         return mhtmlButton;
     }
@@ -302,7 +303,7 @@ public class IdeResultsGrid extends IdePanel {
                 if (file.exists()) {
                     // File exists already
                     switch (JOptionPane.showConfirmDialog(
-                            this, ideText.getText(
+                            this, IdeText.getText(
                             "IdeResultsGrid.ReplaceExistingFile"))) {
                         case JOptionPane.NO_OPTION:
                             // User does not want to overwrite
@@ -352,7 +353,7 @@ public class IdeResultsGrid extends IdePanel {
         try {
             mhtml.write(file.getCanonicalPath());
         } catch (Throwable ex) {
-            ideText.errorMessage(ex.getMessage());
+            IdeText.errorMessage(ex.getMessage());
         }
         IdeApplication.getMainComponent().setCursor(
                 Cursor.getPredefinedCursor(

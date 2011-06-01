@@ -17,18 +17,16 @@
 package de.xypron.util;
 
 import java.util.HashMap;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 /**
  * Helper class to retrieve string resources.
  */
-public class IdeText {
+public final class IdeText {
 
     private static Class ideClass = null;
-    private static IdeText ideText = null;
-    private HashMap<Class, java.util.ResourceBundle> resources = null;
-    private JComponent mainComponent = null;
+    private static HashMap<Class, java.util.ResourceBundle> resources 
+            = new HashMap<Class, java.util.ResourceBundle>();
 
     /**
      * This method intializes the class IdeText. The properties file
@@ -39,30 +37,9 @@ public class IdeText {
      * "strings.properties" is located
      * @return instance
      */
-    public static IdeText getIdeText(Object obj) {
+    public static void setMainClass(Object obj) {
         IdeText.ideClass = obj.getClass();
-        IdeText.ideText = null;
-        return getIdeText();
-    }
-
-    /**
-     * Get the text reader
-     * @return instance
-     */
-    public static IdeText getIdeText() {
-        if (ideText == null) {
-            ideText = new IdeText();
-        }
-        return ideText;
-    }
-
-    /**
-     * Create text reader
-     * @param mainComponent main component for error dialogs
-     */
-    protected IdeText(JComponent mainComponent) {
-        this();
-        this.mainComponent = mainComponent;
+        resources = new HashMap<Class, java.util.ResourceBundle>();
     }
 
     private IdeText() {
@@ -75,8 +52,8 @@ public class IdeText {
      *
      * @param key
      */
-    public void errorMessage(String key) {
-        JOptionPane.showMessageDialog(mainComponent,
+    public static void errorMessage(String key) {
+        JOptionPane.showMessageDialog(null,
                 getText(key),
                 getText(IdeText.class,
                 "IdeComponent.Error"),
@@ -93,7 +70,7 @@ public class IdeText {
      * @param key String used as key in properties file.
      * @return String
      */
-    public String getText(Class cls, String key) {
+    public static String getText(Class cls, String key) {
         java.util.ResourceBundle resource;
         Class clas;
 
@@ -130,7 +107,7 @@ public class IdeText {
      * @param key String used as key in properties file.
      * @return String
      */
-    public String getText(String key) {
+    public static String getText(String key) {
         return getText(ideClass, key);
     }
 }
