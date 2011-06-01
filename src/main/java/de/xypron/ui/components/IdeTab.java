@@ -40,8 +40,8 @@ public class IdeTab extends JPanel implements ActionListener {
 
     /**
      * Constructor for tab component without close button
-     * @param pane
-     * @param index
+     * @param pane tabbed pane to which this tab shall be assigned
+     * @param index position of the new tab
      */
     public IdeTab(final IdeTabbedPane pane, final int index) {
         this(pane, index, false);

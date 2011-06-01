@@ -39,18 +39,18 @@ public class UserProfile extends Properties
 
     /**
      * Constructor.
-     * @param cls class for which the userprofile shall be loaded
+     * @param cls class for which the user profile shall be loaded
      *
      */
-    public UserProfile(Class<?> cls) {
+    public UserProfile(final Class<?> cls) {
         init(cls);
     }
 
     /**
      * Load user profile from file.
-     * @param cls 
+     * @param cls class for which the user profile shall be loaded
      */
-    private void init(Class<?> cls) {
+    private void init(final Class<?> cls) {
         String path;
         File file;
         FileInputStream fis;
@@ -72,7 +72,7 @@ public class UserProfile extends Properties
     }
 
     /**
-     * Get filename of user properties
+     * Gets filename of user properties.
      * @return filename
      */
     public String getFilename() {

@@ -27,8 +27,14 @@ import java.io.IOException;
 public class ObjectSelection
         implements Transferable {
 
+    /**
+     * Dragged object.
+     */
     private Object object;
-    private static final DataFlavor[] flavors = {createConstant(Object.class, "Object"),};
+    /**
+     * Meta information about dragable objects.
+     */
+    private static final DataFlavor[] FLAVORS = {createConstant(Object.class, "Object"),};
 
     /**
      * Creates transferable capable of transferring the object
@@ -45,8 +51,8 @@ public class ObjectSelection
     public Object getTransferData(DataFlavor flavor)
             throws UnsupportedFlavorException, IOException {
         int i;
-        for (i = 0; i < flavors.length; i++) {
-            if (flavor.equals(flavors[i])) {
+        for (i = 0; i < FLAVORS.length; i++) {
+            if (flavor.equals(FLAVORS[i])) {
                 return object;
             }
         }
@@ -58,7 +64,7 @@ public class ObjectSelection
      */
     @Override
     public DataFlavor[] getTransferDataFlavors() {
-        return flavors;
+        return FLAVORS;
     }
 
     /* (non-Javadoc)
@@ -67,8 +73,8 @@ public class ObjectSelection
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
         int i;
-        for (i = 0; i < flavors.length; i++) {
-            if (flavor.equals(flavors[i])) {
+        for (i = 0; i < FLAVORS.length; i++) {
+            if (flavor.equals(FLAVORS[i])) {
                 return true;
             }
         }
