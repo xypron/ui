@@ -40,6 +40,14 @@ public final class IdeText {
     }
 
     /**
+     * Show an error message
+     * @param message message text to display.
+     */
+    public static void errorMessage(String message) {
+        errorMessage(message);
+    }
+    
+    /**
      * This method returns a language dependent string. The name of the
      * resource bundle is obtained by appending ".strings" to the path
      * of the class. If the string is not found for the provided class
