@@ -18,7 +18,6 @@ package de.xypron.ui.components;
 
 import de.xypron.ui.model.Storable;
 import de.xypron.util.IconName;
-import de.xypron.util.IdeText;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
