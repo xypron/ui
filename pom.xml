@@ -48,6 +48,7 @@
     </developers>
     <properties>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+        <netbeans.checkstyle.format>true</netbeans.checkstyle.format>
     </properties>
     <build>
         <plugins>
