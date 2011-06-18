@@ -16,12 +16,11 @@
  */
 package de.xypron.util;
 
-import de.xypron.util.Reflection;
 import java.util.Locale;
 import junit.framework.TestCase;
 
 /**
- *
+ * Test Reflection.
  */
 public class ReflectionTest extends TestCase {
 
@@ -34,7 +33,7 @@ public class ReflectionTest extends TestCase {
     }
 
     /**
-     * Set up test
+     * Set up test.
      * @throws Exception
      */
     @Override
@@ -43,7 +42,7 @@ public class ReflectionTest extends TestCase {
     }
 
     /**
-     * Tear down test
+     * Tear down test.
      * @throws Exception
      */
     @Override
