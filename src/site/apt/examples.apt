@@ -57,6 +57,7 @@ import de.xypron.ui.components.IdePanel;
 import de.xypron.util.IconBuffer;
 import de.xypron.util.IconName;
 
+@IconName("de/xypron/ui/components/icon.png")
 public class Example2 extends IdeApplication {
 
     private static final String TAB_KEY = "TAB";
