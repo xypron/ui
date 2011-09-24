@@ -14,7 +14,7 @@
     </repositories>
     <scm>
         <connection>scm:svn:http://www.xypron.de/svn/ui/</connection>
-        <url>http://www.xypron.de/viewvc/ui/</url>
+        <url>http://www.xypron.de/viewvc/svn/ui/</url>
     </scm>
     <licenses>
         <license>
