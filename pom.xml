@@ -43,7 +43,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2</version>
+                <version>1.2.1</version>
                 <configuration>
                     <mainClass>de.xypron.ui.components.IdeApplication</mainClass>
                 </configuration>
@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
+                <version>2.3.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -149,7 +149,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
                 <!--
                 <configuration>
                     <configLocation>http://www.xypron.de/svn/checkstyle/xypron.xml</configLocation>
