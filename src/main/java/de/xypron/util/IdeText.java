@@ -44,7 +44,7 @@ public final class IdeText {
      * @param message message text to display.
      */
     public static void errorMessage(String message) {
-        errorMessage(message);
+        errorMessage(null, message);
     }
     
     /**
