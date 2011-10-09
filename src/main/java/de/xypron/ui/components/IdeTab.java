@@ -17,6 +17,7 @@
 package de.xypron.ui.components;
 
 import de.xypron.util.IconBuffer;
+import de.xypron.util.IdeText;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -67,6 +68,7 @@ public class IdeTab extends JPanel implements ActionListener {
         setOpaque(false);
         jLabel = (new JLabel(pane.getTitleAt(index), pane.getIconAt(index),
                 JLabel.LEFT));
+        jLabel.setToolTipText(jLabel.getText());
         add(jLabel);
         if (closeable) {
             spacer = new JLabel();
@@ -102,6 +104,7 @@ public class IdeTab extends JPanel implements ActionListener {
                     "de/xypron/ui/components/closeTabRollover.png");
             setRolloverIcon(rollOverIcon);
             setIcon(closeIcon);
+            setToolTipText(IdeText.getText(IdeTab.class, "IdeTab.Close"));
             if (closeIcon != null) {
                 setPreferredSize(new Dimension(
                         closeIcon.getIconWidth(),
