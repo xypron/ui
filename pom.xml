@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.xypron.ui</groupId>
     <artifactId>ui</artifactId>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
     <name>Xypron GUI Components</name>
     <description>
         Xypron GUI Components is a class library written in Java. It
