@@ -16,6 +16,23 @@
         <connection>scm:svn:http://www.xypron.de/svn/ui/</connection>
         <url>http://www.xypron.de/viewvc/svn/ui/</url>
     </scm>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>file-snapshot</id>
+            <name>Local Snapshot Repository</name>
+            <url>file:///home/xypron/rsync/m2repo/snapshotRepository</url>
+        </snapshotRepository>
+        <repository>
+            <id>file-repository</id>
+            <name>Local Repository</name>
+            <url>file:///home/xypron/rsync/m2repo/repository</url>
+        </repository>
+        <site>
+            <id>local-site</id>
+            <name>Local deployed site</name>
+            <url>file:///home/xypron/www/httpdocs/projects/statistics</url>
+        </site>
+    </distributionManagement>
     <licenses>
         <license>
             <name>Apache 2</name>
