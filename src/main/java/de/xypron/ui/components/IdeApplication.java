@@ -19,6 +19,7 @@ package de.xypron.ui.components;
 import de.xypron.util.IdeText;
 import de.xypron.util.IconBuffer;
 import de.xypron.ui.model.UserProfile;
+import de.xypron.util.MenuItemText;
 import de.xypron.util.IconName;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -27,6 +28,11 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -155,7 +161,8 @@ public class IdeApplication implements Runnable {
             try {
                 image = IconBuffer.getIcon(this.getClass());
                 jFrame.setIconImage(image.getImage());
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
             }
         }
         return jFrame;
@@ -183,9 +190,9 @@ public class IdeApplication implements Runnable {
     protected JMenu getJMenuFile() {
         if (jMenuFile == null) {
             jMenuFile = new JMenu(getText("IdeApplication.MenuFile"));
-            jMenuFile.add(getJMenuItemSettings());
+            jMenuFile.add(menuItem(this, "settingsAction"));
             jMenuFile.addSeparator();
-            jMenuFile.add(getJMenuItemExit());
+            jMenuFile.add(menuItem(this, "exitAction"));
         }
         return jMenuFile;
     }
@@ -199,68 +206,10 @@ public class IdeApplication implements Runnable {
         if (jMenuHelp == null) {
             jMenuHelp = new JMenu(getText("IdeApplication.MenuHelp"));
             jMenuHelp.addSeparator();
-            jMenuHelp.add(getJMenuItemInfo());
-            jMenuHelp.add(getJMenuItemAbout());
+            jMenuHelp.add(menuItem(this, "infoAction"));
+            jMenuHelp.add(menuItem(this, "aboutAction"));
         }
         return jMenuHelp;
-    }
-
-    /**
-     * This method initializes menu item About.
-     *
-     * @return javax.swing.JMenuItem
-     */
-    protected JMenuItem getJMenuItemAbout() {
-        if (jMenuItemAbout == null) {
-            jMenuItemAbout = new JMenuItem(getText(
-                    "IdeApplication.MenuItemAbout"));
-            jMenuItemAbout.addActionListener(new AboutAction());
-        }
-        return jMenuItemAbout;
-    }
-
-    /**
-     * This method initializes menu item Exit.
-     *
-     * @return javax.swing.JMenuItem
-     */
-    protected JMenuItem getJMenuItemExit() {
-        if (jMenuItemExit == null) {
-            jMenuItemExit = new JMenuItem(getText(
-                    "IdeApplication.MenuItemExit"));
-            jMenuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
-                    InputEvent.CTRL_MASK));
-            jMenuItemExit.addActionListener(new ExitAction());
-        }
-        return jMenuItemExit;
-    }
-
-    /**
-     * This method initializes menu Item Info.
-     *
-     * @return javax.swing.JMenuItem
-     */
-    protected JMenuItem getJMenuItemInfo() {
-        if (jMenuItemInfo == null) {
-            jMenuItemInfo = new JMenuItem(getText(
-                    "IdeApplication.MenuItemInfo"));
-            jMenuItemInfo.addActionListener(new InfoAction());
-        }
-        return jMenuItemInfo;
-    }
-
-    /**
-     * This method initializes menu item Settings.
-     *
-     * @return javax.swing.JMenuItem
-     */
-    protected JMenuItem getJMenuItemSettings() {
-        if (jMenuItemSettings == null) {
-            jMenuItemSettings = new JMenuItem(getText(
-                    "IdeApplication.MenuItemSettings"));
-            jMenuItemSettings.addActionListener(new SettingsAction());
-        }
-        return jMenuItemSettings;
     }
 
     /**
@@ -278,6 +227,44 @@ public class IdeApplication implements Runnable {
      */
     protected final String getText(final String str) {
         return IdeText.getText(this.getClass(), str);
+    }
+
+    protected final JMenuItem menuItem(Object obj, String methodName) {
+        MenuItemText annotation;
+        Class clas;
+        Method method;
+        JMenuItem ret;
+        String text;
+
+        clas = obj.getClass();
+
+        try {
+            method = clas.getDeclaredMethod(methodName, ActionEvent.class);
+        }
+        catch (NoSuchMethodException ex) {
+            method = null;
+        }
+        catch (SecurityException ex) {
+            method = null;
+        }
+
+        text = methodName;
+        if (method != null) {
+            annotation = method.getAnnotation(MenuItemText.class);
+            if (annotation != null) {
+                text = annotation.value();
+                if (text.length() == 0) {
+                    text = methodName;
+                }
+            }
+        }
+
+        ret = new JMenuItem(IdeText.getText(clas, text));
+        if (method == null) {
+            ret.setEnabled(false);
+        }
+        ret.addActionListener(new MenuAction(obj, method));
+        return ret;
     }
 
     /**
@@ -342,26 +329,18 @@ public class IdeApplication implements Runnable {
                     break;
                 }
             }
-        } catch (UnsupportedLookAndFeelException e) {
-            // handle exception
-        } catch (ClassNotFoundException e) {
-            // handle exception
-        } catch (InstantiationException e) {
-            // handle exception
-        } catch (IllegalAccessException e) {
+        }
+        catch (UnsupportedLookAndFeelException e) {
             // handle exception
         }
-    }
-
-    /**
-     * Listener for menu item "About".
-     */
-    @SuppressWarnings("serial")
-    private class AboutAction extends AbstractAction {
-
-        @Override
-        public void actionPerformed(final ActionEvent arg0) {
-            new About(jFrame, getText("About.Url"));
+        catch (ClassNotFoundException e) {
+            // handle exception
+        }
+        catch (InstantiationException e) {
+            // handle exception
+        }
+        catch (IllegalAccessException e) {
+            // handle exception
         }
     }
 
@@ -400,48 +379,72 @@ public class IdeApplication implements Runnable {
         }
     }
 
-    /**
-     * Listener for menu item "Exit".
-     */
     @SuppressWarnings("serial")
-    private class ExitAction extends AbstractAction {
+    private class MenuAction extends AbstractAction {
+
+        Object obj;
+        Method method;
+
+        public MenuAction(Object obj, Method method) {
+            this.obj = obj;
+            this.method = method;
+        }
 
         @Override
         public void actionPerformed(final ActionEvent arg0) {
-            exit();
+            try {
+                method.invoke(obj, arg0);
+            }
+            catch (IllegalAccessException ex) {
+                return;
+            }
+            catch (IllegalArgumentException ex) {
+                return;
+            }
+            catch (InvocationTargetException ex) {
+                return;
+            }
         }
     }
 
     /**
-     * Listener for menu item "Info".
+     * Method activated by menu item "About".
      */
-    @SuppressWarnings("serial")
-    private class InfoAction extends AbstractAction {
-
-        @Override
-        public void actionPerformed(final ActionEvent arg0) {
-            JOptionPane.showMessageDialog(jFrame,
-                    SystemInfo.info(),
-                    getText("IdeApplication.MenuItemInfo"),
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
+    @MenuItemText("IdeApplication.MenuItemAbout")
+    protected void aboutAction(final ActionEvent arg0) {
+        new About(jFrame, getText("About.Url"));
     }
 
     /**
-     * Listener for menu item "Settings".
+     * Method activated by menu item "Exit".
      */
-    @SuppressWarnings("serial")
-    private class SettingsAction extends AbstractAction {
+    @MenuItemText("IdeApplication.MenuItemExit")
+    protected void exitAction(final ActionEvent arg0) {
+        exit();
+    }
 
-        @Override
-        public void actionPerformed(final ActionEvent arg0) {
-            ideTabbedPane.setComponent(TABKEY_SETTINGS,
-                    new IdePropertiesEditor(up),
-                    getText("IdeApplication.MenuItemSettings"),
-                    IconBuffer.getIcon(IdePropertiesEditor.class),
-                    getText("IdeApplication.MenuItemSettings"),
-                    true);
-            ideTabbedPane.validate();
-        }
+    /**
+     * Method activated by menu item "Info".
+     */
+    @MenuItemText("IdeApplication.MenuItemInfo")
+    protected void infoAction(final ActionEvent arg0) {
+        JOptionPane.showMessageDialog(jFrame,
+                SystemInfo.info(),
+                getText("IdeApplication.MenuItemInfo"),
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Method activated by menu item "Settings".
+     */
+    @MenuItemText("IdeApplication.MenuItemSettings")
+    protected void settingsAction(final ActionEvent arg0) {
+        ideTabbedPane.setComponent(TABKEY_SETTINGS,
+                new IdePropertiesEditor(up),
+                getText("IdeApplication.MenuItemSettings"),
+                IconBuffer.getIcon(IdePropertiesEditor.class),
+                getText("IdeApplication.MenuItemSettings"),
+                true);
+        ideTabbedPane.validate();
     }
 }

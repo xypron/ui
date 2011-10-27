@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Heinrich Schuchardt.
+ * Copyright 2011 Heinrich Schuchardt <xypron.glpk@gmx.de>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,31 +16,22 @@
 package de.xypron.util;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Path to the icon for the annotated class. The icon can be retrieved with
- * <code>IconBuffer.getIcon(Class cls)</code>.<p>
- * Example:
- * <pre>
- * &#64;IconName("de/xypron/ui/components/user.png")
- * public class MyClass {
- * ...
- * }
- * </pre>
- * @see IconBuffer
- * @see javax.swing.Icon
+ * Annotation to define text for menu item.
+ * @author Heinrich Schuchardt <xypron.glpk@gmx.de>
  */
 @Documented
-@Target({java.lang.annotation.ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface IconName {
-
+@Target(value = {ElementType.METHOD})
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface MenuItemText {
     /**
-     * Path to icon.
-     * @return path to icon
+     * Text for menu item.
+     * @return text for menu item
      */
-    String value();
+    String value() default "";
 }
