@@ -24,15 +24,10 @@ import de.xypron.util.IconName;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -40,7 +35,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -48,6 +42,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Swing application.
+ *
  * @author Heinrich Schuchardt
  */
 @IconName("de/xypron/ui/components/icon.png")
@@ -112,6 +107,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * Constructor.
+     *
      * @param args command line parameters
      */
     public IdeApplication(final String[] args) {
@@ -136,6 +132,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * This method initializes tabbed pane.
+     *
      * @return tabbed pane
      */
     protected final IdeTabbedPane getIdeTabbedPane() {
@@ -214,6 +211,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * Get main component.
+     *
      * @return main component
      */
     public static Component getMainComponent() {
@@ -222,6 +220,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * Gets string from resource bundle.
+     *
      * @param str property name in the resource bundle
      * @return string
      */
@@ -232,24 +231,27 @@ public class IdeApplication implements Runnable {
     protected final JMenuItem menuItem(Object obj, String methodName) {
         MenuItemText annotation;
         Class clas;
-        Method method;
+        Method method = null;
         JMenuItem ret;
         String text;
 
         clas = obj.getClass();
 
-        try {
-            method = clas.getDeclaredMethod(methodName, ActionEvent.class);
+        while (clas != Object.class) {
+            try {
+                method = clas.getDeclaredMethod(methodName, ActionEvent.class);
+            }
+            catch (NoSuchMethodException ex) {
+                clas = clas.getSuperclass();
+                continue;
+            }
+            catch (SecurityException ex) {
+            }
+            break;
         }
-        catch (NoSuchMethodException ex) {
-            method = null;
-        }
-        catch (SecurityException ex) {
-            method = null;
-        }
-
         text = methodName;
-        if (method != null) {
+        if (method
+                != null) {
             annotation = method.getAnnotation(MenuItemText.class);
             if (annotation != null) {
                 text = annotation.value();
@@ -258,12 +260,14 @@ public class IdeApplication implements Runnable {
                 }
             }
         }
-
         ret = new JMenuItem(IdeText.getText(clas, text));
-        if (method == null) {
+        if (method
+                == null) {
             ret.setEnabled(false);
         }
-        ret.addActionListener(new MenuAction(obj, method));
+
+        ret.addActionListener(
+                new MenuAction(obj, method));
         return ret;
     }
 
@@ -284,6 +288,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * Parse command line.
+     *
      * @param args arguments passed to constructor
      */
     protected void parseCommandLine(final String[] args) {
@@ -327,6 +332,8 @@ public class IdeApplication implements Runnable {
                 if (lookAndFeel.equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
                     break;
+
+
                 }
             }
         }
@@ -396,13 +403,10 @@ public class IdeApplication implements Runnable {
                 method.invoke(obj, arg0);
             }
             catch (IllegalAccessException ex) {
-                return;
             }
             catch (IllegalArgumentException ex) {
-                return;
             }
             catch (InvocationTargetException ex) {
-                return;
             }
         }
     }
@@ -440,7 +444,7 @@ public class IdeApplication implements Runnable {
     @MenuItemText("IdeApplication.MenuItemSettings")
     protected void settingsAction(final ActionEvent arg0) {
         ideTabbedPane.setComponent(TABKEY_SETTINGS,
-                new IdePropertiesEditor(up),
+                new IdePropertiesEditor(up, this),
                 getText("IdeApplication.MenuItemSettings"),
                 IconBuffer.getIcon(IdePropertiesEditor.class),
                 getText("IdeApplication.MenuItemSettings"),

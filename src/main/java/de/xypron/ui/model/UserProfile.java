@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- *
+ * User profile. It is stored as a properties file.
  */
 public class UserProfile extends Properties
         implements Storable {

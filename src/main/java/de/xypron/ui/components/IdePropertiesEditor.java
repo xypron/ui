@@ -18,6 +18,7 @@ package de.xypron.ui.components;
 
 import de.xypron.ui.model.Storable;
 import de.xypron.util.IconName;
+import de.xypron.util.IdeText;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -85,14 +86,30 @@ public class IdePropertiesEditor extends IdePanel {
      * Editor panel.
      */
     private IdePanel editorPanel;
+    /**
+     * Owner
+     */
+    private Object owner = null;
+    private Class ownerClass = null;
 
     /**
      * Constructor.
      * @param properties properties
+     * @deprecated
      */
-    public IdePropertiesEditor(Properties properties) {
+    public IdePropertiesEditor(Properties properties) {  
+        this(properties, null);
+    }
+    
+    /**
+     * Constructor.
+     * @param properties properties
+     * @param owner object from which IdeText takes texts
+     */
+    public IdePropertiesEditor(Properties properties, Object owner) {
         super();
         this.properties = properties;
+        setOwner(owner);
         backup();
         this.add(getJToolBar(), BorderLayout.PAGE_START);
         this.add(getJScrollPane(), BorderLayout.CENTER);
@@ -168,7 +185,7 @@ public class IdePropertiesEditor extends IdePanel {
             constraint.gridx = 0;
             constraint.anchor = GridBagConstraints.WEST;
 
-            editorPanel.add(new JLabel(keyText), constraint);
+            editorPanel.add(new JLabel(IdeText.getText(ownerClass, keyText)), constraint);
             constraint.gridx++;
             constraint.anchor = GridBagConstraints.WEST;
             textField = new JTextField(valText, 40);
@@ -234,6 +251,25 @@ public class IdePropertiesEditor extends IdePanel {
                     getText("IdePropertiesEditor.ToolTip.Undo"), "Undo");
         }
         return undoButton;
+    }
+
+    /**
+     * Gets owner
+     * @return owner
+     */
+    public Object getOwner() {
+        return owner;
+    }
+
+    /**
+     * Sets owner
+     * @param owner owner 
+     */
+    private void setOwner(Object owner) {
+        this.owner = owner;
+        if (this.owner != null) {
+            ownerClass = owner.getClass();
+        }
     }
 
     /**

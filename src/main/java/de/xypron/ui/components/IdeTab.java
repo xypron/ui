@@ -22,6 +22,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -32,7 +34,7 @@ import javax.swing.JPanel;
  * Tab component with close button.
  */
 @SuppressWarnings("serial")
-public class IdeTab extends JPanel implements ActionListener {
+public class IdeTab extends JPanel implements ActionListener, MouseListener {
 
     /**
      * Tabbed pane this tab belongs to.
@@ -41,6 +43,7 @@ public class IdeTab extends JPanel implements ActionListener {
 
     /**
      * Constructor for tab component without close button.
+     *
      * @param pane tabbed pane to which this tab shall be assigned
      * @param index position of the new tab
      */
@@ -50,26 +53,32 @@ public class IdeTab extends JPanel implements ActionListener {
 
     /**
      * Constructor for tab component with close button.
+     *
      * @param pane tabbed pane
      * @param index tab index
      * @param closeable exhibit close button
      */
     public IdeTab(final IdeTabbedPane pane, final int index,
             final boolean closeable) {
+        this.pane = pane;
+        init(index, closeable);
+    }
+    
+    private void init(int index, boolean closeable) {
         JButton buttonClose;
         JLabel jLabel;
         JLabel spacer;
         FlowLayout layout;
-
-        this.pane = pane;
+        
         layout = new FlowLayout(FlowLayout.LEFT, 0, 0);
         this.setBorder(BorderFactory.createEmptyBorder());
         setLayout(layout);
         setOpaque(false);
-        jLabel = (new JLabel(pane.getTitleAt(index), pane.getIconAt(index),
-                JLabel.LEFT));
+        jLabel = ( new JLabel(pane.getTitleAt(index), pane.getIconAt(index),
+                JLabel.LEFT) );
         jLabel.setToolTipText(jLabel.getText());
         add(jLabel);
+        jLabel.addMouseListener(this);
         if (closeable) {
             spacer = new JLabel();
             spacer.setPreferredSize(new Dimension(4, 4));
@@ -87,6 +96,28 @@ public class IdeTab extends JPanel implements ActionListener {
         if (i != -1) {
             pane.remove(i);
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int i = pane.indexOfTabComponent(this);
+        pane.setSelectedIndex(i);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 
     /**
@@ -119,4 +150,3 @@ public class IdeTab extends JPanel implements ActionListener {
         }
     }
 }
-
