@@ -26,9 +26,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -187,9 +185,9 @@ public class IdeApplication implements Runnable {
     protected JMenu getJMenuFile() {
         if (jMenuFile == null) {
             jMenuFile = new JMenu(getText("IdeApplication.MenuFile"));
-            jMenuFile.add(menuItem(this, "settingsAction"));
+            jMenuFile.add(new MenuItem(this, "settingsAction"));
             jMenuFile.addSeparator();
-            jMenuFile.add(menuItem(this, "exitAction"));
+            jMenuFile.add(new MenuItem(this, "exitAction"));
         }
         return jMenuFile;
     }
@@ -203,8 +201,8 @@ public class IdeApplication implements Runnable {
         if (jMenuHelp == null) {
             jMenuHelp = new JMenu(getText("IdeApplication.MenuHelp"));
             jMenuHelp.addSeparator();
-            jMenuHelp.add(menuItem(this, "infoAction"));
-            jMenuHelp.add(menuItem(this, "aboutAction"));
+            jMenuHelp.add(new MenuItem(this, "infoAction"));
+            jMenuHelp.add(new MenuItem(this, "aboutAction"));
         }
         return jMenuHelp;
     }
@@ -226,49 +224,6 @@ public class IdeApplication implements Runnable {
      */
     protected final String getText(final String str) {
         return IdeText.getText(this.getClass(), str);
-    }
-
-    protected final JMenuItem menuItem(Object obj, String methodName) {
-        MenuItemText annotation;
-        Class clas;
-        Method method = null;
-        JMenuItem ret;
-        String text;
-
-        clas = obj.getClass();
-
-        while (clas != Object.class) {
-            try {
-                method = clas.getDeclaredMethod(methodName, ActionEvent.class);
-            }
-            catch (NoSuchMethodException ex) {
-                clas = clas.getSuperclass();
-                continue;
-            }
-            catch (SecurityException ex) {
-            }
-            break;
-        }
-        text = methodName;
-        if (method
-                != null) {
-            annotation = method.getAnnotation(MenuItemText.class);
-            if (annotation != null) {
-                text = annotation.value();
-                if (text.length() == 0) {
-                    text = methodName;
-                }
-            }
-        }
-        ret = new JMenuItem(IdeText.getText(clas, text));
-        if (method
-                == null) {
-            ret.setEnabled(false);
-        }
-
-        ret.addActionListener(
-                new MenuAction(obj, method));
-        return ret;
     }
 
     /**
@@ -383,31 +338,6 @@ public class IdeApplication implements Runnable {
 
         @Override
         public void windowOpened(final WindowEvent e) {
-        }
-    }
-
-    @SuppressWarnings("serial")
-    private class MenuAction extends AbstractAction {
-
-        Object obj;
-        Method method;
-
-        public MenuAction(Object obj, Method method) {
-            this.obj = obj;
-            this.method = method;
-        }
-
-        @Override
-        public void actionPerformed(final ActionEvent arg0) {
-            try {
-                method.invoke(obj, arg0);
-            }
-            catch (IllegalAccessException ex) {
-            }
-            catch (IllegalArgumentException ex) {
-            }
-            catch (InvocationTargetException ex) {
-            }
         }
     }
 
