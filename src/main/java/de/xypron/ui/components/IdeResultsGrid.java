@@ -43,8 +43,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
 /**
- * The result grids displays a <code>JTable</code> object and
- * allows to filter, export, and print it.
+ * The result grids displays a
+ * <code>JTable</code> object and allows to filter, export, and print it.
+ *
  * @author Heinrich Schuchardt
  */
 @SuppressWarnings("serial")
@@ -102,6 +103,16 @@ public class IdeResultsGrid extends IdePanel {
 
     /**
      * Constructor for result grid.
+     *
+     * @param frame main frame
+     */
+    public IdeResultsGrid(Frame frame) {
+        this(frame, null);
+    }
+
+    /**
+     * Constructor for result grid.
+     *
      * @param frame main frame
      * @param tableModel table model
      */
@@ -124,7 +135,7 @@ public class IdeResultsGrid extends IdePanel {
     }
 
     /**
-     *  Define buttons for toolbar
+     * Define buttons for toolbar
      */
     private void addButtons() {
         jToolBar.add(getPrintButton());
@@ -133,6 +144,7 @@ public class IdeResultsGrid extends IdePanel {
 
     /**
      * Get print button
+     *
      * @return print button
      */
     private JButton getPrintButton() {
@@ -147,6 +159,7 @@ public class IdeResultsGrid extends IdePanel {
 
     /**
      * Get mhtml button
+     *
      * @return mhtml button
      */
     private JButton getMhtmlButton() {
@@ -168,13 +181,15 @@ public class IdeResultsGrid extends IdePanel {
     }
 
     /**
-     * Get jtable
-     * TODO implement custom column header renderer (multi line, filter icon)
-     * @return jtable
+     * Gets JTable.
+     *
+     * @TODO implement custom column header renderer (multi line, filter icon)
+     *
+     * @return JTable
      */
     private JTable getJTable() {
-        MouseListener popupListener = new PopupListener();
         if (jTable == null) {
+            MouseListener popupListener = new PopupListener();
             jTable = new JTable(tableModel);
             jTable.setRowSorter(new TableRowSorter(tableModel));
             jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -182,11 +197,27 @@ public class IdeResultsGrid extends IdePanel {
                     new CustomTableCellRenderer());
             jTable.setRowHeight(Math.max(jTable.getRowHeight(), 50));
             jTable.getTableHeader().addMouseListener(popupListener);
-
-            jTable.getTableHeader();
-
         }
         return jTable;
+    }
+
+    /**
+     * Gets table model.
+     *
+     * @return table model
+     */
+    public AbstractResultTableModel getTableModel() {
+        return tableModel;
+    }
+
+    /**
+     * Sets table model.
+     *
+     * @param tableModel table model
+     */
+    public void setTableModel(final AbstractResultTableModel tableModel) {
+        this.tableModel = tableModel;
+        getJTable().setModel(tableModel);
     }
 
     @Override
@@ -196,7 +227,8 @@ public class IdeResultsGrid extends IdePanel {
         if (actionCommand.equals(ACTIONPRINT)) {
             try {
                 jTable.print();
-            } catch (PrinterException ex) {
+            }
+            catch (PrinterException ex) {
             }
         } else if (actionCommand.equals(ACTIONMHTML)) {
             saveAsMhtml();
@@ -351,7 +383,8 @@ public class IdeResultsGrid extends IdePanel {
         mhtml.addSheet("Table 1", lines);
         try {
             mhtml.write(file.getCanonicalPath());
-        } catch (Throwable ex) {
+        }
+        catch (Throwable ex) {
             IdeText.errorMessage(this.getClass(), ex.getMessage());
         }
         IdeApplication.getMainComponent().setCursor(
