@@ -77,6 +77,15 @@ public final class PasswordDialog extends JDialog
         this.title = title;
         this.label = label;
 
+        if (this.title == null) {
+            this.title = IdeText.getText(PasswordDialog.class,
+                    "PasswordDialog.Title");
+        }
+        if (this.label == null) {
+            this.label = IdeText.getText(PasswordDialog.class,
+                    "PasswordDialog.Prompt");
+        }
+
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         init();
@@ -185,11 +194,7 @@ public final class PasswordDialog extends JDialog
      * @return password
      */
     public static String askPassword() {
-        return askPassword(null,
-                IdeText.getText(PasswordDialog.class, 
-                        "PasswordDialog.Title"),
-                IdeText.getText(PasswordDialog.class,
-                        "PasswordDialog.Prompt"));
+        return askPassword(null, null, null);
     }
 
     /**
