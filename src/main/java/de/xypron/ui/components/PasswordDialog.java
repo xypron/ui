@@ -16,6 +16,7 @@
  */
 package de.xypron.ui.components;
 
+import de.xypron.util.IdeText;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -31,6 +32,7 @@ import javax.swing.JPasswordField;
 
 /**
  * Password dialog.
+ *
  * @author Heinrich Schuchardt
  */
 @SuppressWarnings("serial")
@@ -64,11 +66,12 @@ public final class PasswordDialog extends JDialog
 
     /**
      * Constuctor.
+     *
      * @param owner frame owning the dialog
      * @param title title of the dialog
      * @param label label explaining the password domain
      */
-    private PasswordDialog(final JFrame owner, final String title, 
+    private PasswordDialog(final JFrame owner, final String title,
             final String label) {
         super(owner, true);
         this.title = title;
@@ -108,6 +111,7 @@ public final class PasswordDialog extends JDialog
 
     /**
      * Initialize password field.
+     *
      * @return password field
      */
     private JPasswordField getJPasswordField() {
@@ -121,6 +125,7 @@ public final class PasswordDialog extends JDialog
 
     /**
      * Get the ok button.
+     *
      * @return ok button
      */
     private JButton getOkButton() {
@@ -144,6 +149,7 @@ public final class PasswordDialog extends JDialog
 
     /**
      * Get password.
+     *
      * @return password.
      */
     private String getPassword() {
@@ -175,14 +181,20 @@ public final class PasswordDialog extends JDialog
 
     /**
      * Show a password dialog.
+     *
      * @return password
      */
     public static String askPassword() {
-        return askPassword(null, "Password", "Enter password");
+        return askPassword(null,
+                IdeText.getText(PasswordDialog.class, 
+                        "PasswordDialog.Title"),
+                IdeText.getText(PasswordDialog.class,
+                        "PasswordDialog.Prompt"));
     }
 
     /**
      * Show a password dialog.
+     *
      * @param title title
      * @param label label
      * @return password
@@ -193,12 +205,13 @@ public final class PasswordDialog extends JDialog
 
     /**
      * Show a password dialog.
+     *
      * @param owner owner frame
      * @param title title
      * @param label label
      * @return password
      */
-    public static String askPassword(final JFrame owner, final String title, 
+    public static String askPassword(final JFrame owner, final String title,
             final String label) {
         PasswordDialog dialog;
 
