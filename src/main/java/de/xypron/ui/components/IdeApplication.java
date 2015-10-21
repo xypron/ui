@@ -247,8 +247,8 @@ public class IdeApplication implements Runnable {
      */
     protected void parseCommandLine(final String[] args) {
         String parameter = "";
-        final String commandLineHelp =
-                "The following command line options are available:\n"
+        final String commandLineHelp
+                = "The following command line options are available:\n"
                 + "-help  show this help\n"
                 + "-lf n  set look and feel, default " + lookAndFeel + "\n";
 
@@ -286,7 +286,6 @@ public class IdeApplication implements Runnable {
                 if (lookAndFeel.equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
                     break;
-
 
                 }
             }
@@ -342,6 +341,8 @@ public class IdeApplication implements Runnable {
 
     /**
      * Method activated by menu item "About".
+     * 
+     * @param arg0 event
      */
     @MenuItemText("IdeApplication.MenuItemAbout")
     protected void aboutAction(final ActionEvent arg0) {
@@ -350,6 +351,8 @@ public class IdeApplication implements Runnable {
 
     /**
      * Method activated by menu item "Exit".
+     * 
+     * @param arg0 event
      */
     @MenuItemText("IdeApplication.MenuItemExit")
     protected void exitAction(final ActionEvent arg0) {
@@ -358,6 +361,8 @@ public class IdeApplication implements Runnable {
 
     /**
      * Method activated by menu item "Info".
+     * 
+     * @param arg0 event
      */
     @MenuItemText("IdeApplication.MenuItemInfo")
     protected void infoAction(final ActionEvent arg0) {
@@ -369,6 +374,8 @@ public class IdeApplication implements Runnable {
 
     /**
      * Method activated by menu item "Settings".
+     * 
+     * @param arg0 event
      */
     @MenuItemText("IdeApplication.MenuItemSettings")
     protected void settingsAction(final ActionEvent arg0) {
