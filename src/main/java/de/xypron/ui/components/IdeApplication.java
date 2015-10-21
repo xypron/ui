@@ -23,6 +23,7 @@ import de.xypron.util.MenuItemText;
 import de.xypron.util.IconName;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -97,6 +98,10 @@ public class IdeApplication implements Runnable {
      * Look and feel.
      */
     protected String lookAndFeel = "Nimbus";
+    /**
+     * Font size.
+     */
+    protected int fontSize = -1;
     /**
      * User profile.
      */
@@ -250,7 +255,8 @@ public class IdeApplication implements Runnable {
         final String commandLineHelp
                 = "The following command line options are available:\n"
                 + "-help  show this help\n"
-                + "-lf n  set look and feel, default " + lookAndFeel + "\n";
+                + "-lf n  set look and feel, default " + lookAndFeel + "\n"
+                + "-fs n  set font size\n";
 
         for (String arg : args) {
             if (arg.startsWith("--")) {
@@ -259,6 +265,8 @@ public class IdeApplication implements Runnable {
                 parameter = arg.substring(1).toLowerCase();
             } else if (parameter.equals("lf")) {
                 lookAndFeel = arg;
+            } else if (parameter.equals("fs")) {
+                fontSize = new Integer(arg);
             } else {
                 System.out.println(commandLineHelp);
                 System.exit(1);
@@ -278,6 +286,23 @@ public class IdeApplication implements Runnable {
     }
 
     /**
+     * Sets font used for UI elements.
+     *
+     * @param f font resource
+     */
+    private void setUIFont(javax.swing.plaf.FontUIResource f) {
+        java.util.Enumeration keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value != null
+                    && value instanceof javax.swing.plaf.FontUIResource) {
+                UIManager.put(key, f);
+            }
+        }
+    }
+
+    /**
      * Set look and feel.
      */
     protected void setLookAndFeel() {
@@ -285,8 +310,17 @@ public class IdeApplication implements Runnable {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if (lookAndFeel.equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
+                    if (fontSize > 0) {
+                        if (lookAndFeel.equals("Nimbus")) {
+                            UIManager.getLookAndFeel().getDefaults().put(
+                                    "defaultFont", new Font(Font.SANS_SERIF,
+                                            Font.PLAIN, fontSize));
+                        } else {
+                            setUIFont(new javax.swing.plaf.FontUIResource(
+                                    Font.SANS_SERIF, Font.PLAIN, fontSize));
+                        }
+                    }
                     break;
-
                 }
             }
         }
@@ -341,7 +375,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * Method activated by menu item "About".
-     * 
+     *
      * @param arg0 event
      */
     @MenuItemText("IdeApplication.MenuItemAbout")
@@ -351,7 +385,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * Method activated by menu item "Exit".
-     * 
+     *
      * @param arg0 event
      */
     @MenuItemText("IdeApplication.MenuItemExit")
@@ -361,7 +395,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * Method activated by menu item "Info".
-     * 
+     *
      * @param arg0 event
      */
     @MenuItemText("IdeApplication.MenuItemInfo")
@@ -374,7 +408,7 @@ public class IdeApplication implements Runnable {
 
     /**
      * Method activated by menu item "Settings".
-     * 
+     *
      * @param arg0 event
      */
     @MenuItemText("IdeApplication.MenuItemSettings")
