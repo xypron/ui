@@ -123,7 +123,7 @@ public class IdeResultsGrid extends IdePanel {
         this.add(getJScrollPane(), BorderLayout.CENTER);
     }
 
-    private JToolBar getJToolBar() {
+    protected JToolBar getJToolBar() {
         if (jToolBar == null) {
             // The name is used as the title of the undocked tool bar.
             jToolBar = new JToolBar(
