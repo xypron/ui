@@ -47,6 +47,10 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class IdeApplication implements Runnable {
 
     /**
+     * Nimbus look and feel.
+     */
+    private static final String LAF_NIMBUS = "Nimbus";
+    /**
      * Height of the frame.
      */
     private static final int FRAME_HEIGHT = 2048;
@@ -97,7 +101,7 @@ public class IdeApplication implements Runnable {
     /**
      * Look and feel.
      */
-    protected String lookAndFeel = "Nimbus";
+    protected String lookAndFeel = LAF_NIMBUS;
     /**
      * Font size.
      */
@@ -290,14 +294,24 @@ public class IdeApplication implements Runnable {
      *
      * @param f font resource
      */
-    private void setUIFont(javax.swing.plaf.FontUIResource f) {
-        java.util.Enumeration keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            if (value != null
-                    && value instanceof javax.swing.plaf.FontUIResource) {
-                UIManager.put(key, f);
+    private void setUIFont() {
+        if (lookAndFeel.equals(LAF_NIMBUS)) {
+            UIManager.getLookAndFeel().getDefaults().put(
+                    "defaultFont", new Font(Font.SANS_SERIF,
+                            Font.PLAIN, fontSize));
+        } else {
+            javax.swing.plaf.FontUIResource f
+                    = new javax.swing.plaf.FontUIResource(
+                            Font.SANS_SERIF, Font.PLAIN, fontSize);
+            java.util.Enumeration keys = UIManager.getDefaults().keys();
+            while (keys.hasMoreElements()) {
+                Object key = keys.nextElement();
+                Object value = UIManager.get(key);
+                if (value != null) {
+                    if (value instanceof javax.swing.plaf.FontUIResource) {
+                        UIManager.put(key, f);
+                    }
+                }
             }
         }
     }
@@ -306,19 +320,14 @@ public class IdeApplication implements Runnable {
      * Set look and feel.
      */
     protected void setLookAndFeel() {
+        // enable anti-aliasing
+        System.setProperty("swing.aatext", "true");
         try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if (lookAndFeel.equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
                     if (fontSize > 0) {
-                        if (lookAndFeel.equals("Nimbus")) {
-                            UIManager.getLookAndFeel().getDefaults().put(
-                                    "defaultFont", new Font(Font.SANS_SERIF,
-                                            Font.PLAIN, fontSize));
-                        } else {
-                            setUIFont(new javax.swing.plaf.FontUIResource(
-                                    Font.SANS_SERIF, Font.PLAIN, fontSize));
-                        }
+                        setUIFont();
                     }
                     break;
                 }
