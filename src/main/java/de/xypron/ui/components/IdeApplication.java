@@ -320,8 +320,6 @@ public class IdeApplication implements Runnable {
      * Set look and feel.
      */
     protected void setLookAndFeel() {
-        // enable anti-aliasing
-        System.setProperty("swing.aatext", "true");
         try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if (lookAndFeel.equals(info.getName())) {
