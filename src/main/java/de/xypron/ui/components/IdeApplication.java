@@ -282,8 +282,8 @@ public class IdeApplication implements Runnable {
     public final void run() {
         up = new UserProfile(this.getClass());
 
-        init();
         setLookAndFeel();
+        init();
         getJFrame().setVisible(true);
         getJFrame().addWindowListener(new ApplicationWindowListener());
         getJFrame().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
