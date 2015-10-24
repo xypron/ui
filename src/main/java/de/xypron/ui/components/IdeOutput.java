@@ -17,6 +17,7 @@
 package de.xypron.ui.components;
 
 import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -50,11 +51,17 @@ public class IdeOutput extends IdePanel {
     /**
      * Constructor for panel.
      */
+    @Deprecated
     public IdeOutput() {
-        super();
+        this((Frame) null);
+    }
+    /**
+     * Constructor for panel.
+     */
+    public IdeOutput(final Frame frame) {
+        super(frame);
         this.add(getJScrollPane(), BorderLayout.CENTER);
     }
-
     /**
      * Get scroll pane.
      * @return scroll pane
