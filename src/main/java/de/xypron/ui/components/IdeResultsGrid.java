@@ -187,7 +187,7 @@ public class IdeResultsGrid extends IdePanel {
      *
      * @return JTable
      */
-    private JTable getJTable() {
+    protected JTable getJTable() {
         if (jTable == null) {
             MouseListener popupListener = new PopupListener();
             jTable = new JTable(tableModel);
