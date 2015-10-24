@@ -69,12 +69,18 @@ public class IdeTab extends JPanel implements ActionListener, MouseListener {
         JLabel jLabel;
         JLabel spacer;
         FlowLayout layout;
+        Icon icon;
         
         layout = new FlowLayout(FlowLayout.LEFT, 0, 0);
         this.setBorder(BorderFactory.createEmptyBorder());
         setLayout(layout);
         setOpaque(false);
-        jLabel = ( new JLabel(pane.getTitleAt(index), pane.getIconAt(index),
+        try {
+        icon = pane.getIconAt(index);
+        } catch (IndexOutOfBoundsException ex) {
+            icon = null;
+        }
+        jLabel = ( new JLabel(pane.getTitleAt(index), icon,
                 JLabel.LEFT) );
         jLabel.setToolTipText(jLabel.getText());
         add(jLabel);
