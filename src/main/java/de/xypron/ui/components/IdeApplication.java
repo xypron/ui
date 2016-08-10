@@ -421,7 +421,7 @@ public class IdeApplication implements Runnable {
     @MenuItemText("IdeApplication.MenuItemSettings")
     protected void settingsAction(final ActionEvent arg0) {
         ideTabbedPane.setComponent(TABKEY_SETTINGS,
-                new IdePropertiesEditor(up, this),
+                new IdePropertiesEditor(jFrame, up, this),
                 getText("IdeApplication.MenuItemSettings"),
                 IconBuffer.getIcon(IdePropertiesEditor.class),
                 getText("IdeApplication.MenuItemSettings"),
