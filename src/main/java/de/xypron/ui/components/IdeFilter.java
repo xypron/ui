@@ -1,4 +1,4 @@
- /*
+/*
  *  Copyright 2010 Heinrich Schuchardt.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,6 +45,7 @@ import javax.swing.table.TableRowSorter;
 
 /**
  * Dialog for line filter.
+ *
  * @author Heinrich Schuchardt
  */
 @SuppressWarnings("serial")
@@ -69,12 +70,13 @@ public class IdeFilter extends JDialog {
 
     /**
      * Constuctor.
+     *
      * @param owner frame owning the dialog
      * @param jTable table to filter
      */
     public IdeFilter(final Frame owner, final JTable jTable) {
         super(owner, true);
-	frame = owner;
+        frame = owner;
         this.jTable = jTable;
         initialize();
     }
@@ -92,6 +94,7 @@ public class IdeFilter extends JDialog {
 
     /**
      * Initialize scroll pane.
+     *
      * @return scroll pane.
      */
     private IdeScrollPane getJScrollPane() {
@@ -104,6 +107,7 @@ public class IdeFilter extends JDialog {
 
     /**
      * Initialize editor panel.
+     *
      * @return editor panel
      */
     private IdePanel getEditorPanel() {
@@ -157,81 +161,82 @@ public class IdeFilter extends JDialog {
      * Update filter when leaving dialog.
      */
     private void exit() {
-        AbstractResultTableModel model =
-                (AbstractResultTableModel) jTable.getModel();
+        AbstractResultTableModel model
+                = (AbstractResultTableModel) jTable.getModel();
         LinkedList<RowFilter<? super TableModel, ? super Integer>> filters;
-        TableRowSorter rowSorter;
+        TableRowSorter<? extends TableModel> rowSorter;
 
-        if ((jTable.getRowSorter() instanceof TableRowSorter)) {
-            filters =
-                    new LinkedList<RowFilter<? super TableModel, ? super Integer>>();
-
-            for (FilterInfo filterInfo : model.getFilterInfos()) {
-                LinkedList<RowFilter<? super TableModel, ? super Integer>> orFilters;
-                orFilters =
-                        new LinkedList<RowFilter<? super TableModel, ? super Integer>>();
-                int column = filterInfo.getColumn();
-
-                if (filterInfo.isNumeric()) {
-                    Number value;
-                    try {
-                        value = new Double(filterInfo.getValue());
-                    } catch (NumberFormatException e) {
-                        continue;
-                    }
-                    switch (filterInfo.getComparisonType()) {
-                        case LESS_OR_EQUAL:
-                        case EQUALS:
-                        case GREATER_OR_EQUAL:
-                            orFilters.add(RowFilter.numberFilter(
-                                    ComparisonType.EQUAL,
-                                    value,
-                                    column));
-                            break;
-                        default:
-                            break;
-                    }
-                    switch (filterInfo.getComparisonType()) {
-                        case LESS_THAN:
-                        case LESS_OR_EQUAL:
-                            orFilters.add(RowFilter.numberFilter(
-                                    ComparisonType.BEFORE,
-                                    value,
-                                    filterInfo.getColumn()));
-                            break;
-                        case GREATER_OR_EQUAL:
-                        case GREATER_THAN:
-                            orFilters.add(RowFilter.numberFilter(
-                                    ComparisonType.AFTER,
-                                    value,
-                                    filterInfo.getColumn()));
-                            break;
-                        case NOT_EQUALS:
-                            orFilters.add(RowFilter.numberFilter(
-                                    ComparisonType.NOT_EQUAL,
-                                    value,
-                                    filterInfo.getColumn()));
-                            break;
-                        default:
-                            break;
-                    }
-                    if (orFilters.size() > 0) {
-                        filters.add(RowFilter.orFilter(orFilters));
-                    }
-                } else {
-                    String value;
-                    value = filterInfo.getValue();
-                    filters.add(new StringFilter(
-                            filterInfo.getComparisonType(),
-                            value,
-                            column));
-                }
-            }
-
-            rowSorter = (TableRowSorter) jTable.getRowSorter();
-            rowSorter.setRowFilter(RowFilter.andFilter(filters));
+        try {
+            rowSorter = (TableRowSorter<? extends TableModel>) jTable
+                    .getRowSorter();
         }
+        catch (ClassCastException e) {
+            return;
+        }
+        filters = new LinkedList<RowFilter<? super TableModel, ? super Integer>>();
 
+        for (FilterInfo filterInfo : model.getFilterInfos()) {
+            LinkedList<RowFilter<? super TableModel, ? super Integer>> orFilters;
+            orFilters = new LinkedList<RowFilter<? super TableModel, ? super Integer>>();
+            int column = filterInfo.getColumn();
+
+            if (filterInfo.isNumeric()) {
+                Number value;
+                try {
+                    value = new Double(filterInfo.getValue());
+                }
+                catch (NumberFormatException e) {
+                    continue;
+                }
+                switch (filterInfo.getComparisonType()) {
+                    case LESS_OR_EQUAL:
+                    case EQUALS:
+                    case GREATER_OR_EQUAL:
+                        orFilters.add(RowFilter.numberFilter(
+                                ComparisonType.EQUAL,
+                                value,
+                                column));
+                        break;
+                    default:
+                        break;
+                }
+                switch (filterInfo.getComparisonType()) {
+                    case LESS_THAN:
+                    case LESS_OR_EQUAL:
+                        orFilters.add(RowFilter.numberFilter(
+                                ComparisonType.BEFORE,
+                                value,
+                                filterInfo.getColumn()));
+                        break;
+                    case GREATER_OR_EQUAL:
+                    case GREATER_THAN:
+                        orFilters.add(RowFilter.numberFilter(
+                                ComparisonType.AFTER,
+                                value,
+                                filterInfo.getColumn()));
+                        break;
+                    case NOT_EQUALS:
+                        orFilters.add(RowFilter.numberFilter(
+                                ComparisonType.NOT_EQUAL,
+                                value,
+                                filterInfo.getColumn()));
+                        break;
+                    default:
+                        break;
+                }
+                if (orFilters.size() > 0) {
+                    filters.add(RowFilter.orFilter(orFilters));
+                }
+            } else {
+                String value;
+                value = filterInfo.getValue();
+                filters.add(new StringFilter<Object, Object>(
+                        filterInfo.getComparisonType(),
+                        value,
+                        column));
+            }
+        }
+        rowSorter.setRowFilter(RowFilter.andFilter(filters));
     }
 
     /**
@@ -250,6 +255,7 @@ public class IdeFilter extends JDialog {
 
         /**
          * Constructor.
+         *
          * @param text text to be displayed
          * @param columns width of text field
          * @param filterInfo filter information
@@ -289,7 +295,8 @@ public class IdeFilter extends JDialog {
      * Combo box to choose comparison operator.
      */
     @SuppressWarnings("serial")
-    private class ComparisonComboBox extends JComboBox {
+    private class ComparisonComboBox extends JComboBox<String> {
+
         /**
          * No selection, ignore.
          */
@@ -337,6 +344,7 @@ public class IdeFilter extends JDialog {
 
         /**
          * Constuctor.
+         *
          * @param filterInfo filter information
          */
         public ComparisonComboBox(FilterInfo filterInfo) {
@@ -349,7 +357,7 @@ public class IdeFilter extends JDialog {
          * Initialize combo box.
          */
         private void initialize() {
-            setModel(new DefaultComboBoxModel(operators));
+            setModel(new DefaultComboBoxModel<String>(operators));
             this.setSelectedItem(filterInfo.getComparisonType());
             this.addActionListener(new ActionListener() {
 
@@ -362,6 +370,7 @@ public class IdeFilter extends JDialog {
 
         /**
          * Set selected item.
+         *
          * @param type type of comparison operator.
          */
         private void setSelectedItem(Filter.ComparisonType type) {
@@ -392,6 +401,7 @@ public class IdeFilter extends JDialog {
 
         /**
          * Get type of comparison operator.
+         *
          * @return type of comparison operator
          */
         public Filter.ComparisonType getComparisonType() {
