@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
  * Buffered access to icon resources.
  */
 public class IconBuffer {
+
     /**
      * Class loader for class <code>IconBuffer</code>.
      */
@@ -38,7 +39,7 @@ public class IconBuffer {
     private IconBuffer() {
         throw new UnsupportedOperationException();
     }
-    
+
     /**
      * Initializes the class.
      */
@@ -51,14 +52,15 @@ public class IconBuffer {
 
     /**
      * Gets icon by class annotation.
+     *
      * @see de.xypron.util.IconName
      * @param cls annotated class
      * @return icon
      */
-    public static ImageIcon getIcon(final Class cls) {
+    public static ImageIcon getIcon(final Class<?> cls) {
         IconName annotation = null;
-        Class clas = cls;
-       
+        Class<?> clas = cls;
+
         if (clas == null) {
             return null;
         }
@@ -74,9 +76,10 @@ public class IconBuffer {
             return getIcon(annotation.value());
         }
     }
-    
+
     /**
      * Gets icon by name.
+     *
      * @param iconName path to icon
      * @return icon icon
      */
@@ -84,7 +87,7 @@ public class IconBuffer {
         ImageIcon icon = null;
 
         init();
-        
+
         if (iconName == null) {
             return null;
         }
@@ -95,7 +98,8 @@ public class IconBuffer {
 
         try {
             icon = new ImageIcon(loader.getResource(iconName));
-        } catch (Exception e1) {
+        }
+        catch (Exception e1) {
             icon = null;
         }
         iconMap.put(iconName, icon);
