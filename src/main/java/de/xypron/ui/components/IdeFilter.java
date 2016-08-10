@@ -62,6 +62,10 @@ public class IdeFilter extends JDialog {
      * Editor panel.
      */
     private IdePanel editorPanel;
+    /**
+     * Parent frame.
+     */
+    private Frame frame;
 
     /**
      * Constuctor.
@@ -70,6 +74,7 @@ public class IdeFilter extends JDialog {
      */
     public IdeFilter(final Frame owner, final JTable jTable) {
         super(owner, true);
+	frame = owner;
         this.jTable = jTable;
         initialize();
     }
@@ -107,7 +112,7 @@ public class IdeFilter extends JDialog {
         AbstractResultTableModel model;
 
         if (editorPanel == null) {
-            editorPanel = new IdePanel();
+            editorPanel = new IdePanel(frame);
         }
         editorPanel.removeAll();
 
