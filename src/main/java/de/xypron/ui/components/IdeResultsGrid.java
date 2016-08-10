@@ -1,12 +1,12 @@
 /*
  *  Copyright 2011 Heinrich Schuchardt.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,8 +43,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
 /**
- * The result grids displays a
- * <code>JTable</code> object and allows to filter, export, and print it.
+ * The result grids displays a <code>JTable</code> object and allows to filter,
+ * export, and print it.
  *
  * @author Heinrich Schuchardt
  */
@@ -71,11 +71,11 @@ public class IdeResultsGrid extends IdePanel {
     /**
      * Print action.
      */
-    private final static String ACTIONPRINT = "PRINT";
+    private static final String ACTIONPRINT = "PRINT";
     /**
      * Export to mime html action.
      */
-    private final static String ACTIONMHTML = "MHTML";
+    private static final String ACTIONMHTML = "MHTML";
     /**
      * Scroll pane.
      */
@@ -106,7 +106,7 @@ public class IdeResultsGrid extends IdePanel {
      *
      * @param frame main frame
      */
-    public IdeResultsGrid(Frame frame) {
+    public IdeResultsGrid(final Frame frame) {
         this(frame, null);
     }
 
@@ -116,13 +116,19 @@ public class IdeResultsGrid extends IdePanel {
      * @param frame main frame
      * @param tableModel table model
      */
-    public IdeResultsGrid(Frame frame, AbstractResultTableModel tableModel) {
+    public IdeResultsGrid(final Frame frame,
+            AbstractResultTableModel tableModel) {
         super(frame);
         this.tableModel = tableModel;
         this.add(getJToolBar(), BorderLayout.PAGE_START);
         this.add(getJScrollPane(), BorderLayout.CENTER);
     }
 
+    /**
+     * Gets tool bar.
+     *
+     * @return tool bar
+     */
     protected JToolBar getJToolBar() {
         if (jToolBar == null) {
             // The name is used as the title of the undocked tool bar.
@@ -135,7 +141,7 @@ public class IdeResultsGrid extends IdePanel {
     }
 
     /**
-     * Define buttons for toolbar
+     * Defines buttons for toolbar.
      */
     private void addButtons() {
         jToolBar.add(getPrintButton());
@@ -143,7 +149,7 @@ public class IdeResultsGrid extends IdePanel {
     }
 
     /**
-     * Get print button
+     * Gets print button.
      *
      * @return print button
      */
@@ -158,7 +164,7 @@ public class IdeResultsGrid extends IdePanel {
     }
 
     /**
-     * Get mhtml button
+     * Gets mhtml button.
      *
      * @return mhtml button
      */
@@ -172,6 +178,11 @@ public class IdeResultsGrid extends IdePanel {
         return mhtmlButton;
     }
 
+    /**
+     * Get scroll pane.
+     *
+     * @return scroll pane
+     */
     private IdeScrollPane getJScrollPane() {
         if (scrollPane == null) {
             scrollPane = new IdeScrollPane();
@@ -191,7 +202,8 @@ public class IdeResultsGrid extends IdePanel {
         if (jTable == null) {
             MouseListener popupListener = new PopupListener();
             jTable = new JTable(tableModel);
-            jTable.setRowSorter(new TableRowSorter(tableModel));
+            jTable.setRowSorter(new TableRowSorter<AbstractResultTableModel>(
+                    tableModel));
             jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             jTable.setDefaultRenderer(Object.class,
                     new CustomTableCellRenderer());
@@ -221,7 +233,7 @@ public class IdeResultsGrid extends IdePanel {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
         String actionCommand;
         actionCommand = e.getActionCommand();
         if (actionCommand.equals(ACTIONPRINT)) {
@@ -241,9 +253,9 @@ public class IdeResultsGrid extends IdePanel {
             extends DefaultTableCellRenderer {
 
         @Override
-        public Component getTableCellRendererComponent(JTable table,
-                Object value, boolean isSelected,
-                boolean hasFocus, int row, int column) {
+        public Component getTableCellRendererComponent(final JTable table,
+                final Object value, final boolean isSelected,
+                final boolean hasFocus, final int row, final int column) {
 
             Color background;
             Color foreground;
@@ -278,31 +290,31 @@ public class IdeResultsGrid extends IdePanel {
     class PopupListener implements MouseListener {
 
         @Override
-        public void mousePressed(MouseEvent e) {
+        public void mousePressed(final MouseEvent e) {
             showPopup(e);
         }
 
         @Override
-        public void mouseReleased(MouseEvent e) {
+        public void mouseReleased(final MouseEvent e) {
             showPopup(e);
         }
 
-        private void showPopup(MouseEvent e) {
+        private void showPopup(final MouseEvent e) {
             if (e.isPopupTrigger()) {
                 filter();
             }
         }
 
         @Override
-        public void mouseClicked(MouseEvent e) {
+        public void mouseClicked(final MouseEvent e) {
         }
 
         @Override
-        public void mouseEntered(MouseEvent e) {
+        public void mouseEntered(final MouseEvent e) {
         }
 
         @Override
-        public void mouseExited(MouseEvent e) {
+        public void mouseExited(final MouseEvent e) {
         }
     }
 
@@ -335,7 +347,7 @@ public class IdeResultsGrid extends IdePanel {
                     // File exists already
                     switch (JOptionPane.showConfirmDialog(
                             this, IdeText.getText(this.getClass(),
-                            "IdeResultsGrid.ReplaceExistingFile"))) {
+                                    "IdeResultsGrid.ReplaceExistingFile"))) {
                         case JOptionPane.NO_OPTION:
                             // User does not want to overwrite
                             continue;
@@ -364,7 +376,7 @@ public class IdeResultsGrid extends IdePanel {
 
         IdeApplication.getMainComponent().setCursor(
                 Cursor.getPredefinedCursor(
-                Cursor.WAIT_CURSOR));
+                        Cursor.WAIT_CURSOR));
         lines = new LinkedList<LinkedList<Object>>();
         line = new LinkedList<Object>();
         for (int j = 0; j < n; j++) {
@@ -389,6 +401,6 @@ public class IdeResultsGrid extends IdePanel {
         }
         IdeApplication.getMainComponent().setCursor(
                 Cursor.getPredefinedCursor(
-                Cursor.DEFAULT_CURSOR));
+                        Cursor.DEFAULT_CURSOR));
     }
 }
