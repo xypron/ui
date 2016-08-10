@@ -76,6 +76,9 @@
                     <source>1.6</source>
                     <target>1.6</target>
                     <encoding>ISO-8859-1</encoding>
+                    <compilerArgs>
+                        <arg>-Xlint:all</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
