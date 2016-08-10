@@ -16,8 +16,8 @@
     <repositories>
     </repositories>
     <scm>
-        <connection>scm:svn:http://www.xypron.de/svn/ui/</connection>
-        <url>http://www.xypron.de/viewvc/svn/ui/</url>
+        <connection>scm:git:https://github.com/xypron/ui.git</connection>
+        <url>https://github.com/xypron/ui</url>
     </scm>
     <distributionManagement>
         <snapshotRepository>
