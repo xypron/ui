@@ -37,7 +37,7 @@ public class MenuItem extends JMenuItem {
      * @param methodName method to be invoked by menu item
      */
     public MenuItem(Object obj, String methodName) {
-        Class clas;
+        Class<?> clas;
         Method method = null;
         String text;
         String iconName;
