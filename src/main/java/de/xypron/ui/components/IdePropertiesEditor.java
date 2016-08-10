@@ -20,6 +20,7 @@ import de.xypron.ui.model.Storable;
 import de.xypron.util.IconName;
 import de.xypron.util.IdeText;
 import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -35,8 +36,8 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 /**
- * The properties editor displays a <code>Properties</code> object and
- * allows to edit it.
+ * The properties editor displays a <code>Properties</code> object and allows to
+ * edit it.
  */
 @SuppressWarnings("serial")
 @IconName("de/xypron/ui/components/user.png")
@@ -94,20 +95,39 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Constructor.
+     *
      * @param properties properties
      * @deprecated
      */
-    public IdePropertiesEditor(Properties properties) {  
+    public IdePropertiesEditor(Properties properties) {
         this(properties, null);
     }
-    
+
     /**
      * Constructor.
+     *
      * @param properties properties
      * @param owner object from which IdeText takes texts
+     * @deprecated
      */
     public IdePropertiesEditor(Properties properties, Object owner) {
         super();
+        this.properties = properties;
+        setOwner(owner);
+        backup();
+        this.add(getJToolBar(), BorderLayout.PAGE_START);
+        this.add(getJScrollPane(), BorderLayout.CENTER);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param properties properties
+     * @param owner object from which IdeText takes texts
+     */
+    public IdePropertiesEditor(Frame frame, Properties properties,
+            Object owner) {
+        super(frame);
         this.properties = properties;
         setOwner(owner);
         backup();
@@ -128,6 +148,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Initialize scroll pane.
+     *
      * @return scroll pane
      */
     private IdeScrollPane getJScrollPane() {
@@ -140,6 +161,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Initialize editor pane.
+     *
      * @return editor pane
      */
     private IdePanel getEditorPanel() {
@@ -148,7 +170,7 @@ public class IdePropertiesEditor extends IdePanel {
         TreeMap<Object, Object> tree;
 
         if (editorPanel == null) {
-            editorPanel = new IdePanel();
+            editorPanel = new IdePanel(getParentFrame());
         }
         editorPanel.removeAll();
 
@@ -199,6 +221,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Initialize toolbar.
+     *
      * @return toolbar
      */
     private JToolBar getJToolBar() {
@@ -213,7 +236,7 @@ public class IdePropertiesEditor extends IdePanel {
     }
 
     /**
-     *  Define buttons for toolbar.
+     * Define buttons for toolbar.
      */
     private void addButtons() {
         jToolBar.add(getUndoButton());
@@ -228,6 +251,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Initialize delete button.
+     *
      * @return delete button.
      */
     private JButton getDeleteButton() {
@@ -242,6 +266,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Initialize undo button.
+     *
      * @return undo button
      */
     private JButton getUndoButton() {
@@ -255,6 +280,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Gets owner
+     *
      * @return owner
      */
     public Object getOwner() {
@@ -263,7 +289,8 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Sets owner
-     * @param owner owner 
+     *
+     * @param owner owner
      */
     private void setOwner(Object owner) {
         this.owner = owner;
@@ -274,6 +301,7 @@ public class IdePropertiesEditor extends IdePanel {
 
     /**
      * Initialize save button.
+     *
      * @return save button
      */
     private JButton getSaveButton() {
@@ -379,6 +407,7 @@ public class IdePropertiesEditor extends IdePanel {
 
         /**
          * Constructor.
+         *
          * @param editor properties editor to listen to
          * @param key key of property
          * @param textField text field with the property value
